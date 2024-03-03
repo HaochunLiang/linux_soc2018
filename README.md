@@ -1,4 +1,3 @@
-# linux_soc2018
 
 Linux kernel
 ============
