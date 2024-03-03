@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "cstdio": "c",
-        "random": "c",
-        "cstddef": "c",
-        "unistd.h": "c",
-        "stdint.h": "c"
-    }
-}
