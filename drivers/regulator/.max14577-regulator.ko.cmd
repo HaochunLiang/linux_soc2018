@@ -1,1 +1,0 @@
-cmd_drivers/regulator/max14577-regulator.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/regulator/max14577-regulator.ko drivers/regulator/max14577-regulator.o drivers/regulator/max14577-regulator.mod.o ;  true

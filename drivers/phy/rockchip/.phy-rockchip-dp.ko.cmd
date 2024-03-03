@@ -1,1 +1,0 @@
-cmd_drivers/phy/rockchip/phy-rockchip-dp.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/phy/rockchip/phy-rockchip-dp.ko drivers/phy/rockchip/phy-rockchip-dp.o drivers/phy/rockchip/phy-rockchip-dp.mod.o ;  true

@@ -1,1 +1,0 @@
-cmd_drivers/misc/qcom-coincell.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/misc/qcom-coincell.ko drivers/misc/qcom-coincell.o drivers/misc/qcom-coincell.mod.o ;  true

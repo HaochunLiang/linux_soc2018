@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/exynos4-is/s5p-csis.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/exynos4-is/s5p-csis.ko drivers/media/platform/exynos4-is/s5p-csis.o drivers/media/platform/exynos4-is/s5p-csis.mod.o ;  true

@@ -1,1 +1,0 @@
-cmd_drivers/watchdog/tegra_wdt.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/watchdog/tegra_wdt.ko drivers/watchdog/tegra_wdt.o drivers/watchdog/tegra_wdt.mod.o ;  true

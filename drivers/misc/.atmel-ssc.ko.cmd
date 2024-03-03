@@ -1,1 +1,0 @@
-cmd_drivers/misc/atmel-ssc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/misc/atmel-ssc.ko drivers/misc/atmel-ssc.o drivers/misc/atmel-ssc.mod.o ;  true

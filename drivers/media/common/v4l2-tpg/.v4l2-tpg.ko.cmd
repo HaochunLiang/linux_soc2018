@@ -1,1 +1,0 @@
-cmd_drivers/media/common/v4l2-tpg/v4l2-tpg.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/common/v4l2-tpg/v4l2-tpg.ko drivers/media/common/v4l2-tpg/v4l2-tpg.o drivers/media/common/v4l2-tpg/v4l2-tpg.mod.o ;  true

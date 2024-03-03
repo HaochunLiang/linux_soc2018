@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/exynos4-is/exynos-fimc-lite.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/exynos4-is/exynos-fimc-lite.ko drivers/media/platform/exynos4-is/exynos-fimc-lite.o drivers/media/platform/exynos4-is/exynos-fimc-lite.mod.o ;  true

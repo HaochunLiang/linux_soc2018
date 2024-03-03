@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/sti/hva/st-hva.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/sti/hva/st-hva.ko drivers/media/platform/sti/hva/st-hva.o drivers/media/platform/sti/hva/st-hva.mod.o ;  true

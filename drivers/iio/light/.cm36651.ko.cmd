@@ -1,1 +1,0 @@
-cmd_drivers/iio/light/cm36651.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/iio/light/cm36651.ko drivers/iio/light/cm36651.o drivers/iio/light/cm36651.mod.o ;  true

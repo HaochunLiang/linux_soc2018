@@ -1,3 +1,0 @@
-kernel/drivers/usb/host/ehci-msm.ko
-kernel/drivers/usb/host/ohci-exynos.ko
-kernel/drivers/usb/host/r8a66597-hcd.ko

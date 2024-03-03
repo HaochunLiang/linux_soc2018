@@ -1,6 +1,0 @@
-kernel/drivers/input/misc/adxl34x.ko
-kernel/drivers/input/misc/adxl34x-i2c.ko
-kernel/drivers/input/misc/adxl34x-spi.ko
-kernel/drivers/input/misc/max77693-haptic.ko
-kernel/drivers/input/misc/max8997_haptic.ko
-kernel/drivers/input/misc/axp20x-pek.ko

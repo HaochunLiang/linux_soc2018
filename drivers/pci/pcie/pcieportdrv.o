@@ -1,8 +1,0 @@
-!<thin>
-//                                              46        `
-portdrv_core.o/
-portdrv_pci.o/
-portdrv_bus.o/
-/0              0           0     0     644     6808      `
-/16             0           0     0     644     6252      `
-/31             0           0     0     644     2092      `

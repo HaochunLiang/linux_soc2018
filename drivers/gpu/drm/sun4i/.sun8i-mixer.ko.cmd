@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/sun4i/sun8i-mixer.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/sun4i/sun8i-mixer.ko drivers/gpu/drm/sun4i/sun8i-mixer.o drivers/gpu/drm/sun4i/sun8i-mixer.mod.o ;  true

@@ -1,1 +1,0 @@
-cmd_drivers/regulator/qcom_smd-regulator.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/regulator/qcom_smd-regulator.ko drivers/regulator/qcom_smd-regulator.o drivers/regulator/qcom_smd-regulator.mod.o ;  true

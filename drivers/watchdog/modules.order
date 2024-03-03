@@ -1,3 +1,0 @@
-kernel/drivers/watchdog/davinci_wdt.ko
-kernel/drivers/watchdog/bcm7038_wdt.ko
-kernel/drivers/watchdog/da9063_wdt.ko

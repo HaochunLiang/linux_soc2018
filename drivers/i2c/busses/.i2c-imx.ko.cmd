@@ -1,1 +1,0 @@
-cmd_drivers/i2c/busses/i2c-imx.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/i2c/busses/i2c-imx.ko drivers/i2c/busses/i2c-imx.o drivers/i2c/busses/i2c-imx.mod.o ;  true

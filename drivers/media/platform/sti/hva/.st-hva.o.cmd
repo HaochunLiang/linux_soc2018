@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/sti/hva/st-hva.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/media/platform/sti/hva/st-hva.o drivers/media/platform/sti/hva/hva-v4l2.o drivers/media/platform/sti/hva/hva-hw.o drivers/media/platform/sti/hva/hva-mem.o drivers/media/platform/sti/hva/hva-h264.o 

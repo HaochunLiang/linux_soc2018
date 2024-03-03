@@ -1,1 +1,0 @@
-cmd_drivers/clk/meson/built-in.o :=  rm -f drivers/clk/meson/built-in.o; arm-none-eabi-ar rcSTPD drivers/clk/meson/built-in.o drivers/clk/meson/clk-pll.o drivers/clk/meson/clk-cpu.o drivers/clk/meson/clk-mpll.o drivers/clk/meson/clk-audio-divider.o drivers/clk/meson/meson8b.o 

@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/panel/panel-samsung-s6e8aa0.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/panel/panel-samsung-s6e8aa0.ko drivers/gpu/drm/panel/panel-samsung-s6e8aa0.o drivers/gpu/drm/panel/panel-samsung-s6e8aa0.mod.o ;  true

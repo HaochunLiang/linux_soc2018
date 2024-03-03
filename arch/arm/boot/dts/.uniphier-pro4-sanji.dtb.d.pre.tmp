@@ -1,3 +1,0 @@
-uniphier-pro4-sanji.o: arch/arm/boot/dts/uniphier-pro4-sanji.dts \
- arch/arm/boot/dts/uniphier-pro4.dtsi \
- arch/arm/boot/dts/uniphier-pinctrl.dtsi

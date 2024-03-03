@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/atmel-hlcdc/atmel-hlcdc-dc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/atmel-hlcdc/atmel-hlcdc-dc.ko drivers/gpu/drm/atmel-hlcdc/atmel-hlcdc-dc.o drivers/gpu/drm/atmel-hlcdc/atmel-hlcdc-dc.mod.o ;  true

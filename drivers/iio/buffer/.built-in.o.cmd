@@ -1,1 +1,0 @@
-cmd_drivers/iio/buffer/built-in.o :=  rm -f drivers/iio/buffer/built-in.o; arm-none-eabi-ar rcSTPD drivers/iio/buffer/built-in.o drivers/iio/buffer/industrialio-triggered-buffer.o drivers/iio/buffer/kfifo_buf.o 

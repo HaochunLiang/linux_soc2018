@@ -1,1 +1,0 @@
-cmd_drivers/cpufreq/cpufreq_userspace.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/cpufreq/cpufreq_userspace.ko drivers/cpufreq/cpufreq_userspace.o drivers/cpufreq/cpufreq_userspace.mod.o ;  true

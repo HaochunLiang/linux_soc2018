@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/bridge/adv7511/adv7511.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/gpu/drm/bridge/adv7511/adv7511.o drivers/gpu/drm/bridge/adv7511/adv7511_drv.o drivers/gpu/drm/bridge/adv7511/adv7533.o 

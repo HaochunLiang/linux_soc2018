@@ -1,1 +1,0 @@
-cmd_drivers/tty/serial/built-in.o :=  rm -f drivers/tty/serial/built-in.o; arm-none-eabi-ar rcSTPD drivers/tty/serial/built-in.o drivers/tty/serial/serial_core.o drivers/tty/serial/earlycon.o drivers/tty/serial/amba-pl011.o 

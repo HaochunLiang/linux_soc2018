@@ -1,1 +1,0 @@
-zynq-microzed.o: arch/arm/boot/dts/zynq-microzed.dts

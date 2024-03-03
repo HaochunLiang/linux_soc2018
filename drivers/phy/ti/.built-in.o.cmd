@@ -1,1 +1,0 @@
-cmd_drivers/phy/ti/built-in.o :=  rm -f drivers/phy/ti/built-in.o; arm-none-eabi-ar rcSTPD drivers/phy/ti/built-in.o drivers/phy/ti/phy-omap-control.o drivers/phy/ti/phy-omap-usb2.o drivers/phy/ti/phy-ti-pipe3.o 

@@ -1,1 +1,0 @@
-cmd_drivers/crypto/atmel-aes.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/atmel-aes.ko drivers/crypto/atmel-aes.o drivers/crypto/atmel-aes.mod.o ;  true

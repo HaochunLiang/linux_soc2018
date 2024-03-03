@@ -1,1 +1,0 @@
-cmd_drivers/media/v4l2-core/v4l2-dv-timings.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/v4l2-core/v4l2-dv-timings.ko drivers/media/v4l2-core/v4l2-dv-timings.o drivers/media/v4l2-core/v4l2-dv-timings.mod.o ;  true

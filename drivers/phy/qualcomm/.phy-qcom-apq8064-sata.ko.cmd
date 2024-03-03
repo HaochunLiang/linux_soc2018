@@ -1,1 +1,0 @@
-cmd_drivers/phy/qualcomm/phy-qcom-apq8064-sata.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/phy/qualcomm/phy-qcom-apq8064-sata.ko drivers/phy/qualcomm/phy-qcom-apq8064-sata.o drivers/phy/qualcomm/phy-qcom-apq8064-sata.mod.o ;  true

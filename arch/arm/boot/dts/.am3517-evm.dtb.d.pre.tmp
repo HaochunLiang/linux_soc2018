@@ -1,5 +1,0 @@
-am3517-evm.o: arch/arm/boot/dts/am3517-evm.dts \
- arch/arm/boot/dts/am3517.dtsi arch/arm/boot/dts/omap3.dtsi \
- scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
- scripts/dtc/include-prefixes/dt-bindings/pinctrl/omap.h

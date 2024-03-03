@@ -1,1 +1,0 @@
-zynq-parallella.o: arch/arm/boot/dts/zynq-parallella.dts

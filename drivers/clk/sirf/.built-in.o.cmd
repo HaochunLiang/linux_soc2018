@@ -1,1 +1,0 @@
-cmd_drivers/clk/sirf/built-in.o :=  rm -f drivers/clk/sirf/built-in.o; arm-none-eabi-ar rcSTPD drivers/clk/sirf/built-in.o drivers/clk/sirf/clk-prima2.o drivers/clk/sirf/clk-atlas6.o drivers/clk/sirf/clk-atlas7.o 

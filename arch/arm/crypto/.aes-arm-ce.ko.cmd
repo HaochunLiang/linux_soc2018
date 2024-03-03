@@ -1,1 +1,0 @@
-cmd_arch/arm/crypto/aes-arm-ce.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o arch/arm/crypto/aes-arm-ce.ko arch/arm/crypto/aes-arm-ce.o arch/arm/crypto/aes-arm-ce.mod.o ;  true

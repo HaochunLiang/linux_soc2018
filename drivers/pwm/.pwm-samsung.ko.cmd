@@ -1,1 +1,0 @@
-cmd_drivers/pwm/pwm-samsung.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/pwm/pwm-samsung.ko drivers/pwm/pwm-samsung.o drivers/pwm/pwm-samsung.mod.o ;  true

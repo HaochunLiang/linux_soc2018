@@ -1,3 +1,0 @@
-uniphier-pxs2-vodka.o: arch/arm/boot/dts/uniphier-pxs2-vodka.dts \
- arch/arm/boot/dts/uniphier-pxs2.dtsi \
- arch/arm/boot/dts/uniphier-pinctrl.dtsi

@@ -1,1 +1,0 @@
-cmd_drivers/leds/leds-max77693.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/leds/leds-max77693.ko drivers/leds/leds-max77693.o drivers/leds/leds-max77693.mod.o ;  true

@@ -1,9 +1,0 @@
-exynos5440-ssdk5440.o: arch/arm/boot/dts/exynos5440-ssdk5440.dts \
- arch/arm/boot/dts/exynos5440.dtsi \
- scripts/dtc/include-prefixes/dt-bindings/clock/exynos5440.h \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
- arch/arm/boot/dts/exynos5440-tmu-sensor-conf.dtsi \
- scripts/dtc/include-prefixes/dt-bindings/thermal/thermal_exynos.h \
- arch/arm/boot/dts/exynos5440-trip-points.dtsi \
- scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h

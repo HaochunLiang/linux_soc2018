@@ -1,1 +1,0 @@
-cmd_drivers/crypto/atmel-tdes.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/atmel-tdes.ko drivers/crypto/atmel-tdes.o drivers/crypto/atmel-tdes.mod.o ;  true

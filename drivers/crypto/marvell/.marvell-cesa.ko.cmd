@@ -1,1 +1,0 @@
-cmd_drivers/crypto/marvell/marvell-cesa.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/marvell/marvell-cesa.ko drivers/crypto/marvell/marvell-cesa.o drivers/crypto/marvell/marvell-cesa.mod.o ;  true

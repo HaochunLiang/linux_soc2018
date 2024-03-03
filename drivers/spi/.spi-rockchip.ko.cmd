@@ -1,1 +1,0 @@
-cmd_drivers/spi/spi-rockchip.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/spi/spi-rockchip.ko drivers/spi/spi-rockchip.o drivers/spi/spi-rockchip.mod.o ;  true

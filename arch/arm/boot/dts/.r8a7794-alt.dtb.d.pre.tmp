@@ -1,7 +1,0 @@
-r8a7794-alt.o: arch/arm/boot/dts/r8a7794-alt.dts \
- arch/arm/boot/dts/r8a7794.dtsi \
- scripts/dtc/include-prefixes/dt-bindings/clock/r8a7794-clock.h \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
- scripts/dtc/include-prefixes/dt-bindings/power/r8a7794-sysc.h \
- scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h

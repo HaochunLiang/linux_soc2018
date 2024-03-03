@@ -1,1 +1,0 @@
-cmd_drivers/usb/gadget/udc/fsl_usb2_udc.o := rm -f drivers/usb/gadget/udc/fsl_usb2_udc.o; arm-none-eabi-ar rcSTPD drivers/usb/gadget/udc/fsl_usb2_udc.o drivers/usb/gadget/udc/fsl_udc_core.o drivers/usb/gadget/udc/fsl_mxc_udc.o

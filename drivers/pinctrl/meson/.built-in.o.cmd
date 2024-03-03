@@ -1,1 +1,0 @@
-cmd_drivers/pinctrl/meson/built-in.o :=  rm -f drivers/pinctrl/meson/built-in.o; arm-none-eabi-ar rcSTPD drivers/pinctrl/meson/built-in.o drivers/pinctrl/meson/pinctrl-meson8.o drivers/pinctrl/meson/pinctrl-meson8b.o drivers/pinctrl/meson/pinctrl-meson-gxbb.o drivers/pinctrl/meson/pinctrl-meson-gxl.o drivers/pinctrl/meson/pinctrl-meson.o 

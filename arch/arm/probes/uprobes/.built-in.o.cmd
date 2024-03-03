@@ -1,1 +1,0 @@
-cmd_arch/arm/probes/uprobes/built-in.o :=  rm -f arch/arm/probes/uprobes/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/probes/uprobes/built-in.o arch/arm/probes/uprobes/core.o arch/arm/probes/uprobes/actions-arm.o 

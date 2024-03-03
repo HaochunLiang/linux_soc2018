@@ -1,1 +1,0 @@
-cmd_drivers/rtc/rtc-at91sam9.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/rtc/rtc-at91sam9.ko drivers/rtc/rtc-at91sam9.o drivers/rtc/rtc-at91sam9.mod.o ;  true

@@ -1,1 +1,0 @@
-cmd_drivers/pci/pcie/built-in.o :=  rm -f drivers/pci/pcie/built-in.o; arm-none-eabi-ar rcSTPD drivers/pci/pcie/built-in.o drivers/pci/pcie/aspm.o drivers/pci/pcie/pcieportdrv.o drivers/pci/pcie/aer/built-in.o drivers/pci/pcie/pme.o 

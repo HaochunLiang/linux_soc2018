@@ -1,1 +1,0 @@
-cmd_drivers/staging/board/built-in.o :=  rm -f drivers/staging/board/built-in.o; arm-none-eabi-ar rcSTPD drivers/staging/board/built-in.o drivers/staging/board/board.o drivers/staging/board/kzm9d.o drivers/staging/board/armadillo800eva.o 

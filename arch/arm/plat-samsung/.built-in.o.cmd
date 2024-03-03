@@ -1,1 +1,0 @@
-cmd_arch/arm/plat-samsung/built-in.o :=  rm -f arch/arm/plat-samsung/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/plat-samsung/built-in.o arch/arm/plat-samsung/init.o arch/arm/plat-samsung/cpu.o arch/arm/plat-samsung/pm-common.o 

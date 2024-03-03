@@ -1,5 +1,0 @@
-kernel/drivers/media/platform/exynos4-is/s5p-csis.ko
-kernel/drivers/media/platform/exynos4-is/exynos-fimc-lite.ko
-kernel/drivers/media/platform/exynos4-is/exynos-fimc-is.ko
-kernel/drivers/media/platform/exynos4-is/s5p-fimc.ko
-kernel/drivers/media/platform/exynos4-is/exynos4-is-common.ko

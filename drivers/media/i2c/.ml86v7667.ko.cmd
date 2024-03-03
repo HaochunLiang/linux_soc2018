@@ -1,1 +1,0 @@
-cmd_drivers/media/i2c/ml86v7667.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/i2c/ml86v7667.ko drivers/media/i2c/ml86v7667.o drivers/media/i2c/ml86v7667.mod.o ;  true

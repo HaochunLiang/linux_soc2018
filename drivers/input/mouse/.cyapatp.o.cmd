@@ -1,1 +1,0 @@
-cmd_drivers/input/mouse/cyapatp.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/input/mouse/cyapatp.o drivers/input/mouse/cyapa.o drivers/input/mouse/cyapa_gen3.o drivers/input/mouse/cyapa_gen5.o drivers/input/mouse/cyapa_gen6.o 

@@ -1,6 +1,0 @@
-artpec6-devboard.o: arch/arm/boot/dts/artpec6-devboard.dts \
- arch/arm/boot/dts/artpec6.dtsi \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
- scripts/dtc/include-prefixes/dt-bindings/clock/axis,artpec6-clkctrl.h \
- arch/arm/boot/dts/skeleton.dtsi

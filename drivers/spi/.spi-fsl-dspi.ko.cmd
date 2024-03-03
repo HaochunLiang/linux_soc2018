@@ -1,1 +1,0 @@
-cmd_drivers/spi/spi-fsl-dspi.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/spi/spi-fsl-dspi.ko drivers/spi/spi-fsl-dspi.o drivers/spi/spi-fsl-dspi.mod.o ;  true

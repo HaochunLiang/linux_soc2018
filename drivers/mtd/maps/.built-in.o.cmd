@@ -1,1 +1,0 @@
-cmd_drivers/mtd/maps/built-in.o :=  rm -f drivers/mtd/maps/built-in.o; arm-none-eabi-ar rcSTPD drivers/mtd/maps/built-in.o drivers/mtd/maps/physmap.o drivers/mtd/maps/physmap_of.o drivers/mtd/maps/plat-ram.o 

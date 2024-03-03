@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/exynos/exynosdrm.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/exynos/exynosdrm.ko drivers/gpu/drm/exynos/exynosdrm.o drivers/gpu/drm/exynos/exynosdrm.mod.o ;  true

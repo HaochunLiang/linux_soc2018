@@ -1,1 +1,0 @@
-arch/arm/boot/dts/vt8500-bv07.dtb: arch/arm/boot/dts/.vt8500-bv07.dtb.dts.tmp arch/arm/boot/dts/vt8500.dtsi arch/arm/boot/dts/skeleton.dtsi

@@ -1,1 +1,0 @@
-cmd_drivers/phy/samsung/built-in.o :=  rm -f drivers/phy/samsung/built-in.o; arm-none-eabi-ar rcSTPD drivers/phy/samsung/built-in.o drivers/phy/samsung/phy-exynos-dp-video.o drivers/phy/samsung/phy-exynos-mipi-video.o drivers/phy/samsung/phy-exynos5-usbdrd.o 

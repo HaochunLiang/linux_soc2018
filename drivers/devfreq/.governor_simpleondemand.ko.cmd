@@ -1,1 +1,0 @@
-cmd_drivers/devfreq/governor_simpleondemand.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/devfreq/governor_simpleondemand.ko drivers/devfreq/governor_simpleondemand.o drivers/devfreq/governor_simpleondemand.mod.o ;  true

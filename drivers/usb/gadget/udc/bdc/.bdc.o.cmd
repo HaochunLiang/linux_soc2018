@@ -1,1 +1,0 @@
-cmd_drivers/usb/gadget/udc/bdc/bdc.o := rm -f drivers/usb/gadget/udc/bdc/bdc.o; arm-none-eabi-ar rcSTPD drivers/usb/gadget/udc/bdc/bdc.o drivers/usb/gadget/udc/bdc/bdc_core.o drivers/usb/gadget/udc/bdc/bdc_cmd.o drivers/usb/gadget/udc/bdc/bdc_ep.o drivers/usb/gadget/udc/bdc/bdc_udc.o

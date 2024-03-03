@@ -1,5 +1,0 @@
-armada-398-db.o: arch/arm/boot/dts/armada-398-db.dts \
- arch/arm/boot/dts/armada-398.dtsi arch/arm/boot/dts/armada-395.dtsi \
- arch/arm/boot/dts/armada-39x.dtsi arch/arm/boot/dts/skeleton.dtsi \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
- scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h

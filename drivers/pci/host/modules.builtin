@@ -1,3 +1,0 @@
-kernel/drivers/pci/host/pcie-iproc.ko
-kernel/drivers/pci/host/pcie-iproc-platform.ko
-kernel/drivers/pci/host/pcie-iproc-bcma.ko
