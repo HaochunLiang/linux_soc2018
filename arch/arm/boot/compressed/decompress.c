@@ -65,6 +65,5 @@ extern int memcmp(const void *cs, const void *ct, size_t count);
 
 int do_decompress(u8 *input, int len, u8 *output, void (*error)(char *x))
 {
-	printf("%d\n",*input);
 	return __decompress(input, len, NULL, NULL, output, 0, NULL, error);
 }
