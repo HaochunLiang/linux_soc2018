@@ -314,6 +314,30 @@ static int zlib_inflateSyncPacket(z_streamp strm)
    will return Z_BUF_ERROR if it has not reached the end of the stream.
  */
 
+#define w32(addr, val)      (*(volatile unsigned int *)(addr) = (val))
+#define r32(addr)           (*(volatile unsigned int *)(addr))
+#define APB_UART1_BASE      0xA0000100
+
+static void putstr(char *ptr)
+{
+	w32(APB_UART1_BASE + 0x0c, 0x83);
+	w32(APB_UART1_BASE + 0x00, 0x8B);//400MHz,38400//0x34
+	w32(APB_UART1_BASE + 0x04, 0x2);
+	w32(APB_UART1_BASE + 0x0c, 0x03);
+	w32(APB_UART1_BASE + 0x04, 0x01);//2
+	w32(APB_UART1_BASE + 0x08, 0x07);
+
+	while ((*ptr) != '\0') {
+		if ((*ptr) == '\n'){
+            while( !(r32(APB_UART1_BASE + 0x14) & 0x20) ) asm("nop");
+	        w32(APB_UART1_BASE + 0x00, '\r');
+		}
+		while( !(r32(APB_UART1_BASE + 0x14) & 0x20) ) asm("nop");
+	    w32(APB_UART1_BASE + 0x00, (*ptr));
+		ptr++;
+	}
+}
+
 int zlib_inflate(z_streamp strm, int flush)
 {
     struct inflate_state *state;
@@ -349,6 +373,7 @@ int zlib_inflate(z_streamp strm, int flush)
     for (;;)
         switch (state->mode) {
         case HEAD:
+            putstr("HEAD\n");
             if (state->wrap == 0) {
                 state->mode = TYPEDO;
                 break;
@@ -378,11 +403,13 @@ int zlib_inflate(z_streamp strm, int flush)
             INITBITS();
             break;
         case DICTID:
+            putstr("DICTID\n");
             NEEDBITS(32);
             strm->adler = state->check = REVERSE(hold);
             INITBITS();
             state->mode = DICT;
         case DICT:
+            putstr("DICT\n");
             if (state->havedict == 0) {
                 RESTORE();
                 return Z_NEED_DICT;
@@ -390,8 +417,10 @@ int zlib_inflate(z_streamp strm, int flush)
             strm->adler = state->check = zlib_adler32(0L, NULL, 0);
             state->mode = TYPE;
         case TYPE:
+            putstr("TYPE\n");
             if (flush == Z_BLOCK) goto inf_leave;
         case TYPEDO:
+            putstr("TYPEDO\n");
             if (state->last) {
                 BYTEBITS();
                 state->mode = CHECK;
@@ -418,6 +447,7 @@ int zlib_inflate(z_streamp strm, int flush)
             DROPBITS(2);
             break;
         case STORED:
+            putstr("STORED\n");
             BYTEBITS();                         /* go to byte boundary */
             NEEDBITS(32);
             if ((hold & 0xffff) != ((hold >> 16) ^ 0xffff)) {
@@ -429,6 +459,7 @@ int zlib_inflate(z_streamp strm, int flush)
             INITBITS();
             state->mode = COPY;
         case COPY:
+            putstr("COPY\n");
             copy = state->length;
             if (copy) {
                 if (copy > have) copy = have;
@@ -445,6 +476,7 @@ int zlib_inflate(z_streamp strm, int flush)
             state->mode = TYPE;
             break;
         case TABLE:
+            putstr("TABLE\n");
             NEEDBITS(14);
             state->nlen = BITS(5) + 257;
             DROPBITS(5);
@@ -462,6 +494,7 @@ int zlib_inflate(z_streamp strm, int flush)
             state->have = 0;
             state->mode = LENLENS;
         case LENLENS:
+            putstr("LENLENS\n");
             while (state->have < state->ncode) {
                 NEEDBITS(3);
                 state->lens[order[state->have++]] = (unsigned short)BITS(3);
@@ -482,6 +515,7 @@ int zlib_inflate(z_streamp strm, int flush)
             state->have = 0;
             state->mode = CODELENS;
         case CODELENS:
+            putstr("CODELENS\n");
             while (state->have < state->nlen + state->ndist) {
                 for (;;) {
                     this = state->lencode[BITS(state->lenbits)];
@@ -555,6 +589,7 @@ int zlib_inflate(z_streamp strm, int flush)
             }
             state->mode = LEN;
         case LEN:
+            putstr("LEN\n");
             if (have >= 6 && left >= 258) {
                 RESTORE();
                 inflate_fast(strm, out);
@@ -594,6 +629,7 @@ int zlib_inflate(z_streamp strm, int flush)
             state->extra = (unsigned)(this.op) & 15;
             state->mode = LENEXT;
         case LENEXT:
+            putstr("LENEXT\n");
             if (state->extra) {
                 NEEDBITS(state->extra);
                 state->length += BITS(state->extra);
@@ -601,6 +637,7 @@ int zlib_inflate(z_streamp strm, int flush)
             }
             state->mode = DIST;
         case DIST:
+            putstr("DIST\n");
             for (;;) {
                 this = state->distcode[BITS(state->distbits)];
                 if ((unsigned)(this.bits) <= bits) break;
@@ -626,6 +663,7 @@ int zlib_inflate(z_streamp strm, int flush)
             state->extra = (unsigned)(this.op) & 15;
             state->mode = DISTEXT;
         case DISTEXT:
+            putstr("DISTEXT\n");
             if (state->extra) {
                 NEEDBITS(state->extra);
                 state->offset += BITS(state->extra);
@@ -645,6 +683,7 @@ int zlib_inflate(z_streamp strm, int flush)
             }
             state->mode = MATCH;
         case MATCH:
+            putstr("MATCH\n");
             if (left == 0) goto inf_leave;
             copy = out - left;
             if (state->offset > copy) {         /* copy from window */
@@ -670,12 +709,14 @@ int zlib_inflate(z_streamp strm, int flush)
             if (state->length == 0) state->mode = LEN;
             break;
         case LIT:
+            putstr("LIT\n");
             if (left == 0) goto inf_leave;
             *put++ = (unsigned char)(state->length);
             left--;
             state->mode = LEN;
             break;
         case CHECK:
+            putstr("CHECK\n");
             if (state->wrap) {
                 NEEDBITS(32);
                 out -= left;
@@ -695,15 +736,19 @@ int zlib_inflate(z_streamp strm, int flush)
             }
             state->mode = DONE;
         case DONE:
+            putstr("DONE\n");
             ret = Z_STREAM_END;
             goto inf_leave;
         case BAD:
+            putstr("BAD\n");
             ret = Z_DATA_ERROR;
             goto inf_leave;
         case MEM:
+            putstr("MEM\n");
             return Z_MEM_ERROR;
         case SYNC:
         default:
+            putstr("default\n");
             return Z_STREAM_ERROR;
         }
 
@@ -715,26 +760,36 @@ int zlib_inflate(z_streamp strm, int flush)
   inf_leave:
     RESTORE();
     if (state->wsize || (state->mode < CHECK && out != strm->avail_out))
+    {
+        putstr("zlib_updatewindow\n");
         zlib_updatewindow(strm, out);
+    }
 
     in -= strm->avail_in;
     out -= strm->avail_out;
     strm->total_in += in;
     strm->total_out += out;
     state->total += out;
-    if (state->wrap && out)
+    if (state->wrap && out){
+        putstr("state->wrap && out\n");
         strm->adler = state->check =
             UPDATE(state->check, strm->next_out - out, out);
+    }
+        
 
     strm->data_type = state->bits + (state->last ? 64 : 0) +
                       (state->mode == TYPE ? 128 : 0);
 
     if (flush == Z_PACKET_FLUSH && ret == Z_OK &&
-            strm->avail_out != 0 && strm->avail_in == 0)
-		return zlib_inflateSyncPacket(strm);
+            strm->avail_out != 0 && strm->avail_in == 0){
+                putstr("flush == Z_PACKET_FLUSH\n");
+                return zlib_inflateSyncPacket(strm);
+            }
 
-    if (((in == 0 && out == 0) || flush == Z_FINISH) && ret == Z_OK)
+    if (((in == 0 && out == 0) || flush == Z_FINISH) && ret == Z_OK){
+        putstr("(in == 0 && out == 0)\n");
         ret = Z_BUF_ERROR;
+    }
 
     return ret;
 }
