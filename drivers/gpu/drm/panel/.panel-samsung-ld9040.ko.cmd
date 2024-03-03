@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/panel/panel-samsung-ld9040.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/panel/panel-samsung-ld9040.ko drivers/gpu/drm/panel/panel-samsung-ld9040.o drivers/gpu/drm/panel/panel-samsung-ld9040.mod.o ;  true

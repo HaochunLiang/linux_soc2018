@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/sti/sti-drm.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/sti/sti-drm.ko drivers/gpu/drm/sti/sti-drm.o drivers/gpu/drm/sti/sti-drm.mod.o ;  true

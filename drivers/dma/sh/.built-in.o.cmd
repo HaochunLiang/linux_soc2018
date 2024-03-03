@@ -1,0 +1,1 @@
+cmd_drivers/dma/sh/built-in.o :=  rm -f drivers/dma/sh/built-in.o; arm-none-eabi-ar rcSTPD drivers/dma/sh/built-in.o drivers/dma/sh/shdma-base.o drivers/dma/sh/shdma-of.o drivers/dma/sh/shdma.o drivers/dma/sh/rcar-dmac.o 

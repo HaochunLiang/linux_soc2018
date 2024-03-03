@@ -1,0 +1,3 @@
+kernel/drivers/iio/adc/bcm_iproc_adc.ko
+kernel/drivers/iio/adc/meson_saradc.ko
+kernel/drivers/iio/adc/xilinx-xadc.ko

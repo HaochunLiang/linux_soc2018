@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/sun4i/sun4i-drm-hdmi.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/sun4i/sun4i-drm-hdmi.ko drivers/gpu/drm/sun4i/sun4i-drm-hdmi.o drivers/gpu/drm/sun4i/sun4i-drm-hdmi.mod.o ;  true

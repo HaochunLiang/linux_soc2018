@@ -1,0 +1,2 @@
+kernel/drivers/reset/hisilicon/hi6220_reset.ko
+kernel/drivers/reset/hisilicon/reset-hi3660.ko

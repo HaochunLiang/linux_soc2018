@@ -1,0 +1,1 @@
+cmd_drivers/remoteproc/st_remoteproc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/remoteproc/st_remoteproc.ko drivers/remoteproc/st_remoteproc.o drivers/remoteproc/st_remoteproc.mod.o ;  true

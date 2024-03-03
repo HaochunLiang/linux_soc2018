@@ -1,0 +1,1 @@
+cmd_drivers/thermal/st/built-in.o :=  rm -f drivers/thermal/st/built-in.o; arm-none-eabi-ar rcSTPD drivers/thermal/st/built-in.o drivers/thermal/st/st_thermal.o drivers/thermal/st/st_thermal_memmap.o 

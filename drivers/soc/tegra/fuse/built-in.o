@@ -1,0 +1,19 @@
+!<thin>
+//                                              138       `
+fuse-tegra.o/
+fuse-tegra30.o/
+tegra-apbmisc.o/
+fuse-tegra20.o/
+speedo-tegra20.o/
+speedo-tegra30.o/
+speedo-tegra114.o/
+speedo-tegra124.o/
+
+/0              0           0     0     644     9524      `
+/14             0           0     0     644     3300      `
+/30             0           0     0     644     4616      `
+/47             0           0     0     644     4620      `
+/63             0           0     0     644     1872      `
+/81             0           0     0     644     3740      `
+/99             0           0     0     644     2168      `
+/118            0           0     0     644     2632      `

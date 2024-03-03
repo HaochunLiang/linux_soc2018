@@ -1,0 +1,41 @@
+!<thin>
+//                                              432       `
+industrialio-core.o/
+industrialio-event.o/
+inkern.o/
+industrialio-buffer.o/
+industrialio-trigger.o/
+industrialio-configfs.o/
+industrialio-sw-trigger.o/
+adc/bcm_iproc_adc.o/
+adc/meson_saradc.o/
+adc/xilinx-xadc-core.o/
+adc/xilinx-xadc-events.o/
+buffer/industrialio-triggered-buffer.o/
+buffer/kfifo_buf.o/
+gyro/mpu3050-core.o/
+gyro/mpu3050-i2c.o/
+light/isl29018.o/
+light/isl29028.o/
+magnetometer/ak8975.o/
+trigger/iio-trig-hrtimer.o/
+
+/0              0           0     0     644     33244     `
+/21             0           0     0     644     7892      `
+/43             0           0     0     644     17164     `
+/53             0           0     0     644     16484     `
+/76             0           0     0     644     16188     `
+/100            0           0     0     644     2820      `
+/125            0           0     0     644     5996      `
+/152            0           0     0     644     10084     `
+/173            0           0     0     644     15612     `
+/193            0           0     0     644     18704     `
+/217            0           0     0     644     2836      `
+/243            0           0     0     644     4168      `
+/283            0           0     0     644     5120      `
+/303            0           0     0     644     14472     `
+/324            0           0     0     644     5112      `
+/344            0           0     0     644     11512     `
+/362            0           0     0     644     12736     `
+/380            0           0     0     644     14616     `
+/403            0           0     0     644     5080      `

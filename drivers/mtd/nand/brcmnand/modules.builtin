@@ -1,0 +1,5 @@
+kernel/drivers/mtd/nand/brcmnand/iproc_nand.ko
+kernel/drivers/mtd/nand/brcmnand/bcm63138_nand.ko
+kernel/drivers/mtd/nand/brcmnand/bcm6368_nand.ko
+kernel/drivers/mtd/nand/brcmnand/brcmstb_nand.ko
+kernel/drivers/mtd/nand/brcmnand/brcmnand.ko

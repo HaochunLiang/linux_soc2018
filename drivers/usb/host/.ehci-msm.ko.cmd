@@ -1,0 +1,1 @@
+cmd_drivers/usb/host/ehci-msm.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/usb/host/ehci-msm.ko drivers/usb/host/ehci-msm.o drivers/usb/host/ehci-msm.mod.o ;  true

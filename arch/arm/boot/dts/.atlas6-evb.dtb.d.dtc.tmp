@@ -1,0 +1,1 @@
+arch/arm/boot/dts/atlas6-evb.dtb: arch/arm/boot/dts/.atlas6-evb.dtb.dts.tmp arch/arm/boot/dts/atlas6.dtsi arch/arm/boot/dts/skeleton.dtsi

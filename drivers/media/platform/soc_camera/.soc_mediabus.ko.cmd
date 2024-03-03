@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/soc_camera/soc_mediabus.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/soc_camera/soc_mediabus.ko drivers/media/platform/soc_camera/soc_mediabus.o drivers/media/platform/soc_camera/soc_mediabus.mod.o ;  true

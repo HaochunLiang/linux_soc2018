@@ -1,0 +1,1 @@
+cmd_drivers/input/mouse/cyapatp.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/input/mouse/cyapatp.ko drivers/input/mouse/cyapatp.o drivers/input/mouse/cyapatp.mod.o ;  true

@@ -1,0 +1,1 @@
+cmd_drivers/usb/dwc3/built-in.o :=  rm -f drivers/usb/dwc3/built-in.o; arm-none-eabi-ar rcSTPD drivers/usb/dwc3/built-in.o drivers/usb/dwc3/dwc3.o drivers/usb/dwc3/dwc3-omap.o drivers/usb/dwc3/dwc3-exynos.o drivers/usb/dwc3/dwc3-keystone.o drivers/usb/dwc3/dwc3-of-simple.o drivers/usb/dwc3/dwc3-st.o 

@@ -1,0 +1,6 @@
+uniphier-ld6b-ref.o: arch/arm/boot/dts/uniphier-ld6b-ref.dts \
+ arch/arm/boot/dts/uniphier-ld6b.dtsi \
+ arch/arm/boot/dts/uniphier-pxs2.dtsi \
+ arch/arm/boot/dts/uniphier-pinctrl.dtsi \
+ arch/arm/boot/dts/uniphier-ref-daughter.dtsi \
+ arch/arm/boot/dts/uniphier-support-card.dtsi

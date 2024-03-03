@@ -1,0 +1,1 @@
+cmd_drivers/pwm/pwm-atmel-hlcdc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/pwm/pwm-atmel-hlcdc.ko drivers/pwm/pwm-atmel-hlcdc.o drivers/pwm/pwm-atmel-hlcdc.mod.o ;  true

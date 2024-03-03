@@ -1,0 +1,1 @@
+cmd_drivers/iio/adc/at91-sama5d2_adc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/iio/adc/at91-sama5d2_adc.ko drivers/iio/adc/at91-sama5d2_adc.o drivers/iio/adc/at91-sama5d2_adc.mod.o ;  true

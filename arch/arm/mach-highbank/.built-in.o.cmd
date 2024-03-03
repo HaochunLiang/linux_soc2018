@@ -1,0 +1,1 @@
+cmd_arch/arm/mach-highbank/built-in.o :=  rm -f arch/arm/mach-highbank/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/mach-highbank/built-in.o arch/arm/mach-highbank/highbank.o arch/arm/mach-highbank/system.o arch/arm/mach-highbank/smc.o 

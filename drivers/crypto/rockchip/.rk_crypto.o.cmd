@@ -1,0 +1,1 @@
+cmd_drivers/crypto/rockchip/rk_crypto.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/crypto/rockchip/rk_crypto.o drivers/crypto/rockchip/rk3288_crypto.o drivers/crypto/rockchip/rk3288_crypto_ablkcipher.o drivers/crypto/rockchip/rk3288_crypto_ahash.o 

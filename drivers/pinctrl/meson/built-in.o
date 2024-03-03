@@ -1,0 +1,13 @@
+!<thin>
+//                                              98        `
+pinctrl-meson8.o/
+pinctrl-meson8b.o/
+pinctrl-meson-gxbb.o/
+pinctrl-meson-gxl.o/
+pinctrl-meson.o/
+
+/0              0           0     0     644     38360     `
+/18             0           0     0     644     32332     `
+/37             0           0     0     644     31912     `
+/59             0           0     0     644     30628     `
+/80             0           0     0     644     11784     `

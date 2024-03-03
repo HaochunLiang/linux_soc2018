@@ -1,0 +1,13 @@
+mt7623n-rfb-nand.o: arch/arm/boot/dts/mt7623n-rfb-nand.dts \
+ arch/arm/boot/dts/mt7623n-rfb.dtsi arch/arm/boot/dts/mt7623.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
+ scripts/dtc/include-prefixes/dt-bindings/clock/mt2701-clk.h \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/mt7623-pinfunc.h \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/mt65xx.h \
+ scripts/dtc/include-prefixes/dt-bindings/power/mt2701-power.h \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ scripts/dtc/include-prefixes/dt-bindings/phy/phy.h \
+ scripts/dtc/include-prefixes/dt-bindings/reset/mt2701-resets.h \
+ scripts/dtc/include-prefixes/dt-bindings/thermal/thermal.h \
+ arch/arm/boot/dts/mt6323.dtsi

@@ -1,0 +1,1 @@
+cmd_drivers/pinctrl/berlin/built-in.o :=  rm -f drivers/pinctrl/berlin/built-in.o; arm-none-eabi-ar rcSTPD drivers/pinctrl/berlin/built-in.o drivers/pinctrl/berlin/berlin.o drivers/pinctrl/berlin/berlin-bg2.o drivers/pinctrl/berlin/berlin-bg2cd.o drivers/pinctrl/berlin/berlin-bg2q.o 

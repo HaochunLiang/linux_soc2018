@@ -1,0 +1,1 @@
+cmd_drivers/hwmon/ntc_thermistor.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/hwmon/ntc_thermistor.ko drivers/hwmon/ntc_thermistor.o drivers/hwmon/ntc_thermistor.mod.o ;  true

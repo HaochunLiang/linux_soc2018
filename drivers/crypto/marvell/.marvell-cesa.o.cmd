@@ -1,0 +1,1 @@
+cmd_drivers/crypto/marvell/marvell-cesa.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/crypto/marvell/marvell-cesa.o drivers/crypto/marvell/cesa.o drivers/crypto/marvell/cipher.o drivers/crypto/marvell/hash.o drivers/crypto/marvell/tdma.o 

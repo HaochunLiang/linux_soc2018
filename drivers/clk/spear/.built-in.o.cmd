@@ -1,0 +1,1 @@
+cmd_drivers/clk/spear/built-in.o :=  rm -f drivers/clk/spear/built-in.o; arm-none-eabi-ar rcSTPD drivers/clk/spear/built-in.o drivers/clk/spear/clk.o drivers/clk/spear/clk-aux-synth.o drivers/clk/spear/clk-frac-synth.o drivers/clk/spear/clk-gpt-synth.o drivers/clk/spear/clk-vco-pll.o drivers/clk/spear/spear1310_clock.o drivers/clk/spear/spear1340_clock.o 

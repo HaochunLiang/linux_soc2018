@@ -1,0 +1,1 @@
+cmd_drivers/firmware/efi/efivars.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/firmware/efi/efivars.ko drivers/firmware/efi/efivars.o drivers/firmware/efi/efivars.mod.o ;  true

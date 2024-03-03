@@ -1,0 +1,21 @@
+!<thin>
+//                                              204       `
+clk-uniphier-core.o/
+clk-uniphier-cpugear.o/
+clk-uniphier-fixed-factor.o/
+clk-uniphier-fixed-rate.o/
+clk-uniphier-gate.o/
+clk-uniphier-mux.o/
+clk-uniphier-sys.o/
+clk-uniphier-mio.o/
+clk-uniphier-peri.o/
+
+/0              0           0     0     644     9652      `
+/21             0           0     0     644     2348      `
+/45             0           0     0     644     1436      `
+/74             0           0     0     644     1392      `
+/101            0           0     0     644     2432      `
+/122            0           0     0     644     2140      `
+/142            0           0     0     644     24912     `
+/162            0           0     0     644     6120      `
+/182            0           0     0     644     4172      `

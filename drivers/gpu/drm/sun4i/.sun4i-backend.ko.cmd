@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/sun4i/sun4i-backend.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/sun4i/sun4i-backend.ko drivers/gpu/drm/sun4i/sun4i-backend.o drivers/gpu/drm/sun4i/sun4i-backend.mod.o ;  true

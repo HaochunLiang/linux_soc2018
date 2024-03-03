@@ -1,0 +1,5 @@
+kernel/drivers/staging/nvec/nvec_ps2.ko
+kernel/drivers/staging/nvec/nvec.ko
+kernel/drivers/staging/nvec/nvec_power.ko
+kernel/drivers/staging/nvec/nvec_kbd.ko
+kernel/drivers/staging/nvec/nvec_paz00.ko

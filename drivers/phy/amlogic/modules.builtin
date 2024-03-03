@@ -1,0 +1,2 @@
+kernel/drivers/phy/amlogic/phy-meson8b-usb2.ko
+kernel/drivers/phy/amlogic/phy-meson-gxl-usb2.ko

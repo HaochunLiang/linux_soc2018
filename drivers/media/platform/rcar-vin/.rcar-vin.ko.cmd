@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/rcar-vin/rcar-vin.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/rcar-vin/rcar-vin.ko drivers/media/platform/rcar-vin/rcar-vin.o drivers/media/platform/rcar-vin/rcar-vin.mod.o ;  true

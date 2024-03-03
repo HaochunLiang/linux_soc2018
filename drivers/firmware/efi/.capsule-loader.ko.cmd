@@ -1,0 +1,1 @@
+cmd_drivers/firmware/efi/capsule-loader.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/firmware/efi/capsule-loader.ko drivers/firmware/efi/capsule-loader.o drivers/firmware/efi/capsule-loader.mod.o ;  true

@@ -1,0 +1,594 @@
+# 1 "arch/arm/boot/dts/meson8-minix-neo-x8.dts"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "arch/arm/boot/dts/meson8-minix-neo-x8.dts"
+# 43 "arch/arm/boot/dts/meson8-minix-neo-x8.dts"
+/dts-v1/;
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 45 "arch/arm/boot/dts/meson8-minix-neo-x8.dts" 2
+# 1 "arch/arm/boot/dts/meson8.dtsi" 1
+# 46 "arch/arm/boot/dts/meson8.dtsi"
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/clock/meson8b-clkc.h" 1
+# 47 "arch/arm/boot/dts/meson8.dtsi" 2
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/meson8-gpio.h" 1
+# 48 "arch/arm/boot/dts/meson8.dtsi" 2
+# 1 "arch/arm/boot/dts/meson.dtsi" 1
+# 48 "arch/arm/boot/dts/meson.dtsi"
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h" 1
+# 49 "arch/arm/boot/dts/meson.dtsi" 2
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h" 1
+# 50 "arch/arm/boot/dts/meson.dtsi" 2
+/include/ "skeleton.dtsi"
+
+/ {
+ interrupt-parent = <&gic>;
+
+ L2: l2-cache-controller@c4200000 {
+  compatible = "arm,pl310-cache";
+  reg = <0xc4200000 0x1000>;
+  cache-unified;
+  cache-level = <2>;
+ };
+
+ gic: interrupt-controller@c4301000 {
+  compatible = "arm,cortex-a9-gic";
+  reg = <0xc4301000 0x1000>,
+        <0xc4300100 0x0100>;
+  interrupt-controller;
+  #interrupt-cells = <3>;
+ };
+
+ soc {
+  compatible = "simple-bus";
+  #address-cells = <1>;
+  #size-cells = <1>;
+  ranges;
+
+  cbus: cbus@c1100000 {
+   compatible = "simple-bus";
+   reg = <0xc1100000 0x200000>;
+   #address-cells = <1>;
+   #size-cells = <1>;
+   ranges = <0x0 0xc1100000 0x200000>;
+
+   hwrng: rng@8100 {
+    compatible = "amlogic,meson-rng";
+    reg = <0x8100 0x8>;
+   };
+
+   uart_A: serial@84c0 {
+    compatible = "amlogic,meson6-uart";
+    reg = <0x84c0 0x18>;
+    interrupts = <0 26 1>;
+    status = "disabled";
+   };
+
+   uart_B: serial@84dc {
+    compatible = "amlogic,meson6-uart";
+    reg = <0x84dc 0x18>;
+    interrupts = <0 75 1>;
+    status = "disabled";
+   };
+
+   i2c_A: i2c@8500 {
+    compatible = "amlogic,meson6-i2c";
+    reg = <0x8500 0x20>;
+    interrupts = <0 21 1>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "disabled";
+   };
+
+   pwm_ab: pwm@8550 {
+    compatible = "amlogic,meson-pwm";
+    reg = <0x8550 0x10>;
+    #pwm-cells = <3>;
+    status = "disabled";
+   };
+
+   pwm_cd: pwm@8650 {
+    compatible = "amlogic,meson-pwm";
+    reg = <0x8650 0x10>;
+    #pwm-cells = <3>;
+    status = "disabled";
+   };
+
+   saradc: adc@8680 {
+    compatible = "amlogic,meson-saradc";
+    reg = <0x8680 0x34>;
+    #io-channel-cells = <1>;
+    interrupts = <0 73 1>;
+    status = "disabled";
+   };
+
+   uart_C: serial@8700 {
+    compatible = "amlogic,meson6-uart";
+    reg = <0x8700 0x18>;
+    interrupts = <0 93 1>;
+    status = "disabled";
+   };
+
+   i2c_B: i2c@87c0 {
+    compatible = "amlogic,meson6-i2c";
+    reg = <0x87c0 0x20>;
+    interrupts = <0 128 1>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "disabled";
+   };
+
+   usb0_phy: phy@8800 {
+    compatible = "amlogic,meson-mx-usb2-phy";
+    #phy-cells = <0>;
+    reg = <0x8800 0x20>;
+    status = "disabled";
+   };
+
+   usb1_phy: phy@8820 {
+    compatible = "amlogic,meson-mx-usb2-phy";
+    #phy-cells = <0>;
+    reg = <0x8820 0x20>;
+    status = "disabled";
+   };
+
+   spifc: spi@8c80 {
+    compatible = "amlogic,meson6-spifc";
+    reg = <0x8c80 0x80>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "disabled";
+   };
+
+   wdt: watchdog@9900 {
+    compatible = "amlogic,meson6-wdt";
+    reg = <0x9900 0x8>;
+    interrupts = <0 0 1>;
+   };
+
+   timer@9940 {
+    compatible = "amlogic,meson6-timer";
+    reg = <0x9940 0x18>;
+    interrupts = <0 10 1>;
+   };
+  };
+
+  aobus: aobus@c8100000 {
+   compatible = "simple-bus";
+   reg = <0xc8100000 0x100000>;
+   #address-cells = <1>;
+   #size-cells = <1>;
+   ranges = <0x0 0xc8100000 0x100000>;
+
+   ir_receiver: ir-receiver@480 {
+    compatible= "amlogic,meson6-ir";
+    reg = <0x480 0x20>;
+    interrupts = <0 15 1>;
+    status = "disabled";
+   };
+
+   uart_AO: serial@4c0 {
+    compatible = "amlogic,meson6-uart", "amlogic,meson-ao-uart";
+    reg = <0x4c0 0x18>;
+    interrupts = <0 90 1>;
+    status = "disabled";
+   };
+
+   i2c_AO: i2c@500 {
+    compatible = "amlogic,meson6-i2c";
+    reg = <0x500 0x20>;
+    interrupts = <0 92 1>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "disabled";
+   };
+  };
+
+  usb0: usb@c9040000 {
+   compatible = "snps,dwc2";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0xc9040000 0x40000>;
+   interrupts = <0 30 1>;
+   phys = <&usb0_phy>;
+   phy-names = "usb2-phy";
+   dr_mode = "host";
+   status = "disabled";
+  };
+
+  usb1: usb@c90c0000 {
+   compatible = "snps,dwc2";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0xc90c0000 0x40000>;
+   interrupts = <0 31 1>;
+   phys = <&usb1_phy>;
+   phy-names = "usb2-phy";
+   dr_mode = "host";
+   status = "disabled";
+  };
+
+  ethmac: ethernet@c9410000 {
+   compatible = "amlogic,meson6-dwmac", "snps,dwmac";
+   reg = <0xc9410000 0x10000
+          0xc1108108 0x4>;
+   interrupts = <0 8 1>;
+   interrupt-names = "macirq";
+   status = "disabled";
+  };
+
+  ahb_sram: sram@d9000000 {
+   compatible = "mmio-sram";
+   reg = <0xd9000000 0x20000>;
+   #address-cells = <1>;
+   #size-cells = <1>;
+   ranges = <0 0xd9000000 0x20000>;
+  };
+ };
+};
+# 49 "arch/arm/boot/dts/meson8.dtsi" 2
+
+/ {
+ model = "Amlogic Meson8 SoC";
+ compatible = "amlogic,meson8";
+
+ cpus {
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  cpu@200 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   next-level-cache = <&L2>;
+   reg = <0x200>;
+  };
+
+  cpu@201 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   next-level-cache = <&L2>;
+   reg = <0x201>;
+  };
+
+  cpu@202 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   next-level-cache = <&L2>;
+   reg = <0x202>;
+  };
+
+  cpu@203 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   next-level-cache = <&L2>;
+   reg = <0x203>;
+  };
+ };
+
+ reserved-memory {
+  #address-cells = <1>;
+  #size-cells = <1>;
+  ranges;
+
+
+  hwrom@0 {
+   reg = <0x0 0x200000>;
+   no-map;
+  };
+# 108 "arch/arm/boot/dts/meson8.dtsi"
+  power-firmware@4f00000 {
+   reg = <0x4f00000 0x100000>;
+   no-map;
+  };
+ };
+
+ scu@c4300000 {
+  compatible = "arm,cortex-a9-scu";
+  reg = <0xc4300000 0x100>;
+ };
+};
+
+&aobus {
+ pinctrl_aobus: pinctrl@84 {
+  compatible = "amlogic,meson8-aobus-pinctrl";
+  reg = <0x84 0xc>;
+  #address-cells = <1>;
+  #size-cells = <1>;
+  ranges;
+
+  gpio_ao: ao-bank@14 {
+   reg = <0x14 0x4>,
+         <0x2c 0x4>,
+         <0x24 0x8>;
+   reg-names = "mux", "pull", "gpio";
+   gpio-controller;
+   #gpio-cells = <2>;
+   gpio-ranges = <&pinctrl_aobus 0 120 16>;
+  };
+
+  uart_ao_a_pins: uart_ao_a {
+   mux {
+    groups = "uart_tx_ao_a", "uart_rx_ao_a";
+    function = "uart_ao";
+   };
+  };
+
+  i2c_ao_pins: i2c_mst_ao {
+   mux {
+    groups = "i2c_mst_sck_ao", "i2c_mst_sda_ao";
+    function = "i2c_mst_ao";
+   };
+  };
+
+  ir_recv_pins: remote {
+   mux {
+    groups = "remote_input";
+    function = "remote";
+   };
+  };
+
+  pwm_f_ao_pins: pwm-f-ao {
+   mux {
+    groups = "pwm_f_ao";
+    function = "pwm_f_ao";
+   };
+  };
+ };
+};
+
+&cbus {
+ clkc: clock-controller@4000 {
+  #clock-cells = <1>;
+  #reset-cells = <1>;
+  compatible = "amlogic,meson8-clkc";
+  reg = <0x8000 0x4>, <0x4000 0x400>;
+ };
+
+ pwm_ef: pwm@86c0 {
+  compatible = "amlogic,meson8-pwm", "amlogic,meson8b-pwm";
+  reg = <0x86c0 0x10>;
+  #pwm-cells = <3>;
+  status = "disabled";
+ };
+
+ pinctrl_cbus: pinctrl@9880 {
+  compatible = "amlogic,meson8-cbus-pinctrl";
+  reg = <0x9880 0x10>;
+  #address-cells = <1>;
+  #size-cells = <1>;
+  ranges;
+
+  gpio: banks@80b0 {
+   reg = <0x80b0 0x28>,
+         <0x80e8 0x18>,
+         <0x8120 0x18>,
+         <0x8030 0x30>;
+   reg-names = "mux", "pull", "pull-enable", "gpio";
+   gpio-controller;
+   #gpio-cells = <2>;
+   gpio-ranges = <&pinctrl_cbus 0 0 120>;
+  };
+
+  sd_a_pins: sd-a {
+   mux {
+    groups = "sd_d0_a", "sd_d1_a", "sd_d2_a",
+     "sd_d3_a", "sd_clk_a", "sd_cmd_a";
+    function = "sd_a";
+   };
+  };
+
+  sd_b_pins: sd-b {
+   mux {
+    groups = "sd_d0_b", "sd_d1_b", "sd_d2_b",
+     "sd_d3_b", "sd_clk_b", "sd_cmd_b";
+    function = "sd_b";
+   };
+  };
+
+  sd_c_pins: sd-c {
+   mux {
+    groups = "sd_d0_c", "sd_d1_c", "sd_d2_c",
+     "sd_d3_c", "sd_clk_c", "sd_cmd_c";
+    function = "sd_c";
+   };
+  };
+
+  spi_nor_pins: nor {
+   mux {
+    groups = "nor_d", "nor_q", "nor_c", "nor_cs";
+    function = "nor";
+   };
+  };
+
+  eth_pins: ethernet {
+   mux {
+    groups = "eth_tx_clk_50m", "eth_tx_en",
+      "eth_txd1", "eth_txd0",
+      "eth_rx_clk_in", "eth_rx_dv",
+      "eth_rxd1", "eth_rxd0", "eth_mdio",
+      "eth_mdc";
+    function = "ethernet";
+   };
+  };
+
+  pwm_e_pins: pwm-e {
+   mux {
+    groups = "pwm_e";
+    function = "pwm_e";
+   };
+  };
+ };
+};
+
+&ethmac {
+ clocks = <&clkc 36>;
+ clock-names = "stmmaceth";
+};
+
+&hwrng {
+ compatible = "amlogic,meson8-rng", "amlogic,meson-rng";
+ clocks = <&clkc 25>;
+ clock-names = "core";
+};
+
+&i2c_AO {
+ clocks = <&clkc 10>;
+};
+
+&i2c_A {
+ clocks = <&clkc 10>;
+};
+
+&i2c_B {
+ clocks = <&clkc 10>;
+};
+
+&L2 {
+ arm,data-latency = <3 3 3>;
+ arm,tag-latency = <2 2 2>;
+ arm,filter-ranges = <0x100000 0xc0000000>;
+};
+
+&pwm_ab {
+ compatible = "amlogic,meson8-pwm", "amlogic,meson8b-pwm";
+};
+
+&pwm_cd {
+ compatible = "amlogic,meson8-pwm", "amlogic,meson8b-pwm";
+};
+
+&saradc {
+ compatible = "amlogic,meson8-saradc", "amlogic,meson-saradc";
+ clocks = <&clkc 1>,
+  <&clkc 23>,
+  <&clkc 69>;
+ clock-names = "clkin", "core", "sana";
+};
+
+&spifc {
+ clocks = <&clkc 10>;
+};
+
+&uart_AO {
+ clocks = <&clkc 10>;
+};
+
+&uart_A {
+ clocks = <&clkc 10>;
+};
+
+&uart_B {
+ clocks = <&clkc 10>;
+};
+
+&uart_C {
+ clocks = <&clkc 10>;
+};
+
+&usb0 {
+ compatible = "amlogic,meson8-usb", "snps,dwc2";
+ clocks = <&clkc 65>;
+ clock-names = "otg";
+};
+
+&usb1 {
+ compatible = "amlogic,meson8-usb", "snps,dwc2";
+ clocks = <&clkc 64>;
+ clock-names = "otg";
+};
+
+&usb0_phy {
+ compatible = "amlogic,meson8-usb2-phy", "amlogic,meson-mx-usb2-phy";
+ clocks = <&clkc 55>, <&clkc 50>;
+ clock-names = "usb_general", "usb";
+};
+
+&usb1_phy {
+ compatible = "amlogic,meson8-usb2-phy", "amlogic,meson-mx-usb2-phy";
+ clocks = <&clkc 55>, <&clkc 51>;
+ clock-names = "usb_general", "usb";
+};
+# 46 "arch/arm/boot/dts/meson8-minix-neo-x8.dts" 2
+
+/ {
+ model = "MINIX NEO-X8";
+ compatible = "minix,neo-x8", "amlogic,meson8";
+
+ aliases {
+  serial0 = &uart_AO;
+ };
+
+ memory {
+  reg = <0x40000000 0x80000000>;
+ };
+
+ gpio-leds {
+  compatible = "gpio-leds";
+
+  blue {
+   label = "x8:blue:power";
+   gpios = <&gpio_ao 15 0>;
+  };
+ };
+};
+
+&uart_AO {
+ status = "okay";
+ pinctrl-0 = <&uart_ao_a_pins>;
+ pinctrl-names = "default";
+};
+
+&i2c_AO {
+ status = "okay";
+ pinctrl-0 = <&i2c_ao_pins>;
+ pinctrl-names = "default";
+
+ pmic@32 {
+  compatible = "ricoh,rn5t618";
+  reg = <0x32>;
+  system-power-controller;
+
+  regulators {
+  };
+ };
+
+ rtc@51 {
+  compatible = "nxp,pcf8563";
+  reg = <0x51>;
+ };
+};
+
+&spifc {
+ status = "okay";
+ pinctrl-0 = <&spi_nor_pins>;
+ pinctrl-names = "default";
+
+ spi-flash@0 {
+  compatible = "mxicy,mx25l1606e";
+  #address-cells = <1>;
+  #size-cells = <1>;
+  reg = <0>;
+  spi-max-frequency = <30000000>;
+
+  partition@0 {
+   label = "boot";
+   reg = <0x0 0x100000>;
+  };
+
+  partition@100000 {
+   label = "env";
+   reg = <0x100000 0x10000>;
+  };
+ };
+};
+
+&ir_receiver {
+ status = "okay";
+ pinctrl-0 = <&ir_recv_pins>;
+ pinctrl-names = "default";
+};
+
+&ethmac {
+ status = "okay";
+ pinctrl-0 = <&eth_pins>;
+ pnictrl-names = "default";
+};

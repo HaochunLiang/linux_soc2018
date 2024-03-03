@@ -1,0 +1,1 @@
+cmd_arch/arm/mach-hisi/built-in.o :=  rm -f arch/arm/mach-hisi/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/mach-hisi/built-in.o arch/arm/mach-hisi/hisilicon.o arch/arm/mach-hisi/platmcpm.o arch/arm/mach-hisi/platsmp.o arch/arm/mach-hisi/hotplug.o 

@@ -1,0 +1,19 @@
+!<thin>
+//                                              144       `
+pci-rcar-gen2.o/
+pcie-rcar.o/
+pci-host-common.o/
+pci-host-generic.o/
+pcie-iproc.o/
+pcie-iproc-msi.o/
+pcie-iproc-platform.o/
+pcie-iproc-bcma.o/
+
+/0              0           0     0     644     6668      `
+/17             0           0     0     644     16340     `
+/30             0           0     0     644     3736      `
+/49             0           0     0     644     3296      `
+/69             0           0     0     644     13860     `
+/83             0           0     0     644     10064     `
+/101            0           0     0     644     5908      `
+/124            0           0     0     644     4168      `

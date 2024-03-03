@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/exynos4-is/s5p-fimc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/exynos4-is/s5p-fimc.ko drivers/media/platform/exynos4-is/s5p-fimc.o drivers/media/platform/exynos4-is/s5p-fimc.mod.o ;  true

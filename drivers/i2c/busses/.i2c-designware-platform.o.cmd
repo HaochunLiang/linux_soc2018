@@ -1,0 +1,1 @@
+cmd_drivers/i2c/busses/i2c-designware-platform.o := rm -f drivers/i2c/busses/i2c-designware-platform.o; arm-none-eabi-ar rcSTPD drivers/i2c/busses/i2c-designware-platform.o drivers/i2c/busses/i2c-designware-platdrv.o

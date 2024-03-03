@@ -1,0 +1,2 @@
+kernel/drivers/iio/light/isl29018.ko
+kernel/drivers/iio/light/isl29028.ko

@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/bridge/synopsys/dw-hdmi.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/bridge/synopsys/dw-hdmi.ko drivers/gpu/drm/bridge/synopsys/dw-hdmi.o drivers/gpu/drm/bridge/synopsys/dw-hdmi.mod.o ;  true

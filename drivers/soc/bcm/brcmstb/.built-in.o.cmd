@@ -1,0 +1,1 @@
+cmd_drivers/soc/bcm/brcmstb/built-in.o :=  rm -f drivers/soc/bcm/brcmstb/built-in.o; arm-none-eabi-ar rcSTPD drivers/soc/bcm/brcmstb/built-in.o drivers/soc/bcm/brcmstb/common.o drivers/soc/bcm/brcmstb/biuctrl.o 

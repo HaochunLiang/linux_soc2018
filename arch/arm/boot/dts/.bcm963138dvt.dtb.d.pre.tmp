@@ -1,0 +1,5 @@
+bcm963138dvt.o: arch/arm/boot/dts/bcm963138dvt.dts \
+ arch/arm/boot/dts/bcm63138.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
+ arch/arm/boot/dts/skeleton.dtsi

@@ -1,0 +1,12 @@
+ste-ccu8540.o: arch/arm/boot/dts/ste-ccu8540.dts \
+ arch/arm/boot/dts/ste-dbx5x0.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
+ scripts/dtc/include-prefixes/dt-bindings/mfd/dbx500-prcmu.h \
+ scripts/dtc/include-prefixes/dt-bindings/arm/ux500_pm_domains.h \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ scripts/dtc/include-prefixes/dt-bindings/clock/ste-ab8500.h \
+ arch/arm/boot/dts/skeleton.dtsi \
+ arch/arm/boot/dts/ste-ccu8540-pinctrl.dtsi \
+ arch/arm/boot/dts/ste-nomadik-pinctrl.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/nomadik.h

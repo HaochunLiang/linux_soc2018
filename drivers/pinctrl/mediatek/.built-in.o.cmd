@@ -1,0 +1,1 @@
+cmd_drivers/pinctrl/mediatek/built-in.o :=  rm -f drivers/pinctrl/mediatek/built-in.o; arm-none-eabi-ar rcSTPD drivers/pinctrl/mediatek/built-in.o drivers/pinctrl/mediatek/pinctrl-mtk-common.o drivers/pinctrl/mediatek/pinctrl-mt2701.o drivers/pinctrl/mediatek/pinctrl-mt8135.o drivers/pinctrl/mediatek/pinctrl-mt8127.o 

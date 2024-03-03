@@ -1,0 +1,1 @@
+cmd_drivers/iio/adc/built-in.o :=  rm -f drivers/iio/adc/built-in.o; arm-none-eabi-ar rcSTPD drivers/iio/adc/built-in.o drivers/iio/adc/bcm_iproc_adc.o drivers/iio/adc/meson_saradc.o drivers/iio/adc/xilinx-xadc.o 

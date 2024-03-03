@@ -1,0 +1,1 @@
+cmd_drivers/clk/clk-rk808.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/clk/clk-rk808.ko drivers/clk/clk-rk808.o drivers/clk/clk-rk808.mod.o ;  true

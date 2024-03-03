@@ -1,0 +1,1 @@
+cmd_drivers/spi/spi-sh-msiof.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/spi/spi-sh-msiof.ko drivers/spi/spi-sh-msiof.o drivers/spi/spi-sh-msiof.mod.o ;  true

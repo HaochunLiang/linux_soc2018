@@ -1,0 +1,1 @@
+cmd_drivers/regulator/max77693-regulator.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/regulator/max77693-regulator.ko drivers/regulator/max77693-regulator.o drivers/regulator/max77693-regulator.mod.o ;  true

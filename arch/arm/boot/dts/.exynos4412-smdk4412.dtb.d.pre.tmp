@@ -1,0 +1,14 @@
+exynos4412-smdk4412.o: arch/arm/boot/dts/exynos4412-smdk4412.dts \
+ arch/arm/boot/dts/exynos4412.dtsi arch/arm/boot/dts/exynos4.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/clock/exynos4.h \
+ scripts/dtc/include-prefixes/dt-bindings/clock/exynos-audss-clk.h \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
+ arch/arm/boot/dts/exynos-syscon-restart.dtsi \
+ arch/arm/boot/dts/exynos4412-tmu-sensor-conf.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/thermal/thermal_exynos.h \
+ arch/arm/boot/dts/exynos4412-pinctrl.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/samsung.h \
+ arch/arm/boot/dts/exynos4-cpu-thermal.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/thermal/thermal.h \
+ arch/arm/boot/dts/exynos-mfc-reserved-memory.dtsi

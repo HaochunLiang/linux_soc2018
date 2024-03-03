@@ -1,0 +1,3 @@
+uniphier-pxs2-gentil.o: arch/arm/boot/dts/uniphier-pxs2-gentil.dts \
+ arch/arm/boot/dts/uniphier-pxs2.dtsi \
+ arch/arm/boot/dts/uniphier-pinctrl.dtsi

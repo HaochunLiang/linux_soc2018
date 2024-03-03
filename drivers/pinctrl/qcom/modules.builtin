@@ -1,0 +1,11 @@
+kernel/drivers/pinctrl/qcom/pinctrl-apq8064.ko
+kernel/drivers/pinctrl/qcom/pinctrl-apq8084.ko
+kernel/drivers/pinctrl/qcom/pinctrl-ipq8064.ko
+kernel/drivers/pinctrl/qcom/pinctrl-msm8660.ko
+kernel/drivers/pinctrl/qcom/pinctrl-msm8960.ko
+kernel/drivers/pinctrl/qcom/pinctrl-msm8x74.ko
+kernel/drivers/pinctrl/qcom/pinctrl-msm8916.ko
+kernel/drivers/pinctrl/qcom/pinctrl-spmi-gpio.ko
+kernel/drivers/pinctrl/qcom/pinctrl-spmi-mpp.ko
+kernel/drivers/pinctrl/qcom/pinctrl-ssbi-gpio.ko
+kernel/drivers/pinctrl/qcom/pinctrl-ssbi-mpp.ko

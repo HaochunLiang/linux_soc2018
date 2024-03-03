@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/exynos4-is/exynos-fimc-lite.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/media/platform/exynos4-is/exynos-fimc-lite.o drivers/media/platform/exynos4-is/fimc-lite-reg.o drivers/media/platform/exynos4-is/fimc-lite.o 
