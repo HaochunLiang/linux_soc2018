@@ -53,5 +53,5 @@ ARM_BE8(	rev	\rd, \rd )
 1001:		ldr	\rd, [\rx, #UART01x_FR]
 ARM_BE8(	rev	\rd, \rd )
 		tst	\rd, #UART01x_FR_BUSY
-		bne	1001b
+		beq	1001b
 		.endm
