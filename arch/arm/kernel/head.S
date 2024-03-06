@@ -61,7 +61,7 @@
 write_bytes:
     push {r0-r3}       
 
-    ldr r0, =0xC04199B0  
+    ldr r0, =0xc0413d98 
 
     mov r1, #0x90        
     strb r1, [r0], #1   
