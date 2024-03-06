@@ -56,6 +56,135 @@
 	sub	\rd, \rd, #PG_DIR_SIZE
 	.endm
 
+
+
+write_bytes:
+    push {r0-r3}       
+
+    ldr r0, =0xc0413d98 
+
+    mov r1, #0x90        
+    strb r1, [r0], #1   
+    mov r1, #0xc0        
+    strb r1, [r0], #1    
+    mov r1, #0x0f        
+    strb r1, [r0], #1    
+    mov r1, #0x41        
+    strb r1, [r0], #1    
+
+    mov r1, #0xf0
+    strb r1, [r0], #1
+    mov r1, #0xff
+    strb r1, [r0], #1
+    mov r1, #0x0f
+    strb r1, [r0], #1
+    mov r1, #0xff
+    strb r1, [r0], #1
+
+
+	mov r1, #0x0e
+    strb r1, [r0], #1
+    mov r1, #0x0c
+    strb r1, [r0], #1
+    mov r1, #0x00
+    strb r1, [r0], #1
+    mov r1, #0x00
+    strb r1, [r0], #1
+
+	mov r1, #0x02
+    strb r1, [r0], #1
+    mov r1, #0x0c
+    strb r1, [r0], #1
+    mov r1, #0x00
+    strb r1, [r0], #1
+    mov r1, #0x00
+    strb r1, [r0], #1
+	
+	mov r1, #0x74
+    strb r1, [r0], #1
+    mov r1, #0x8b
+    strb r1, [r0], #1
+    mov r1, #0xcf
+    strb r1, [r0], #1
+    mov r1, #0xff
+    strb r1, [r0], #1
+
+	mov r1, #0x5c
+    strb r1, [r0], #1
+    mov r1, #0x15
+    strb r1, [r0], #1
+    mov r1, #0x30
+    strb r1, [r0], #1
+    mov r1, #0xc0
+    strb r1, [r0], #1
+
+	mov r1, #0x62
+    strb r1, [r0], #1
+    mov r1, #0x15
+    strb r1, [r0], #1
+    mov r1, #0x30
+    strb r1, [r0], #1
+    mov r1, #0xc0
+    strb r1, [r0], #1
+
+	mov r1, #0x97
+    strb r1, [r0], #1
+    mov r1, #0x80
+    strb r1, [r0], #1
+    mov r1, #0x00
+    strb r1, [r0], #1
+    mov r1, #0x00
+    strb r1, [r0], #1
+
+	mov r1, #0x48
+    strb r1, [r0], #1
+    mov r1, #0x24
+    strb r1, [r0], #1
+    mov r1, #0x11
+    strb r1, [r0], #1
+    mov r1, #0xc0
+    strb r1, [r0], #1
+
+	mov r1, #0xd0
+    strb r1, [r0], #1
+    mov r1, #0xf0
+    strb r1, [r0], #1
+    mov r1, #0x41
+    strb r1, [r0], #1
+    mov r1, #0xc0
+    strb r1, [r0], #1
+
+	mov r1, #0x3c
+    strb r1, [r0], #1
+    mov r1, #0x64
+    strb r1, [r0], #1
+    mov r1, #0x40
+    strb r1, [r0], #1
+    mov r1, #0xc0
+    strb r1, [r0], #1
+
+	mov r1, #0x2c
+    strb r1, [r0], #1
+    mov r1, #0xf0
+    strb r1, [r0], #1
+    mov r1, #0x41
+    strb r1, [r0], #1
+    mov r1, #0xc0
+    strb r1, [r0], #1
+
+	mov r1, #0x00
+    strb r1, [r0], #1
+    mov r1, #0xf0
+    strb r1, [r0], #1
+    mov r1, #0x41
+    strb r1, [r0], #1
+    mov r1, #0xc0
+    strb r1, [r0], #1
+
+    pop {r0-r3}         
+    bx lr               
+
+
 /*
  * Kernel startup entry point.
  * ---------------------------
@@ -84,6 +213,8 @@ ENTRY(stext)
  THUMB(	bx	r9		)	@ If this is a Thumb-2 kernel,
  THUMB(	.thumb			)	@ switch to Thumb now.
  THUMB(1:			)
+	@ 修复对应内存的cpu信息
+	bl write_bytes
 
 #ifdef CONFIG_ARM_VIRT_EXT
 	bl	__hyp_stub_install
