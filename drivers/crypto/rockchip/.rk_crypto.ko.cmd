@@ -1,0 +1,1 @@
+cmd_drivers/crypto/rockchip/rk_crypto.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/rockchip/rk_crypto.ko drivers/crypto/rockchip/rk_crypto.o drivers/crypto/rockchip/rk_crypto.mod.o ;  true

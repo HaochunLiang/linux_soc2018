@@ -1,0 +1,13 @@
+!<thin>
+//                                              78        `
+atmel-sdramc.o/
+atmel-ebi.o/
+ti-aemif.o/
+omap-gpmc.o/
+samsung/exynos-srom.o/
+
+/0              0           0     0     644     4044      `
+/16             0           0     0     644     12036     `
+/29             0           0     0     644     7472      `
+/41             0           0     0     644     32916     `
+/54             0           0     0     644     4324      `

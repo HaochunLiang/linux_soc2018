@@ -1,0 +1,1 @@
+cmd_drivers/soc/qcom/built-in.o :=  rm -f drivers/soc/qcom/built-in.o; arm-none-eabi-ar rcSTPD drivers/soc/qcom/built-in.o drivers/soc/qcom/qcom_gsbi.o drivers/soc/qcom/mdt_loader.o drivers/soc/qcom/spm.o 

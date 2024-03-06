@@ -1,0 +1,2 @@
+kernel/drivers/thermal/st/st_thermal.ko
+kernel/drivers/thermal/st/st_thermal_memmap.ko

@@ -1,0 +1,1 @@
+cmd_drivers/phy/samsung/phy-exynos-usb2.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/phy/samsung/phy-exynos-usb2.o drivers/phy/samsung/phy-samsung-usb2.o drivers/phy/samsung/phy-exynos4210-usb2.o drivers/phy/samsung/phy-exynos4x12-usb2.o drivers/phy/samsung/phy-exynos5250-usb2.o 

@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/bridge/analogix/analogix_dp.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/gpu/drm/bridge/analogix/analogix_dp.o drivers/gpu/drm/bridge/analogix/analogix_dp_core.o drivers/gpu/drm/bridge/analogix/analogix_dp_reg.o 

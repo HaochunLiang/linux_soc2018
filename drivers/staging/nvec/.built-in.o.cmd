@@ -1,0 +1,1 @@
+cmd_drivers/staging/nvec/built-in.o :=  rm -f drivers/staging/nvec/built-in.o; arm-none-eabi-ar rcSTPD drivers/staging/nvec/built-in.o drivers/staging/nvec/nvec_ps2.o drivers/staging/nvec/nvec.o drivers/staging/nvec/nvec_power.o drivers/staging/nvec/nvec_kbd.o drivers/staging/nvec/nvec_paz00.o 

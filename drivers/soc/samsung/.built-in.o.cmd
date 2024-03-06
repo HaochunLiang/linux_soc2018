@@ -1,0 +1,1 @@
+cmd_drivers/soc/samsung/built-in.o :=  rm -f drivers/soc/samsung/built-in.o; arm-none-eabi-ar rcSTPD drivers/soc/samsung/built-in.o drivers/soc/samsung/exynos-pmu.o drivers/soc/samsung/exynos3250-pmu.o drivers/soc/samsung/exynos4-pmu.o drivers/soc/samsung/exynos5250-pmu.o drivers/soc/samsung/exynos5420-pmu.o drivers/soc/samsung/pm_domains.o 

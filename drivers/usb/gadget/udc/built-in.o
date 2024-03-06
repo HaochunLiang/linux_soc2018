@@ -1,0 +1,22 @@
+!<thin>
+//                                              142       `
+core.o/
+trace.o/
+snps_udc_core.o/
+fsl_udc_core.o/
+fsl_mxc_udc.o/
+snps_udc_plat.o/
+bdc/bdc_core.o/
+bdc/bdc_cmd.o/
+bdc/bdc_ep.o/
+bdc/bdc_udc.o/
+/0              0           0     0     644     32552     `
+/8              0           0     0     644     25068     `
+/17             0           0     0     644     31632     `
+/34             0           0     0     644     22552     `
+/50             0           0     0     644     3368      `
+/65             0           0     0     644     8944      `
+/82             0           0     0     644     11624     `
+/98             0           0     0     644     4292      `
+/113            0           0     0     644     16356     `
+/127            0           0     0     644     7248      `

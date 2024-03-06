@@ -1,0 +1,1 @@
+cmd_drivers/platform/chrome/cros_ec_devs.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/platform/chrome/cros_ec_devs.o drivers/platform/chrome/cros_ec_dev.o drivers/platform/chrome/cros_ec_sysfs.o drivers/platform/chrome/cros_ec_lightbar.o drivers/platform/chrome/cros_ec_vbc.o drivers/platform/chrome/cros_ec_debugfs.o 

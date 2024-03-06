@@ -1,0 +1,3 @@
+kernel/drivers/remoteproc/remoteproc.ko
+kernel/drivers/remoteproc/st_remoteproc.ko
+kernel/drivers/remoteproc/st_slim_rproc.ko

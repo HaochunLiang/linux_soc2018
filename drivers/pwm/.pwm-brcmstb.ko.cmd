@@ -1,0 +1,1 @@
+cmd_drivers/pwm/pwm-brcmstb.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/pwm/pwm-brcmstb.ko drivers/pwm/pwm-brcmstb.o drivers/pwm/pwm-brcmstb.mod.o ;  true

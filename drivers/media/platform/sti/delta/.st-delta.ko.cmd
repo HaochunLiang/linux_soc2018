@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/sti/delta/st-delta.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/sti/delta/st-delta.ko drivers/media/platform/sti/delta/st-delta.o drivers/media/platform/sti/delta/st-delta.mod.o ;  true

@@ -1,0 +1,1 @@
+cmd_drivers/input/misc/max77693-haptic.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/input/misc/max77693-haptic.ko drivers/input/misc/max77693-haptic.o drivers/input/misc/max77693-haptic.mod.o ;  true

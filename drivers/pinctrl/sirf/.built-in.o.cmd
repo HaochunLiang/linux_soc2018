@@ -1,0 +1,1 @@
+cmd_drivers/pinctrl/sirf/built-in.o :=  rm -f drivers/pinctrl/sirf/built-in.o; arm-none-eabi-ar rcSTPD drivers/pinctrl/sirf/built-in.o drivers/pinctrl/sirf/pinctrl-sirf.o drivers/pinctrl/sirf/pinctrl-prima2.o drivers/pinctrl/sirf/pinctrl-atlas6.o drivers/pinctrl/sirf/pinctrl-atlas7.o 

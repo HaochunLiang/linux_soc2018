@@ -1,0 +1,1 @@
+cmd_drivers/power/supply/max17040_battery.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/power/supply/max17040_battery.ko drivers/power/supply/max17040_battery.o drivers/power/supply/max17040_battery.mod.o ;  true

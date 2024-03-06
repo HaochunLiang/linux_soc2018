@@ -1,0 +1,1 @@
+cmd_arch/arm/crypto/chacha20-neon.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o arch/arm/crypto/chacha20-neon.ko arch/arm/crypto/chacha20-neon.o arch/arm/crypto/chacha20-neon.mod.o ;  true

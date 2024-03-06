@@ -1,0 +1,1 @@
+cmd_drivers/phy/tegra/phy-tegra-xusb.o := rm -f drivers/phy/tegra/phy-tegra-xusb.o; arm-none-eabi-ar rcSTPD drivers/phy/tegra/phy-tegra-xusb.o drivers/phy/tegra/xusb.o drivers/phy/tegra/xusb-tegra124.o

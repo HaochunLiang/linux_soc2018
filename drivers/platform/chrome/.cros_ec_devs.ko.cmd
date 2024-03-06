@@ -1,0 +1,1 @@
+cmd_drivers/platform/chrome/cros_ec_devs.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/platform/chrome/cros_ec_devs.ko drivers/platform/chrome/cros_ec_devs.o drivers/platform/chrome/cros_ec_devs.mod.o ;  true

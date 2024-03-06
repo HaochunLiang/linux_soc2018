@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/vsp1/vsp1.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/vsp1/vsp1.ko drivers/media/platform/vsp1/vsp1.o drivers/media/platform/vsp1/vsp1.mod.o ;  true

@@ -1,0 +1,1 @@
+cmd_drivers/rpmsg/rpmsg_core.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/rpmsg/rpmsg_core.ko drivers/rpmsg/rpmsg_core.o drivers/rpmsg/rpmsg_core.mod.o ;  true

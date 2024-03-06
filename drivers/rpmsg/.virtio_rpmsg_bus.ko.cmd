@@ -1,0 +1,1 @@
+cmd_drivers/rpmsg/virtio_rpmsg_bus.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/rpmsg/virtio_rpmsg_bus.ko drivers/rpmsg/virtio_rpmsg_bus.o drivers/rpmsg/virtio_rpmsg_bus.mod.o ;  true

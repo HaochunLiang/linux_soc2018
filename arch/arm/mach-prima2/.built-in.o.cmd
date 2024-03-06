@@ -1,0 +1,1 @@
+cmd_arch/arm/mach-prima2/built-in.o :=  rm -f arch/arm/mach-prima2/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/mach-prima2/built-in.o arch/arm/mach-prima2/rstc.o arch/arm/mach-prima2/common.o arch/arm/mach-prima2/rtciobrg.o arch/arm/mach-prima2/platsmp.o arch/arm/mach-prima2/headsmp.o arch/arm/mach-prima2/hotplug.o 

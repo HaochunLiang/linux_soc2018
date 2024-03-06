@@ -1,0 +1,1 @@
+cmd_drivers/phy/amlogic/built-in.o :=  rm -f drivers/phy/amlogic/built-in.o; arm-none-eabi-ar rcSTPD drivers/phy/amlogic/built-in.o drivers/phy/amlogic/phy-meson8b-usb2.o drivers/phy/amlogic/phy-meson-gxl-usb2.o 

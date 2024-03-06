@@ -1,0 +1,1 @@
+cmd_drivers/phy/st/built-in.o :=  rm -f drivers/phy/st/built-in.o; arm-none-eabi-ar rcSTPD drivers/phy/st/built-in.o drivers/phy/st/phy-miphy28lp.o drivers/phy/st/phy-spear1310-miphy.o drivers/phy/st/phy-spear1340-miphy.o drivers/phy/st/phy-stih407-usb.o 

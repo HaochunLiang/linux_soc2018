@@ -1,0 +1,38 @@
+!<thin>
+//                                              260       `
+spi.o/
+spidev.o/
+spi-bcm2835.o/
+spi-bcm2835aux.o/
+spi-iproc-qspi.o/
+spi-brcmstb-qspi.o/
+spi-bcm-qspi.o/
+spi-bitbang.o/
+spi-cadence.o/
+spi-davinci.o/
+spi-omap2-mcspi.o/
+spi-pl022.o/
+spi-rspi.o/
+spi-sh-hspi.o/
+spi-sirf.o/
+spi-sun4i.o/
+spi-sun6i.o/
+spi-xilinx.o/
+/0              0           0     0     644     71112     `
+/7              0           0     0     644     11512     `
+/17             0           0     0     644     11508     `
+/32             0           0     0     644     7248      `
+/50             0           0     0     644     5072      `
+/68             0           0     0     644     3692      `
+/88             0           0     0     644     15236     `
+/104            0           0     0     644     5648      `
+/119            0           0     0     644     9640      `
+/134            0           0     0     644     12880     `
+/149            0           0     0     644     14764     `
+/168            0           0     0     644     23460     `
+/181            0           0     0     644     16612     `
+/193            0           0     0     644     5784      `
+/208            0           0     0     644     16984     `
+/220            0           0     0     644     8644      `
+/233            0           0     0     644     9428      `
+/246            0           0     0     644     7724      `

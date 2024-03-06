@@ -1,0 +1,1 @@
+cmd_drivers/spi/spi-s3c64xx.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/spi/spi-s3c64xx.ko drivers/spi/spi-s3c64xx.o drivers/spi/spi-s3c64xx.mod.o ;  true

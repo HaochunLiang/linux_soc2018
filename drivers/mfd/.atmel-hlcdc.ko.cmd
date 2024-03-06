@@ -1,0 +1,1 @@
+cmd_drivers/mfd/atmel-hlcdc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/mfd/atmel-hlcdc.ko drivers/mfd/atmel-hlcdc.o drivers/mfd/atmel-hlcdc.mod.o ;  true

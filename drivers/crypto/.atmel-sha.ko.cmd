@@ -1,0 +1,1 @@
+cmd_drivers/crypto/atmel-sha.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/atmel-sha.ko drivers/crypto/atmel-sha.o drivers/crypto/atmel-sha.mod.o ;  true

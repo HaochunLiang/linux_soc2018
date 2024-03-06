@@ -1,0 +1,8 @@
+kernel/drivers/cpufreq/cpufreq_performance.ko
+kernel/drivers/cpufreq/cpufreq_ondemand.ko
+kernel/drivers/cpufreq/cpufreq-dt.ko
+kernel/drivers/cpufreq/brcmstb-avs-cpufreq.ko
+kernel/drivers/cpufreq/exynos5440-cpufreq.ko
+kernel/drivers/cpufreq/imx6q-cpufreq.ko
+kernel/drivers/cpufreq/tegra124-cpufreq.ko
+kernel/drivers/cpufreq/qoriq-cpufreq.ko

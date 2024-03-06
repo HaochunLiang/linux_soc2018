@@ -1,0 +1,48 @@
+!<thin>
+//                                              400       `
+clk-sunxi.o/
+clk-factors.o/
+clk-a10-codec.o/
+clk-a10-hosc.o/
+clk-a10-mod1.o/
+clk-a10-pll2.o/
+clk-a10-ve.o/
+clk-a20-gmac.o/
+clk-mod0.o/
+clk-simple-gates.o/
+clk-sun4i-display.o/
+clk-sun4i-pll3.o/
+clk-sun4i-tcon-ch1.o/
+clk-sun8i-bus-gates.o/
+clk-sun8i-mbus.o/
+clk-sun9i-core.o/
+clk-sun9i-mmc.o/
+clk-usb.o/
+clk-sun8i-apb0.o/
+clk-sun9i-cpus.o/
+clk-sun6i-ar100.o/
+clk-sun6i-apb0.o/
+clk-sun6i-apb0-gates.o/
+/0              0           0     0     644     18308     `
+/13             0           0     0     644     4332      `
+/28             0           0     0     644     2204      `
+/45             0           0     0     644     2668      `
+/61             0           0     0     644     2724      `
+/77             0           0     0     644     4548      `
+/93             0           0     0     644     4124      `
+/107            0           0     0     644     2776      `
+/123            0           0     0     644     8632      `
+/135            0           0     0     644     10968     `
+/155            0           0     0     644     5804      `
+/176            0           0     0     644     3316      `
+/194            0           0     0     644     5440      `
+/216            0           0     0     644     4208      `
+/239            0           0     0     644     3580      `
+/257            0           0     0     644     6564      `
+/275            0           0     0     644     5572      `
+/292            0           0     0     644     7404      `
+/303            0           0     0     644     4448      `
+/321            0           0     0     644     4600      `
+/339            0           0     0     644     3472      `
+/358            0           0     0     644     3392      `
+/376            0           0     0     644     4380      `

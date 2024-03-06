@@ -1,0 +1,1 @@
+cmd_drivers/crypto/sunxi-ss/sun4i-ss.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/sunxi-ss/sun4i-ss.ko drivers/crypto/sunxi-ss/sun4i-ss.o drivers/crypto/sunxi-ss/sun4i-ss.mod.o ;  true

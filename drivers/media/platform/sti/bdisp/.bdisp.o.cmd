@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/sti/bdisp/bdisp.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/media/platform/sti/bdisp/bdisp.o drivers/media/platform/sti/bdisp/bdisp-v4l2.o drivers/media/platform/sti/bdisp/bdisp-hw.o drivers/media/platform/sti/bdisp/bdisp-debug.o 

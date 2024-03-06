@@ -1,0 +1,2 @@
+kernel/drivers/clk/keystone/pll.ko
+kernel/drivers/clk/keystone/gate.ko

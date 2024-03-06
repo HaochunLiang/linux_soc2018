@@ -1,0 +1,1 @@
+cmd_arch/arm/crypto/sha512-arm.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o arch/arm/crypto/sha512-arm.ko arch/arm/crypto/sha512-arm.o arch/arm/crypto/sha512-arm.mod.o ;  true

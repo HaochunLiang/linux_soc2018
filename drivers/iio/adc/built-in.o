@@ -1,0 +1,11 @@
+!<thin>
+//                                              76        `
+bcm_iproc_adc.o/
+meson_saradc.o/
+xilinx-xadc-core.o/
+xilinx-xadc-events.o/
+
+/0              0           0     0     644     10084     `
+/17             0           0     0     644     15612     `
+/33             0           0     0     644     18704     `
+/53             0           0     0     644     2836      `

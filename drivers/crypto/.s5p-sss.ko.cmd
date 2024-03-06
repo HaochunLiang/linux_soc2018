@@ -1,0 +1,1 @@
+cmd_drivers/crypto/s5p-sss.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/s5p-sss.ko drivers/crypto/s5p-sss.o drivers/crypto/s5p-sss.mod.o ;  true

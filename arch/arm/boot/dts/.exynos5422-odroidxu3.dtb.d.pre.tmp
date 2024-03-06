@@ -1,0 +1,20 @@
+exynos5422-odroidxu3.o: arch/arm/boot/dts/exynos5422-odroidxu3.dts \
+ arch/arm/boot/dts/exynos5422-odroidxu3-common.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/clock/samsung,s2mps11.h \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ scripts/dtc/include-prefixes/dt-bindings/sound/samsung-i2s.h \
+ arch/arm/boot/dts/exynos5800.dtsi arch/arm/boot/dts/exynos5420.dtsi \
+ arch/arm/boot/dts/exynos54xx.dtsi arch/arm/boot/dts/exynos5.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/arm-gic.h \
+ arch/arm/boot/dts/exynos-syscon-restart.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/clock/exynos5420.h \
+ scripts/dtc/include-prefixes/dt-bindings/clock/exynos-audss-clk.h \
+ arch/arm/boot/dts/exynos5420-tmu-sensor-conf.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/thermal/thermal_exynos.h \
+ arch/arm/boot/dts/exynos5420-trip-points.dtsi \
+ arch/arm/boot/dts/exynos5420-pinctrl.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/samsung.h \
+ arch/arm/boot/dts/exynos5422-cpus.dtsi \
+ arch/arm/boot/dts/exynos5422-odroidxu3-audio.dtsi \
+ arch/arm/boot/dts/exynos54xx-odroidxu-leds.dtsi

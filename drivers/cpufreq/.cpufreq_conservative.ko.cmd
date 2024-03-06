@@ -1,0 +1,1 @@
+cmd_drivers/cpufreq/cpufreq_conservative.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/cpufreq/cpufreq_conservative.ko drivers/cpufreq/cpufreq_conservative.o drivers/cpufreq/cpufreq_conservative.mod.o ;  true

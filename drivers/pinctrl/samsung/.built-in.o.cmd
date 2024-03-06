@@ -1,0 +1,1 @@
+cmd_drivers/pinctrl/samsung/built-in.o :=  rm -f drivers/pinctrl/samsung/built-in.o; arm-none-eabi-ar rcSTPD drivers/pinctrl/samsung/built-in.o drivers/pinctrl/samsung/pinctrl-samsung.o drivers/pinctrl/samsung/pinctrl-exynos.o drivers/pinctrl/samsung/pinctrl-exynos-arm.o drivers/pinctrl/samsung/pinctrl-exynos5440.o 

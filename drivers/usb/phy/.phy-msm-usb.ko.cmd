@@ -1,0 +1,1 @@
+cmd_drivers/usb/phy/phy-msm-usb.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/usb/phy/phy-msm-usb.ko drivers/usb/phy/phy-msm-usb.o drivers/usb/phy/phy-msm-usb.mod.o ;  true

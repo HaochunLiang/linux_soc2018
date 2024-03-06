@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/exynos4-is/exynos4-is-common.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/exynos4-is/exynos4-is-common.ko drivers/media/platform/exynos4-is/exynos4-is-common.o drivers/media/platform/exynos4-is/exynos4-is-common.mod.o ;  true

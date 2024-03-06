@@ -1,0 +1,20 @@
+!<thin>
+//                                              116       `
+psmouse-base.o/
+synaptics.o/
+focaltech.o/
+alps.o/
+byd.o/
+logips2pp.o/
+trackpoint.o/
+cypress_ps2.o/
+psmouse-smbus.o/
+/0              0           0     0     644     24152     `
+/16             0           0     0     644     19320     `
+/29             0           0     0     644     4732      `
+/42             0           0     0     644     28908     `
+/50             0           0     0     644     4264      `
+/57             0           0     0     644     5056      `
+/70             0           0     0     644     9032      `
+/84             0           0     0     644     6428      `
+/99             0           0     0     644     4912      `

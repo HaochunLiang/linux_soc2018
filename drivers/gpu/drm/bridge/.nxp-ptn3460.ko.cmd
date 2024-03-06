@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/bridge/nxp-ptn3460.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/bridge/nxp-ptn3460.ko drivers/gpu/drm/bridge/nxp-ptn3460.o drivers/gpu/drm/bridge/nxp-ptn3460.mod.o ;  true

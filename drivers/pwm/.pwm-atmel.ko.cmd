@@ -1,0 +1,1 @@
+cmd_drivers/pwm/pwm-atmel.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/pwm/pwm-atmel.ko drivers/pwm/pwm-atmel.o drivers/pwm/pwm-atmel.mod.o ;  true

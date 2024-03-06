@@ -1,0 +1,1 @@
+cmd_drivers/soc/qcom/smd-rpm.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/soc/qcom/smd-rpm.ko drivers/soc/qcom/smd-rpm.o drivers/soc/qcom/smd-rpm.mod.o ;  true

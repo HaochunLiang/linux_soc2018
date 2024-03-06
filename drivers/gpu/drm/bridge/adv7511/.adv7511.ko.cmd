@@ -1,0 +1,1 @@
+cmd_drivers/gpu/drm/bridge/adv7511/adv7511.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/bridge/adv7511/adv7511.ko drivers/gpu/drm/bridge/adv7511/adv7511.o drivers/gpu/drm/bridge/adv7511/adv7511.mod.o ;  true

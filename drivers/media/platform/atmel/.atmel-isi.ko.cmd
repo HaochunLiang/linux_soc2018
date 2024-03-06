@@ -1,0 +1,1 @@
+cmd_drivers/media/platform/atmel/atmel-isi.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/atmel/atmel-isi.ko drivers/media/platform/atmel/atmel-isi.o drivers/media/platform/atmel/atmel-isi.mod.o ;  true

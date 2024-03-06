@@ -1,0 +1,1 @@
+cmd_drivers/phy/broadcom/built-in.o :=  rm -f drivers/phy/broadcom/built-in.o; arm-none-eabi-ar rcSTPD drivers/phy/broadcom/built-in.o drivers/phy/broadcom/phy-bcm-cygnus-pcie.o drivers/phy/broadcom/phy-bcm-ns2-usbdrd.o drivers/phy/broadcom/phy-brcm-sata.o 

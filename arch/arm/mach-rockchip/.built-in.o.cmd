@@ -1,0 +1,1 @@
+cmd_arch/arm/mach-rockchip/built-in.o :=  rm -f arch/arm/mach-rockchip/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/mach-rockchip/built-in.o arch/arm/mach-rockchip/rockchip.o arch/arm/mach-rockchip/headsmp.o arch/arm/mach-rockchip/platsmp.o 

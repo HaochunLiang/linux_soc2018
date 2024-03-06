@@ -1,0 +1,1 @@
+cmd_drivers/video/backlight/platform_lcd.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/video/backlight/platform_lcd.ko drivers/video/backlight/platform_lcd.o drivers/video/backlight/platform_lcd.mod.o ;  true

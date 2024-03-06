@@ -1,0 +1,1 @@
+cmd_drivers/media/common/v4l2-tpg/v4l2-tpg.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/media/common/v4l2-tpg/v4l2-tpg.o drivers/media/common/v4l2-tpg/v4l2-tpg-core.o drivers/media/common/v4l2-tpg/v4l2-tpg-colors.o 

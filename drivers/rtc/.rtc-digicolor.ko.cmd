@@ -1,0 +1,1 @@
+cmd_drivers/rtc/rtc-digicolor.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/rtc/rtc-digicolor.ko drivers/rtc/rtc-digicolor.o drivers/rtc/rtc-digicolor.mod.o ;  true

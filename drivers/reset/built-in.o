@@ -1,0 +1,26 @@
+!<thin>
+//                                              210       `
+core.o/
+hisilicon/hi6220_reset.o/
+hisilicon/reset-hi3660.o/
+sti/reset-syscfg.o/
+sti/reset-stih407.o/
+reset-berlin.o/
+reset-imx7.o/
+reset-meson.o/
+reset-socfpga.o/
+reset-sunxi.o/
+reset-uniphier.o/
+reset-zynq.o/
+/0              0           0     0     644     11332     `
+/8              0           0     0     644     3932      `
+/34             0           0     0     644     3616      `
+/60             0           0     0     644     3068      `
+/80             0           0     0     644     5672      `
+/101            0           0     0     644     3436      `
+/117            0           0     0     644     4012      `
+/131            0           0     0     644     3452      `
+/146            0           0     0     644     4296      `
+/163            0           0     0     644     4904      `
+/178            0           0     0     644     11592     `
+/196            0           0     0     644     3868      `

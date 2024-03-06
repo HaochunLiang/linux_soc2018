@@ -1,0 +1,1 @@
+cmd_drivers/devfreq/tegra-devfreq.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/devfreq/tegra-devfreq.ko drivers/devfreq/tegra-devfreq.o drivers/devfreq/tegra-devfreq.mod.o ;  true

@@ -1,0 +1,1 @@
+cmd_arch/arm/mach-zynq/built-in.o :=  rm -f arch/arm/mach-zynq/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/mach-zynq/built-in.o arch/arm/mach-zynq/common.o arch/arm/mach-zynq/slcr.o arch/arm/mach-zynq/pm.o arch/arm/mach-zynq/headsmp.o arch/arm/mach-zynq/platsmp.o 

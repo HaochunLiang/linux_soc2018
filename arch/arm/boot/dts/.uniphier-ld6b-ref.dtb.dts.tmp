@@ -1,0 +1,603 @@
+# 1 "arch/arm/boot/dts/uniphier-ld6b-ref.dts"
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 1 "arch/arm/boot/dts/uniphier-ld6b-ref.dts"
+# 10 "arch/arm/boot/dts/uniphier-ld6b-ref.dts"
+/dts-v1/;
+# 1 "arch/arm/boot/dts/uniphier-ld6b.dtsi" 1
+# 15 "arch/arm/boot/dts/uniphier-ld6b.dtsi"
+# 1 "arch/arm/boot/dts/uniphier-pxs2.dtsi" 1
+# 10 "arch/arm/boot/dts/uniphier-pxs2.dtsi"
+/ {
+ compatible = "socionext,uniphier-pxs2";
+ #address-cells = <1>;
+ #size-cells = <1>;
+
+ cpus {
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  cpu@0 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   reg = <0>;
+   clocks = <&sys_clk 32>;
+   enable-method = "psci";
+   next-level-cache = <&l2>;
+   operating-points-v2 = <&cpu_opp>;
+  };
+
+  cpu@1 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   reg = <1>;
+   clocks = <&sys_clk 32>;
+   enable-method = "psci";
+   next-level-cache = <&l2>;
+   operating-points-v2 = <&cpu_opp>;
+  };
+
+  cpu@2 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   reg = <2>;
+   clocks = <&sys_clk 32>;
+   enable-method = "psci";
+   next-level-cache = <&l2>;
+   operating-points-v2 = <&cpu_opp>;
+  };
+
+  cpu@3 {
+   device_type = "cpu";
+   compatible = "arm,cortex-a9";
+   reg = <3>;
+   clocks = <&sys_clk 32>;
+   enable-method = "psci";
+   next-level-cache = <&l2>;
+   operating-points-v2 = <&cpu_opp>;
+  };
+ };
+
+ cpu_opp: opp_table {
+  compatible = "operating-points-v2";
+  opp-shared;
+
+  opp-100000000 {
+   opp-hz = /bits/ 64 <100000000>;
+   clock-latency-ns = <300>;
+  };
+  opp-150000000 {
+   opp-hz = /bits/ 64 <150000000>;
+   clock-latency-ns = <300>;
+  };
+  opp-200000000 {
+   opp-hz = /bits/ 64 <200000000>;
+   clock-latency-ns = <300>;
+  };
+  opp-300000000 {
+   opp-hz = /bits/ 64 <300000000>;
+   clock-latency-ns = <300>;
+  };
+  opp-400000000 {
+   opp-hz = /bits/ 64 <400000000>;
+   clock-latency-ns = <300>;
+  };
+  opp-600000000 {
+   opp-hz = /bits/ 64 <600000000>;
+   clock-latency-ns = <300>;
+  };
+  opp-800000000 {
+   opp-hz = /bits/ 64 <800000000>;
+   clock-latency-ns = <300>;
+  };
+  opp-1200000000 {
+   opp-hz = /bits/ 64 <1200000000>;
+   clock-latency-ns = <300>;
+  };
+ };
+
+ psci {
+  compatible = "arm,psci-0.2";
+  method = "smc";
+ };
+
+ clocks {
+  refclk: ref {
+   compatible = "fixed-clock";
+   #clock-cells = <0>;
+   clock-frequency = <25000000>;
+  };
+
+  arm_timer_clk: arm_timer_clk {
+   #clock-cells = <0>;
+   compatible = "fixed-clock";
+   clock-frequency = <50000000>;
+  };
+ };
+
+ soc {
+  compatible = "simple-bus";
+  #address-cells = <1>;
+  #size-cells = <1>;
+  ranges;
+  interrupt-parent = <&intc>;
+
+  l2: l2-cache@500c0000 {
+   compatible = "socionext,uniphier-system-cache";
+   reg = <0x500c0000 0x2000>, <0x503c0100 0x8>,
+         <0x506c0000 0x400>;
+   interrupts = <0 174 4>, <0 175 4>, <0 190 4>, <0 191 4>;
+   cache-unified;
+   cache-size = <(1280 * 1024)>;
+   cache-sets = <512>;
+   cache-line-size = <128>;
+   cache-level = <2>;
+  };
+
+  serial0: serial@54006800 {
+   compatible = "socionext,uniphier-uart";
+   status = "disabled";
+   reg = <0x54006800 0x40>;
+   interrupts = <0 33 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_uart0>;
+   clocks = <&peri_clk 0>;
+  };
+
+  serial1: serial@54006900 {
+   compatible = "socionext,uniphier-uart";
+   status = "disabled";
+   reg = <0x54006900 0x40>;
+   interrupts = <0 35 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_uart1>;
+   clocks = <&peri_clk 1>;
+  };
+
+  serial2: serial@54006a00 {
+   compatible = "socionext,uniphier-uart";
+   status = "disabled";
+   reg = <0x54006a00 0x40>;
+   interrupts = <0 37 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_uart2>;
+   clocks = <&peri_clk 2>;
+  };
+
+  serial3: serial@54006b00 {
+   compatible = "socionext,uniphier-uart";
+   status = "disabled";
+   reg = <0x54006b00 0x40>;
+   interrupts = <0 177 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_uart3>;
+   clocks = <&peri_clk 3>;
+  };
+
+  i2c0: i2c@58780000 {
+   compatible = "socionext,uniphier-fi2c";
+   status = "disabled";
+   reg = <0x58780000 0x80>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   interrupts = <0 41 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_i2c0>;
+   clocks = <&peri_clk 4>;
+   clock-frequency = <100000>;
+  };
+
+  i2c1: i2c@58781000 {
+   compatible = "socionext,uniphier-fi2c";
+   status = "disabled";
+   reg = <0x58781000 0x80>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   interrupts = <0 42 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_i2c1>;
+   clocks = <&peri_clk 5>;
+   clock-frequency = <100000>;
+  };
+
+  i2c2: i2c@58782000 {
+   compatible = "socionext,uniphier-fi2c";
+   status = "disabled";
+   reg = <0x58782000 0x80>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   interrupts = <0 43 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_i2c2>;
+   clocks = <&peri_clk 6>;
+   clock-frequency = <100000>;
+  };
+
+  i2c3: i2c@58783000 {
+   compatible = "socionext,uniphier-fi2c";
+   status = "disabled";
+   reg = <0x58783000 0x80>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   interrupts = <0 44 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_i2c3>;
+   clocks = <&peri_clk 7>;
+   clock-frequency = <100000>;
+  };
+
+
+  i2c4: i2c@58784000 {
+   compatible = "socionext,uniphier-fi2c";
+   reg = <0x58784000 0x80>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   interrupts = <0 45 4>;
+   clocks = <&peri_clk 8>;
+   clock-frequency = <400000>;
+  };
+
+
+  i2c5: i2c@58785000 {
+   compatible = "socionext,uniphier-fi2c";
+   reg = <0x58785000 0x80>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   interrupts = <0 25 4>;
+   clocks = <&peri_clk 9>;
+   clock-frequency = <400000>;
+  };
+
+
+  i2c6: i2c@58786000 {
+   compatible = "socionext,uniphier-fi2c";
+   reg = <0x58786000 0x80>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   interrupts = <0 26 4>;
+   clocks = <&peri_clk 10>;
+   clock-frequency = <400000>;
+  };
+
+  system_bus: system-bus@58c00000 {
+   compatible = "socionext,uniphier-system-bus";
+   status = "disabled";
+   reg = <0x58c00000 0x400>;
+   #address-cells = <2>;
+   #size-cells = <1>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_system_bus>;
+  };
+
+  smpctrl@59801000 {
+   compatible = "socionext,uniphier-smpctrl";
+   reg = <0x59801000 0x400>;
+  };
+
+  sdctrl@59810000 {
+   compatible = "socionext,uniphier-pxs2-sdctrl",
+         "simple-mfd", "syscon";
+   reg = <0x59810000 0x400>;
+
+   sd_clk: clock {
+    compatible = "socionext,uniphier-pxs2-sd-clock";
+    #clock-cells = <1>;
+   };
+
+   sd_rst: reset {
+    compatible = "socionext,uniphier-pxs2-sd-reset";
+    #reset-cells = <1>;
+   };
+  };
+
+  perictrl@59820000 {
+   compatible = "socionext,uniphier-pxs2-perictrl",
+         "simple-mfd", "syscon";
+   reg = <0x59820000 0x200>;
+
+   peri_clk: clock {
+    compatible = "socionext,uniphier-pxs2-peri-clock";
+    #clock-cells = <1>;
+   };
+
+   peri_rst: reset {
+    compatible = "socionext,uniphier-pxs2-peri-reset";
+    #reset-cells = <1>;
+   };
+  };
+
+  soc-glue@5f800000 {
+   compatible = "socionext,uniphier-pxs2-soc-glue",
+         "simple-mfd", "syscon";
+   reg = <0x5f800000 0x2000>;
+
+   pinctrl: pinctrl {
+    compatible = "socionext,uniphier-pxs2-pinctrl";
+   };
+  };
+
+  aidet: aidet@5fc20000 {
+   compatible = "socionext,uniphier-pxs2-aidet";
+   reg = <0x5fc20000 0x200>;
+   interrupt-controller;
+   #interrupt-cells = <2>;
+  };
+
+  timer@60000200 {
+   compatible = "arm,cortex-a9-global-timer";
+   reg = <0x60000200 0x20>;
+   interrupts = <1 11 0xf04>;
+   clocks = <&arm_timer_clk>;
+  };
+
+  timer@60000600 {
+   compatible = "arm,cortex-a9-twd-timer";
+   reg = <0x60000600 0x20>;
+   interrupts = <1 13 0xf04>;
+   clocks = <&arm_timer_clk>;
+  };
+
+  intc: interrupt-controller@60001000 {
+   compatible = "arm,cortex-a9-gic";
+   reg = <0x60001000 0x1000>,
+         <0x60000100 0x100>;
+   #interrupt-cells = <3>;
+   interrupt-controller;
+  };
+
+  sysctrl@61840000 {
+   compatible = "socionext,uniphier-pxs2-sysctrl",
+         "simple-mfd", "syscon";
+   reg = <0x61840000 0x10000>;
+
+   sys_clk: clock {
+    compatible = "socionext,uniphier-pxs2-clock";
+    #clock-cells = <1>;
+   };
+
+   sys_rst: reset {
+    compatible = "socionext,uniphier-pxs2-reset";
+    #reset-cells = <1>;
+   };
+  };
+
+  nand: nand@68000000 {
+   compatible = "socionext,uniphier-denali-nand-v5b";
+   status = "disabled";
+   reg-names = "nand_data", "denali_reg";
+   reg = <0x68000000 0x20>, <0x68100000 0x1000>;
+   interrupts = <0 65 4>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&pinctrl_nand2cs>;
+   clocks = <&sys_clk 2>;
+  };
+ };
+};
+
+# 1 "arch/arm/boot/dts/uniphier-pinctrl.dtsi" 1
+# 10 "arch/arm/boot/dts/uniphier-pinctrl.dtsi"
+&pinctrl {
+ pinctrl_aout: aout_grp {
+  groups = "aout";
+  function = "aout";
+ };
+
+ pinctrl_emmc: emmc_grp {
+  groups = "emmc", "emmc_dat8";
+  function = "emmc";
+ };
+
+ pinctrl_ether_mii: ether_mii_grp {
+  groups = "ether_mii";
+  function = "ether_mii";
+ };
+
+ pinctrl_ether_rgmii: ether_rgmii_grp {
+  groups = "ether_rgmii";
+  function = "ether_rgmii";
+ };
+
+ pinctrl_ether_rmii: ether_rmii_grp {
+  groups = "ether_rmii";
+  function = "ether_rmii";
+ };
+
+ pinctrl_i2c0: i2c0_grp {
+  groups = "i2c0";
+  function = "i2c0";
+ };
+
+ pinctrl_i2c1: i2c1_grp {
+  groups = "i2c1";
+  function = "i2c1";
+ };
+
+ pinctrl_i2c2: i2c2_grp {
+  groups = "i2c2";
+  function = "i2c2";
+ };
+
+ pinctrl_i2c3: i2c3_grp {
+  groups = "i2c3";
+  function = "i2c3";
+ };
+
+ pinctrl_i2c4: i2c4_grp {
+  groups = "i2c4";
+  function = "i2c4";
+ };
+
+ pinctrl_nand: nand_grp {
+  groups = "nand";
+  function = "nand";
+ };
+
+ pinctrl_nand2cs: nand2cs_grp {
+  groups = "nand", "nand_cs1";
+  function = "nand";
+ };
+
+ pinctrl_sd: sd_grp {
+  groups = "sd";
+  function = "sd";
+ };
+
+ pinctrl_sd1: sd1_grp {
+  groups = "sd1";
+  function = "sd1";
+ };
+
+ pinctrl_system_bus: system_bus_grp {
+  groups = "system_bus", "system_bus_cs1";
+  function = "system_bus";
+ };
+
+ pinctrl_uart0: uart0_grp {
+  groups = "uart0";
+  function = "uart0";
+ };
+
+ pinctrl_uart1: uart1_grp {
+  groups = "uart1";
+  function = "uart1";
+ };
+
+ pinctrl_uart2: uart2_grp {
+  groups = "uart2";
+  function = "uart2";
+ };
+
+ pinctrl_uart3: uart3_grp {
+  groups = "uart3";
+  function = "uart3";
+ };
+
+ pinctrl_usb0: usb0_grp {
+  groups = "usb0";
+  function = "usb0";
+ };
+
+ pinctrl_usb1: usb1_grp {
+  groups = "usb1";
+  function = "usb1";
+ };
+
+ pinctrl_usb2: usb2_grp {
+  groups = "usb2";
+  function = "usb2";
+ };
+
+ pinctrl_usb3: usb3_grp {
+  groups = "usb3";
+  function = "usb3";
+ };
+};
+# 376 "arch/arm/boot/dts/uniphier-pxs2.dtsi" 2
+# 16 "arch/arm/boot/dts/uniphier-ld6b.dtsi" 2
+
+/ {
+ compatible = "socionext,uniphier-ld6b";
+};
+
+
+&serial3 {
+ status = "disabled";
+};
+
+
+
+
+
+&pinctrl {
+ compatible = "socionext,uniphier-ld6b-pinctrl";
+};
+# 12 "arch/arm/boot/dts/uniphier-ld6b-ref.dts" 2
+# 1 "arch/arm/boot/dts/uniphier-ref-daughter.dtsi" 1
+# 10 "arch/arm/boot/dts/uniphier-ref-daughter.dtsi"
+&i2c0 {
+ eeprom@50 {
+  compatible = "microchip,24lc128";
+  reg = <0x50>;
+  pagesize = <64>;
+ };
+};
+# 13 "arch/arm/boot/dts/uniphier-ld6b-ref.dts" 2
+# 1 "arch/arm/boot/dts/uniphier-support-card.dtsi" 1
+# 10 "arch/arm/boot/dts/uniphier-support-card.dtsi"
+&system_bus {
+ status = "okay";
+ ranges = <1 0x00000000 0x42000000 0x02000000>;
+
+ support_card: support_card@1,1f00000 {
+  compatible = "simple-bus";
+  #address-cells = <1>;
+  #size-cells = <1>;
+  ranges = <0x00000000 1 0x01f00000 0x00100000>;
+
+  ethsc: ethernet@0 {
+   compatible = "smsc,lan9118", "smsc,lan9115";
+   reg = <0x00000000 0x1000>;
+   phy-mode = "mii";
+   reg-io-width = <4>;
+  };
+
+  serialsc: uart@b0000 {
+   compatible = "ns16550a";
+   reg = <0x000b0000 0x20>;
+   clock-frequency = <12288000>;
+   reg-shift = <1>;
+  };
+ };
+};
+# 14 "arch/arm/boot/dts/uniphier-ld6b-ref.dts" 2
+
+/ {
+ model = "UniPhier LD6b Reference Board";
+ compatible = "socionext,uniphier-ld6b-ref", "socionext,uniphier-ld6b";
+
+ chosen {
+  stdout-path = "serial0:115200n8";
+ };
+
+ aliases {
+  serial0 = &serial0;
+  serial1 = &serial1;
+  serial2 = &serial2;
+  i2c0 = &i2c0;
+  i2c1 = &i2c1;
+  i2c2 = &i2c2;
+  i2c3 = &i2c3;
+  i2c4 = &i2c4;
+  i2c5 = &i2c5;
+  i2c6 = &i2c6;
+ };
+
+ memory@80000000 {
+  device_type = "memory";
+  reg = <0x80000000 0x80000000>;
+ };
+};
+
+&ethsc {
+ interrupts = <0 52 4>;
+};
+
+&serial0 {
+ status = "okay";
+};
+
+&serial1 {
+ status = "okay";
+};
+
+&serial2 {
+ status = "okay";
+};
+
+&i2c0 {
+ status = "okay";
+};
+
+&nand {
+ status = "okay";
+};

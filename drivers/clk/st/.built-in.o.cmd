@@ -1,0 +1,1 @@
+cmd_drivers/clk/st/built-in.o :=  rm -f drivers/clk/st/built-in.o; arm-none-eabi-ar rcSTPD drivers/clk/st/built-in.o drivers/clk/st/clkgen-mux.o drivers/clk/st/clkgen-pll.o drivers/clk/st/clkgen-fsyn.o drivers/clk/st/clk-flexgen.o 
