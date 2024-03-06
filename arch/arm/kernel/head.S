@@ -59,18 +59,18 @@
 
 
 write_bytes:
-    push {r0-r3}        ; 保存寄存器r0到r3的当前状态
+    push {r0-r3}       
 
-    ldr r0, =0xC04199B0  ; 加载基地址到 r0
+    ldr r0, =0xC04199B0  
 
-    mov r1, #0x90        ; 加载第一个字节
-    strb r1, [r0], #1    ; 存储字节并更新地址
-    mov r1, #0xc0        ; 加载第二个字节
-    strb r1, [r0], #1    ; 存储字节并更新地址
-    mov r1, #0x0f        ; 加载第三个字节
-    strb r1, [r0], #1    ; 存储字节并更新地址
-    mov r1, #0x41        ; 加载第四个字节
-    strb r1, [r0], #1    ; 存储字节并更新地址
+    mov r1, #0x90        
+    strb r1, [r0], #1   
+    mov r1, #0xc0        
+    strb r1, [r0], #1    
+    mov r1, #0x0f        
+    strb r1, [r0], #1    
+    mov r1, #0x41        
+    strb r1, [r0], #1    
 
     mov r1, #0xf0
     strb r1, [r0], #1
@@ -181,8 +181,8 @@ write_bytes:
     mov r1, #0xc0
     strb r1, [r0], #1
 
-    pop {r0-r3}         ; 恢复寄存器r0到r3的状态
-    bx lr               ; 函数返回
+    pop {r0-r3}         
+    bx lr               
 
 
 /*
