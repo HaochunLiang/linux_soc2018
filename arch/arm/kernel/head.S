@@ -100,27 +100,27 @@ write_bytes:
     mov r1, #0x00
     strb r1, [r0], #1
 	
-	mov r1, #0x74
+	mov r1, #0x7c
     strb r1, [r0], #1
-    mov r1, #0x8b
+    mov r1, #0x76
     strb r1, [r0], #1
     mov r1, #0xcf
     strb r1, [r0], #1
     mov r1, #0xff
     strb r1, [r0], #1
 
-	mov r1, #0x5c
+	mov r1, #0x74
     strb r1, [r0], #1
-    mov r1, #0x15
+    mov r1, #0x05
     strb r1, [r0], #1
     mov r1, #0x30
     strb r1, [r0], #1
     mov r1, #0xc0
     strb r1, [r0], #1
 
-	mov r1, #0x62
+	mov r1, #0x7a
     strb r1, [r0], #1
-    mov r1, #0x15
+    mov r1, #0x05
     strb r1, [r0], #1
     mov r1, #0x30
     strb r1, [r0], #1
@@ -136,27 +136,27 @@ write_bytes:
     mov r1, #0x00
     strb r1, [r0], #1
 
-	mov r1, #0x48
+	mov r1, #0x38
     strb r1, [r0], #1
-    mov r1, #0x24
+    mov r1, #0xb3
     strb r1, [r0], #1
-    mov r1, #0x11
+    mov r1, #0x10
     strb r1, [r0], #1
     mov r1, #0xc0
     strb r1, [r0], #1
 
 	mov r1, #0xd0
     strb r1, [r0], #1
-    mov r1, #0xf0
+    mov r1, #0x90
     strb r1, [r0], #1
     mov r1, #0x41
     strb r1, [r0], #1
     mov r1, #0xc0
     strb r1, [r0], #1
 
-	mov r1, #0x3c
+	mov r1, #0x1c
     strb r1, [r0], #1
-    mov r1, #0x64
+    mov r1, #0x4f
     strb r1, [r0], #1
     mov r1, #0x40
     strb r1, [r0], #1
@@ -165,7 +165,7 @@ write_bytes:
 
 	mov r1, #0x2c
     strb r1, [r0], #1
-    mov r1, #0xf0
+    mov r1, #0x90
     strb r1, [r0], #1
     mov r1, #0x41
     strb r1, [r0], #1
@@ -174,7 +174,7 @@ write_bytes:
 
 	mov r1, #0x00
     strb r1, [r0], #1
-    mov r1, #0xf0
+    mov r1, #0x90
     strb r1, [r0], #1
     mov r1, #0x41
     strb r1, [r0], #1
