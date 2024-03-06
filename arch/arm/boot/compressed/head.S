@@ -552,13 +552,13 @@ not_relocated:	mov	r0, #0
  *   r7  = architecture ID
  *   r8  = atags pointer
  */
- 		bl	cache_clean_flush
-		bl	cache_off
 		mov	r0, r4
 		mov	r1, sp			@ malloc space above stack
 		add	r2, sp, #0x10000	@ 64k max
 		mov	r3, r7
 		bl	decompress_kernel
+		bl	cache_clean_flush
+		bl	cache_off
 
 #ifdef CONFIG_ARM_VIRT_EXT
 		mrs	r0, spsr		@ Get saved CPU boot mode
