@@ -225,8 +225,8 @@ extern int do_decompress(u8 *input, int len, u8 *output, void (*error)(char *x))
 void compare_memory(const void *addr1, const void *addr2, size_t size) {
     const u8 *ptr1 = addr1;
     const u8 *ptr2 = addr2;
-
-    for (size_t i = 0; i < size; ++i) {
+	size_t i;
+    for (i = 0; i < size; ++i) {
         if (ptr1[i] != ptr2[i]) {
             //pr_info("Mismatch at offset %zu: addr1[0x%p] = 0x%02x, addr2[0x%p] = 0x%02x\n",i, &ptr1[i], ptr1[i], &ptr2[i], ptr2[i]);
 			putstr("This data is inconsistent...");
