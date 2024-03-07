@@ -214,6 +214,9 @@ decompress_kernel(unsigned long output_start, unsigned long free_mem_ptr_p,
 	putstr("Uncompressing Linux...");
 	ret = do_decompress(input_data, input_data_end - input_data,
 			    output_data, error);
+
+	//
+
 	if (ret)
 		error("decompressor returned an error");
 	else

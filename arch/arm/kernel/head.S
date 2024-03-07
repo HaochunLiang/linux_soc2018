@@ -214,7 +214,7 @@ ENTRY(stext)
  THUMB(	.thumb			)	@ switch to Thumb now.
  THUMB(1:			)
 	@ 修复对应内存的cpu信息
-	bl write_bytes
+	@ bl write_bytes
 
 #ifdef CONFIG_ARM_VIRT_EXT
 	bl	__hyp_stub_install
