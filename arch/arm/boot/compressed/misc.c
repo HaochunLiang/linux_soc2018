@@ -195,11 +195,53 @@ void __stack_chk_fail(void)
 extern int do_decompress(u8 *input, int len, u8 *output, void (*error)(char *x));
 
 
+// //write bytes for __v7_ca9mp_proc_info
+// void write_bytes()
+// {
+// 	// 定义目标内存地址，这需要确保在您的硬件上是正确的
+//     volatile unsigned char *target = (volatile unsigned char *)0xc0413d98;
+
+//     // 一系列要写入的字节
+//     unsigned char bytes_to_write[] = {
+//         0x90, 0xc0, 0x0f, 0x41, 0xf0, 0xff, 0x0f, 0xff, 0x0e, 0x0c, 0x00, 0x00,
+//         0x02, 0x0c, 0x00, 0x00, 0x7c, 0x76, 0xcf, 0xff, 0x74, 0x05, 0x30, 0xc0,
+//         0x7a, 0x05, 0x30, 0xc0, 0x97, 0x80, 0x00, 0x00, 0x38, 0xb3, 0x10, 0xc0,
+//         0xd0, 0x90, 0x41, 0xc0, 0x1c, 0x4f, 0x40, 0xc0, 0x2c, 0x90, 0x41, 0xc0,
+//         0x00, 0x90, 0x41, 0xc0
+//     };
+
+//     // 循环写入字节
+//     for (size_t i = 0; i < sizeof(bytes_to_write); ++i) {
+//         writeb(bytes_to_write[i], target + i);
+//     }
+// }
+
+/**
+ * 比较两个内存地址处的数据
+ * @param addr1 第一个地址的指针
+ * @param addr2 第二个地址的指针
+ * @param size 要比较的数据长度（字节）
+ */
+void compare_memory(const void *addr1, const void *addr2, size_t size) {
+    const u8 *ptr1 = addr1;
+    const u8 *ptr2 = addr2;
+	size_t i;
+    for (i = 0; i < size; ++i) {
+        if (ptr1[i] != ptr2[i]) {
+            //pr_info("Mismatch at offset %zu: addr1[0x%p] = 0x%02x, addr2[0x%p] = 0x%02x\n",i, &ptr1[i], ptr1[i], &ptr2[i], ptr2[i]);
+			putstr("This data is inconsistent...");
+        }
+    }
+}
+
+
 void
 decompress_kernel(unsigned long output_start, unsigned long free_mem_ptr_p,
 		unsigned long free_mem_ptr_end_p,
 		int arch_id)
 {
+	//compare_memory(0x0,0xc3000000,0x100000);
+
 	int ret;
 
 	__stack_chk_guard_setup();
@@ -214,6 +256,10 @@ decompress_kernel(unsigned long output_start, unsigned long free_mem_ptr_p,
 	putstr("Uncompressing Linux...");
 	ret = do_decompress(input_data, input_data_end - input_data,
 			    output_data, error);
+
+	//修改__v7_ca9mp_proc_info的数据
+	//write_bytes();
+
 	if (ret)
 		error("decompressor returned an error");
 	else
