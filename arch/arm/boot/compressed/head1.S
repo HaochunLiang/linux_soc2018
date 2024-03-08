@@ -552,7 +552,7 @@ not_relocated:	mov	r0, #0
  *   r7  = architecture ID
  *   r8  = atags pointer
  */
- 		bl	cache_clean_flush
+		bl	cache_clean_flush
 		bl	cache_off
 		mov	r0, r4
 		mov	r1, sp			@ malloc space above stack

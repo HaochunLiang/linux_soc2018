@@ -26,7 +26,7 @@
 #undef UART01x_FR_BUSY
 #define UART01x_DR		0x0
 #define UART01x_FR     	0x14
-#define UART01x_FR_TXFF 0x20
+#define UART01x_FR_TXFF 0x40
 #define UART01x_FR_BUSY 0x20
 
 
@@ -43,15 +43,15 @@
 		.endm
 
 		.macro	waituart,rd,rx
-1001:		ldr	\rd, [\rx, #UART01x_FR] @ ldr r3, [r1, #0x14]
+1001:		ldr	\rd, [\rx, #UART01x_FR]
 ARM_BE8(	rev	\rd, \rd )
-			tst	\rd, #UART01x_FR_TXFF	@ tst r3, 0x40 0100 0000
+			tst	\rd, #UART01x_FR_TXFF
 			beq	1001b
 		.endm
 
 		.macro	busyuart,rd,rx
 1001:		ldr	\rd, [\rx, #UART01x_FR]
 ARM_BE8(	rev	\rd, \rd )
-		tst	\rd, #UART01x_FR_BUSY
-		beq	1001b
+			tst	\rd, #UART01x_FR_BUSY
+			beq	1001b
 		.endm

@@ -550,7 +550,7 @@ not_relocated:	mov	r0, #0
  * Set up some pointers, and start decompressing.
  *   r4  = kernel execution address
  *   r7  = architecture ID
- *   r8  = atags pointer
+ *   r8  = atags pointerneu
  */
 		mov	r0, r4
 		mov	r1, sp			@ malloc space above stack
