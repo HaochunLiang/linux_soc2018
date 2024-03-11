@@ -265,3 +265,9 @@ decompress_kernel(unsigned long output_start, unsigned long free_mem_ptr_p,
 	else
 		putstr(" done, booting the kernel.\n");
 }
+
+
+void compare_flash_with_memeory(void)
+{
+	//compare_memory(0x300000,0xc0008000,0x10000);
+}

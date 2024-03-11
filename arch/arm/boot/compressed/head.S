@@ -541,9 +541,9 @@ not_relocated:	mov	r0, #0
 		 * That is indicated by the LSB in r4.
 		 * Do it now if so.
 		 */
-		tst	r4, #1
-		bic	r4, r4, #1
-		blne	cache_on
+		@ tst	r4, #1
+		@ bic	r4, r4, #1
+		@ blne	cache_on
 
 /*
  * The C runtime environment should now be setup sufficiently.
@@ -557,8 +557,9 @@ not_relocated:	mov	r0, #0
 		add	r2, sp, #0x10000	@ 64k max
 		mov	r3, r7
 		bl	decompress_kernel
-		bl	cache_clean_flush
-		bl	cache_off
+		@ bl 	compare_flash_with_memeory
+		@ bl	cache_clean_flush
+		@ bl	cache_off
 
 #ifdef CONFIG_ARM_VIRT_EXT
 		mrs	r0, spsr		@ Get saved CPU boot mode
