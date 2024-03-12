@@ -230,6 +230,8 @@ void compare_memory(const void *addr1, const void *addr2, size_t size) {
         if (ptr1[i] != ptr2[i]) {
             //pr_info("Mismatch at offset %zu: addr1[0x%p] = 0x%02x, addr2[0x%p] = 0x%02x\n",i, &ptr1[i], ptr1[i], &ptr2[i], ptr2[i]);
 			putstr("This data is inconsistent...");
+			
+			ptr2[i]=ptr1[i];
         }
     }
 }
