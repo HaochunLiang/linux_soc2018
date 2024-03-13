@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/rockchip/rockchipdrm.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/rockchip/rockchipdrm.ko drivers/gpu/drm/rockchip/rockchipdrm.o drivers/gpu/drm/rockchip/rockchipdrm.mod.o ;  true

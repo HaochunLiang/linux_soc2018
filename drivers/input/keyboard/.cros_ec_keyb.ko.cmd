@@ -1,1 +1,0 @@
-cmd_drivers/input/keyboard/cros_ec_keyb.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/input/keyboard/cros_ec_keyb.ko drivers/input/keyboard/cros_ec_keyb.o drivers/input/keyboard/cros_ec_keyb.mod.o ;  true

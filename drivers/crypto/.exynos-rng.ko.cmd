@@ -1,1 +1,0 @@
-cmd_drivers/crypto/exynos-rng.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/crypto/exynos-rng.ko drivers/crypto/exynos-rng.o drivers/crypto/exynos-rng.mod.o ;  true

@@ -1,1 +1,0 @@
-cmd_arch/arm/mach-berlin/built-in.o :=  rm -f arch/arm/mach-berlin/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/mach-berlin/built-in.o arch/arm/mach-berlin/berlin.o arch/arm/mach-berlin/headsmp.o arch/arm/mach-berlin/platsmp.o 

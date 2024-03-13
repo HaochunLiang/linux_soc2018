@@ -1,1 +1,0 @@
-cmd_drivers/rtc/rtc-da9063.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/rtc/rtc-da9063.ko drivers/rtc/rtc-da9063.o drivers/rtc/rtc-da9063.mod.o ;  true

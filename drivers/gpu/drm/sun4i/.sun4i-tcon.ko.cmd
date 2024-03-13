@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/sun4i/sun4i-tcon.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/sun4i/sun4i-tcon.ko drivers/gpu/drm/sun4i/sun4i-tcon.o drivers/gpu/drm/sun4i/sun4i-tcon.mod.o ;  true

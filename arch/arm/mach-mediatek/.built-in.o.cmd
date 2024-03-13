@@ -1,1 +1,0 @@
-cmd_arch/arm/mach-mediatek/built-in.o :=  rm -f arch/arm/mach-mediatek/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/mach-mediatek/built-in.o arch/arm/mach-mediatek/platsmp.o arch/arm/mach-mediatek/mediatek.o 

@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/sun4i/sun6i_drc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/sun4i/sun6i_drc.ko drivers/gpu/drm/sun4i/sun6i_drc.o drivers/gpu/drm/sun4i/sun6i_drc.mod.o ;  true

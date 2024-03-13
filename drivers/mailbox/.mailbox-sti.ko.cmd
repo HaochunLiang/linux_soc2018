@@ -1,1 +1,0 @@
-cmd_drivers/mailbox/mailbox-sti.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/mailbox/mailbox-sti.ko drivers/mailbox/mailbox-sti.o drivers/mailbox/mailbox-sti.mod.o ;  true

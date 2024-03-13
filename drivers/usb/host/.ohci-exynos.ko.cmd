@@ -1,1 +1,0 @@
-cmd_drivers/usb/host/ohci-exynos.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/usb/host/ohci-exynos.ko drivers/usb/host/ohci-exynos.o drivers/usb/host/ohci-exynos.mod.o ;  true

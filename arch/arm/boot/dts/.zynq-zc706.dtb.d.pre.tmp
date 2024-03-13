@@ -1,2 +1,0 @@
-zynq-zc706.o: arch/arm/boot/dts/zynq-zc706.dts \
- arch/arm/boot/dts/zynq-7000.dtsi

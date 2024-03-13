@@ -1,1 +1,0 @@
-cmd_drivers/spi/spi-atmel.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/spi/spi-atmel.ko drivers/spi/spi-atmel.o drivers/spi/spi-atmel.mod.o ;  true

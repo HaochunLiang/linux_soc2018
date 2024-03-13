@@ -1,1 +1,0 @@
-cmd_drivers/power/supply/axp20x_usb_power.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/power/supply/axp20x_usb_power.ko drivers/power/supply/axp20x_usb_power.o drivers/power/supply/axp20x_usb_power.mod.o ;  true

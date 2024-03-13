@@ -1,1 +1,0 @@
-cmd_drivers/media/v4l2-core/v4l2-mem2mem.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/v4l2-core/v4l2-mem2mem.ko drivers/media/v4l2-core/v4l2-mem2mem.o drivers/media/v4l2-core/v4l2-mem2mem.mod.o ;  true

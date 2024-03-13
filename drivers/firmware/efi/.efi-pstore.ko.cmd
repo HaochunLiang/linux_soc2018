@@ -1,1 +1,0 @@
-cmd_drivers/firmware/efi/efi-pstore.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/firmware/efi/efi-pstore.ko drivers/firmware/efi/efi-pstore.o drivers/firmware/efi/efi-pstore.mod.o ;  true

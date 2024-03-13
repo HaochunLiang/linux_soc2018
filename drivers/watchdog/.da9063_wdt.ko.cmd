@@ -1,1 +1,0 @@
-cmd_drivers/watchdog/da9063_wdt.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/watchdog/da9063_wdt.ko drivers/watchdog/da9063_wdt.o drivers/watchdog/da9063_wdt.mod.o ;  true

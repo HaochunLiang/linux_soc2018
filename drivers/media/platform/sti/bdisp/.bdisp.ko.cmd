@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/sti/bdisp/bdisp.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/sti/bdisp/bdisp.ko drivers/media/platform/sti/bdisp/bdisp.o drivers/media/platform/sti/bdisp/bdisp.mod.o ;  true

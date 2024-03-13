@@ -1,1 +1,0 @@
-cmd_drivers/hwmon/pwm-fan.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/hwmon/pwm-fan.ko drivers/hwmon/pwm-fan.o drivers/hwmon/pwm-fan.mod.o ;  true

@@ -216,6 +216,8 @@ extern int do_decompress(u8 *input, int len, u8 *output, void (*error)(char *x))
 //     }
 // }
 
+// #include <linux/mm.h>
+
 /**
  * 比较两个内存地址处的数据
  * @param addr1 第一个地址的指针
@@ -223,14 +225,26 @@ extern int do_decompress(u8 *input, int len, u8 *output, void (*error)(char *x))
  * @param size 要比较的数据长度（字节）
  */
 void compare_memory(const void *addr1, const void *addr2, size_t size) {
-    const u8 *ptr1 = addr1;
-    const u8 *ptr2 = addr2;
+    u8 *ptr1 = addr1;
+    u8 *ptr2 = addr2;
 	size_t i;
     for (i = 0; i < size; ++i) {
         if (ptr1[i] != ptr2[i]) {
             //pr_info("Mismatch at offset %zu: addr1[0x%p] = 0x%02x, addr2[0x%p] = 0x%02x\n",i, &ptr1[i], ptr1[i], &ptr2[i], ptr2[i]);
-			//putstr("This data is inconsistent...");
-			
+			putstr("This data is inconsistent...");
+			//ptr2[i]=ptr1[i];
+        }
+    }
+}
+
+void compare_memory_change(const void *addr1, const void *addr2, size_t size) {
+    u8 *ptr1 = addr1;
+    u8 *ptr2 = addr2;
+	size_t i;
+    for (i = 0; i < size; ++i) {
+        if (ptr1[i] != ptr2[i]) {
+            //pr_info("Mismatch at offset %zu: addr1[0x%p] = 0x%02x, addr2[0x%p] = 0x%02x\n",i, &ptr1[i], ptr1[i], &ptr2[i], ptr2[i]);
+			// putstr("This data is inconsistent...");
 			ptr2[i]=ptr1[i];
         }
     }
@@ -271,5 +285,5 @@ decompress_kernel(unsigned long output_start, unsigned long free_mem_ptr_p,
 
 void compare_flash_with_memeory(void)
 {
-	compare_memory(0x300000,0xc0008000,5404705);
+	compare_memory_change(0x300000,0xc0008000,5404705);
 }

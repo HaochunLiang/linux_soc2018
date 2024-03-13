@@ -1,1 +1,0 @@
-wm8750-apc8750.o: arch/arm/boot/dts/wm8750-apc8750.dts

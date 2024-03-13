@@ -1,1 +1,0 @@
-cmd_drivers/soc/mediatek/built-in.o :=  rm -f drivers/soc/mediatek/built-in.o; arm-none-eabi-ar rcSTPD drivers/soc/mediatek/built-in.o drivers/soc/mediatek/mtk-infracfg.o drivers/soc/mediatek/mtk-scpsys.o 

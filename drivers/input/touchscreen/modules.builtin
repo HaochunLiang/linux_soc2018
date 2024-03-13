@@ -1,3 +1,0 @@
-kernel/drivers/input/touchscreen/of_touchscreen.ko
-kernel/drivers/input/touchscreen/stmpe-ts.ko
-kernel/drivers/input/touchscreen/sun4i-ts.ko

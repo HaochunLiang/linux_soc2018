@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/rcar-du/rcar-du-drm.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/rcar-du/rcar-du-drm.ko drivers/gpu/drm/rcar-du/rcar-du-drm.o drivers/gpu/drm/rcar-du/rcar-du-drm.mod.o ;  true

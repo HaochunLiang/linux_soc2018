@@ -1,1 +1,0 @@
-cmd_drivers/pinctrl/tegra/built-in.o :=  rm -f drivers/pinctrl/tegra/built-in.o; arm-none-eabi-ar rcSTPD drivers/pinctrl/tegra/built-in.o drivers/pinctrl/tegra/pinctrl-tegra.o drivers/pinctrl/tegra/pinctrl-tegra20.o drivers/pinctrl/tegra/pinctrl-tegra30.o drivers/pinctrl/tegra/pinctrl-tegra114.o drivers/pinctrl/tegra/pinctrl-tegra124.o drivers/pinctrl/tegra/pinctrl-tegra-xusb.o 

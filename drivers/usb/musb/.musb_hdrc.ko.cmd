@@ -1,1 +1,0 @@
-cmd_drivers/usb/musb/musb_hdrc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/usb/musb/musb_hdrc.ko drivers/usb/musb/musb_hdrc.o drivers/usb/musb/musb_hdrc.mod.o ;  true

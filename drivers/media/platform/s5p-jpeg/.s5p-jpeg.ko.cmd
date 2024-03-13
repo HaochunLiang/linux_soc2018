@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/s5p-jpeg/s5p-jpeg.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/s5p-jpeg/s5p-jpeg.ko drivers/media/platform/s5p-jpeg/s5p-jpeg.o drivers/media/platform/s5p-jpeg/s5p-jpeg.mod.o ;  true

@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/s5p-mfc/s5p-mfc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/s5p-mfc/s5p-mfc.ko drivers/media/platform/s5p-mfc/s5p-mfc.o drivers/media/platform/s5p-mfc/s5p-mfc.mod.o ;  true

@@ -1,1 +1,0 @@
-cmd_drivers/cpufreq/cpufreq_powersave.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/cpufreq/cpufreq_powersave.ko drivers/cpufreq/cpufreq_powersave.o drivers/cpufreq/cpufreq_powersave.mod.o ;  true

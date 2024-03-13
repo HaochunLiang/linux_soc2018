@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/sun4i/sun4i-backend.o := arm-none-eabi-ld -EL  -z noexecstack    -r -o drivers/gpu/drm/sun4i/sun4i-backend.o drivers/gpu/drm/sun4i/sun4i_backend.o drivers/gpu/drm/sun4i/sun4i_layer.o 

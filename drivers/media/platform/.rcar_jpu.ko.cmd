@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/rcar_jpu.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/rcar_jpu.ko drivers/media/platform/rcar_jpu.o drivers/media/platform/rcar_jpu.mod.o ;  true

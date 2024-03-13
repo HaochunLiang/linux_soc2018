@@ -1,1 +1,0 @@
-cmd_drivers/soc/tegra/built-in.o :=  rm -f drivers/soc/tegra/built-in.o; arm-none-eabi-ar rcSTPD drivers/soc/tegra/built-in.o drivers/soc/tegra/fuse/built-in.o drivers/soc/tegra/common.o drivers/soc/tegra/flowctrl.o drivers/soc/tegra/pmc.o 

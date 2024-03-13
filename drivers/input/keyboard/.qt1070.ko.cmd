@@ -1,1 +1,0 @@
-cmd_drivers/input/keyboard/qt1070.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/input/keyboard/qt1070.ko drivers/input/keyboard/qt1070.o drivers/input/keyboard/qt1070.mod.o ;  true

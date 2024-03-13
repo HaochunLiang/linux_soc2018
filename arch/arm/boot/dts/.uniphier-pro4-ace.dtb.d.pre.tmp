@@ -1,3 +1,0 @@
-uniphier-pro4-ace.o: arch/arm/boot/dts/uniphier-pro4-ace.dts \
- arch/arm/boot/dts/uniphier-pro4.dtsi \
- arch/arm/boot/dts/uniphier-pinctrl.dtsi

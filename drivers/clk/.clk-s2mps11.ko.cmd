@@ -1,1 +1,0 @@
-cmd_drivers/clk/clk-s2mps11.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/clk/clk-s2mps11.ko drivers/clk/clk-s2mps11.o drivers/clk/clk-s2mps11.mod.o ;  true

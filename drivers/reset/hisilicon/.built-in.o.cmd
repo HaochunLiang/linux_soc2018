@@ -1,1 +1,0 @@
-cmd_drivers/reset/hisilicon/built-in.o :=  rm -f drivers/reset/hisilicon/built-in.o; arm-none-eabi-ar rcSTPD drivers/reset/hisilicon/built-in.o drivers/reset/hisilicon/hi6220_reset.o drivers/reset/hisilicon/reset-hi3660.o 

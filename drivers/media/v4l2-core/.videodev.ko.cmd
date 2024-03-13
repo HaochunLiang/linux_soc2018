@@ -1,1 +1,0 @@
-cmd_drivers/media/v4l2-core/videodev.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/v4l2-core/videodev.ko drivers/media/v4l2-core/videodev.o drivers/media/v4l2-core/videodev.mod.o ;  true

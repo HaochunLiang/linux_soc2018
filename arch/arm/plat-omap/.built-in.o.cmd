@@ -1,1 +1,0 @@
-cmd_arch/arm/plat-omap/built-in.o :=  rm -f arch/arm/plat-omap/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/plat-omap/built-in.o arch/arm/plat-omap/sram.o arch/arm/plat-omap/dma.o arch/arm/plat-omap/counter_32k.o arch/arm/plat-omap/dmtimer.o 

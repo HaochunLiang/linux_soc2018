@@ -1,1 +1,0 @@
-cmd_drivers/input/mouse/elan_i2c.o := rm -f drivers/input/mouse/elan_i2c.o; arm-none-eabi-ar rcSTPD drivers/input/mouse/elan_i2c.o drivers/input/mouse/elan_i2c_core.o drivers/input/mouse/elan_i2c_i2c.o

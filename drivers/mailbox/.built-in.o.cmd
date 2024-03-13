@@ -1,1 +1,0 @@
-cmd_drivers/mailbox/built-in.o :=  rm -f drivers/mailbox/built-in.o; arm-none-eabi-ar rcSTPD drivers/mailbox/built-in.o drivers/mailbox/mailbox.o drivers/mailbox/pl320-ipc.o drivers/mailbox/bcm2835-mailbox.o 

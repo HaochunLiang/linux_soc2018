@@ -1,1 +1,0 @@
-cmd_drivers/pwm/pwm-rockchip.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/pwm/pwm-rockchip.ko drivers/pwm/pwm-rockchip.o drivers/pwm/pwm-rockchip.mod.o ;  true

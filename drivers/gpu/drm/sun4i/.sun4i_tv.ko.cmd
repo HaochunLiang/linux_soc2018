@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/sun4i/sun4i_tv.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/sun4i/sun4i_tv.ko drivers/gpu/drm/sun4i/sun4i_tv.o drivers/gpu/drm/sun4i/sun4i_tv.mod.o ;  true

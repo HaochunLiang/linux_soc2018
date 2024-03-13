@@ -1,1 +1,0 @@
-cmd_drivers/usb/host/xhci-tegra.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/usb/host/xhci-tegra.ko drivers/usb/host/xhci-tegra.o drivers/usb/host/xhci-tegra.mod.o ;  true

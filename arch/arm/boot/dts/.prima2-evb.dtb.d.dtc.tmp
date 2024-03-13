@@ -1,1 +1,0 @@
-arch/arm/boot/dts/prima2-evb.dtb: arch/arm/boot/dts/.prima2-evb.dtb.dts.tmp arch/arm/boot/dts/prima2.dtsi arch/arm/boot/dts/skeleton.dtsi

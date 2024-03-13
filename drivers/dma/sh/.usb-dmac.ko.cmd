@@ -1,1 +1,0 @@
-cmd_drivers/dma/sh/usb-dmac.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/dma/sh/usb-dmac.ko drivers/dma/sh/usb-dmac.o drivers/dma/sh/usb-dmac.mod.o ;  true

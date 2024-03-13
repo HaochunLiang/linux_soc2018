@@ -1,1 +1,0 @@
-cmd_arch/arm/crypto/ghash-arm-ce.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o arch/arm/crypto/ghash-arm-ce.ko arch/arm/crypto/ghash-arm-ce.o arch/arm/crypto/ghash-arm-ce.mod.o ;  true

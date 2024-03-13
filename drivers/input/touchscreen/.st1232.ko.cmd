@@ -1,1 +1,0 @@
-cmd_drivers/input/touchscreen/st1232.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/input/touchscreen/st1232.ko drivers/input/touchscreen/st1232.o drivers/input/touchscreen/st1232.mod.o ;  true

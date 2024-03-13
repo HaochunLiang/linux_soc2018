@@ -1,1 +1,0 @@
-cmd_drivers/media/platform/vivid/vivid.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/media/platform/vivid/vivid.ko drivers/media/platform/vivid/vivid.o drivers/media/platform/vivid/vivid.mod.o ;  true

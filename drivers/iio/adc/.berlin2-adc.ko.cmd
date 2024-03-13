@@ -1,1 +1,0 @@
-cmd_drivers/iio/adc/berlin2-adc.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/iio/adc/berlin2-adc.ko drivers/iio/adc/berlin2-adc.o drivers/iio/adc/berlin2-adc.mod.o ;  true

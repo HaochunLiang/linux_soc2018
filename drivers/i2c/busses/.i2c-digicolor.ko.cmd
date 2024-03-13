@@ -1,1 +1,0 @@
-cmd_drivers/i2c/busses/i2c-digicolor.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/i2c/busses/i2c-digicolor.ko drivers/i2c/busses/i2c-digicolor.o drivers/i2c/busses/i2c-digicolor.mod.o ;  true

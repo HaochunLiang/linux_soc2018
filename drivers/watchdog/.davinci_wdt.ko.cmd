@@ -1,1 +1,0 @@
-cmd_drivers/watchdog/davinci_wdt.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/watchdog/davinci_wdt.ko drivers/watchdog/davinci_wdt.o drivers/watchdog/davinci_wdt.mod.o ;  true

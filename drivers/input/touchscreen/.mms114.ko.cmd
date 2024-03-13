@@ -1,1 +1,0 @@
-cmd_drivers/input/touchscreen/mms114.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/input/touchscreen/mms114.ko drivers/input/touchscreen/mms114.o drivers/input/touchscreen/mms114.mod.o ;  true

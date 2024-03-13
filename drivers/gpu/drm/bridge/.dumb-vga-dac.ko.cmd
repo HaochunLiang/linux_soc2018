@@ -1,1 +1,0 @@
-cmd_drivers/gpu/drm/bridge/dumb-vga-dac.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/gpu/drm/bridge/dumb-vga-dac.ko drivers/gpu/drm/bridge/dumb-vga-dac.o drivers/gpu/drm/bridge/dumb-vga-dac.mod.o ;  true

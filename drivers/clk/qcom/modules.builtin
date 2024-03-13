@@ -1,9 +1,0 @@
-kernel/drivers/clk/qcom/clk-qcom.ko
-kernel/drivers/clk/qcom/gcc-apq8084.ko
-kernel/drivers/clk/qcom/mmcc-apq8084.ko
-kernel/drivers/clk/qcom/gcc-msm8660.ko
-kernel/drivers/clk/qcom/gcc-msm8960.ko
-kernel/drivers/clk/qcom/gcc-msm8974.ko
-kernel/drivers/clk/qcom/mmcc-msm8960.ko
-kernel/drivers/clk/qcom/mmcc-msm8974.ko
-kernel/drivers/clk/qcom/clk-rpm.ko

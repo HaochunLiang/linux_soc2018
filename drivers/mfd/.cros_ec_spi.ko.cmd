@@ -1,1 +1,0 @@
-cmd_drivers/mfd/cros_ec_spi.ko := arm-none-eabi-ld -EL -r  -z noexecstack  -T ./scripts/module-common.lds --build-id  -o drivers/mfd/cros_ec_spi.ko drivers/mfd/cros_ec_spi.o drivers/mfd/cros_ec_spi.mod.o ;  true

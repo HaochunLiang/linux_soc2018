@@ -1,1 +1,0 @@
-cmd_drivers/mtd/nand/atmel/atmel-nand-controller.o := rm -f drivers/mtd/nand/atmel/atmel-nand-controller.o; arm-none-eabi-ar rcSTPD drivers/mtd/nand/atmel/atmel-nand-controller.o drivers/mtd/nand/atmel/nand-controller.o
