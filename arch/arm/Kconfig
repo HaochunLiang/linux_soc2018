@@ -251,21 +251,6 @@ config VECTORS_BASE
 	  The base address of exception vectors.  This must be two pages
 	  in size.
 
-config ARM_PATCH_PHYS_VIRT
-	bool "Patch physical to virtual translations at runtime" if EMBEDDED
-	default y
-	depends on !XIP_KERNEL && MMU
-	help
-	  Patch phys-to-virt and virt-to-phys translation functions at
-	  boot and module load time according to the position of the
-	  kernel in system memory.
-
-	  This can only be used with non-XIP MMU kernels where the base
-	  of physical memory is at a 16MB boundary.
-
-	  Only disable this option if you know that you do not require
-	  this feature (eg, building a kernel for a single machine) and
-	  you need to shrink the kernel to the minimal size.
 
 config NEED_MACH_IO_H
 	bool
@@ -1438,9 +1423,9 @@ config PAGE_OFFSET
 	hex
 	default PHYS_OFFSET if !MMU
 	default 0x40000000 if VMSPLIT_1G
-	default 0xC0000000 if VMSPLIT_2G
+	default 0x40000000 if VMSPLIT_2G
 	default 0xB0000000 if VMSPLIT_3G_OPT
-	default 0xC0000000
+	default 0x40000000
 
 config NR_CPUS
 	int "Maximum number of CPUs (2-32)"

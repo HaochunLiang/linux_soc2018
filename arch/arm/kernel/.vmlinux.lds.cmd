@@ -10,6 +10,7 @@ deps_arch/arm/kernel/vmlinux.lds := \
     $(wildcard include/config/debug/spinlock.h) \
     $(wildcard include/config/generic/bug.h) \
     $(wildcard include/config/jump/label.h) \
+    $(wildcard include/config/xip/phys/addr.h) \
     $(wildcard include/config/mmu.h) \
     $(wildcard include/config/strict/kernel/rwx.h) \
     $(wildcard include/config/debug/align/rodata.h) \
@@ -81,9 +82,9 @@ deps_arch/arm/kernel/vmlinux.lds := \
     $(wildcard include/config/highmem.h) \
     $(wildcard include/config/dram/base.h) \
     $(wildcard include/config/dram/size.h) \
+    $(wildcard include/config/xip/kerne.h) \
     $(wildcard include/config/arm/patch/phys/virt.h) \
     $(wildcard include/config/phys/offset.h) \
-    $(wildcard include/config/xip/phys/addr.h) \
     $(wildcard include/config/debug/virtual.h) \
   include/linux/const.h \
   include/uapi/linux/const.h \

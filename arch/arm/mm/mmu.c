@@ -1275,10 +1275,10 @@ static inline void prepare_page_table(void)
 	for (addr = 0; addr < MODULES_VADDR; addr += PMD_SIZE)
 		pmd_clear(pmd_off_k(addr));
 
-#ifdef CONFIG_XIP_KERNEL
+//#ifdef CONFIG_XIP_KERNEL //@by-srliu
 	/* The XIP kernel is mapped in the module area -- skip over it */
 	addr = ((unsigned long)_exiprom + PMD_SIZE - 1) & PMD_MASK;
-#endif
+//#endif
 	for ( ; addr < PAGE_OFFSET; addr += PMD_SIZE)
 		pmd_clear(pmd_off_k(addr));
 
@@ -1356,7 +1356,8 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * Map the kernel if it is XIP.
 	 * It is always first in the modulearea.
 	 */
-#ifdef CONFIG_XIP_KERNEL
+//#ifdef CONFIG_XIP_KERNEL//by-srliu
+#ifndef CONFIG_XIP_KERNEL
 	map.pfn = __phys_to_pfn(CONFIG_XIP_PHYS_ADDR & SECTION_MASK);
 	map.virtual = MODULES_VADDR;
 	map.length = ((unsigned long)_exiprom - map.virtual + ~SECTION_MASK) & SECTION_MASK;

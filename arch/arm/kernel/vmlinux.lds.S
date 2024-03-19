@@ -8,6 +8,9 @@
 #include "vmlinux-xip.lds.S"
 #else
 
+#define RO_AFTER_INIT_DATA
+
+
 #include <asm-generic/vmlinux.lds.h>
 #include <asm/cache.h>
 #include <asm/thread_info.h>
@@ -75,6 +78,10 @@ jiffies = jiffies_64;
 jiffies = jiffies_64 + 4;
 #endif
 
+#ifndef CONFIG_XIP_PHYS_ADDR
+#define CONFIG_XIP_PHYS_ADDR (0x00000000)
+#endif
+
 SECTIONS
 {
 	/*
@@ -105,7 +112,9 @@ SECTIONS
 		*(.discard.*)
 	}
 
-	. = PAGE_OFFSET + TEXT_OFFSET;
+	. = XIP_VIRT_ADDR(CONFIG_XIP_PHYS_ADDR);
+	_xiprom = .;
+
 	.head.text : {
 		_text = .;
 		HEAD_TEXT
@@ -140,7 +149,6 @@ SECTIONS
 #ifdef CONFIG_DEBUG_ALIGN_RODATA
 	. = ALIGN(1<<SECTION_SHIFT);
 #endif
-	_etext = .;			/* End of text section */
 
 	RO_DATA(PAGE_SIZE)
 
@@ -177,7 +185,7 @@ SECTIONS
 #else
 	. = ALIGN(PAGE_SIZE);
 #endif
-	__init_begin = .;
+	_etext = .;
 
 	/*
 	 * The vectors and stubs are relocatable code, and the
@@ -241,28 +249,20 @@ SECTIONS
 		__pv_table_end = .;
 	}
 	.init.data : {
-		INIT_DATA
 		INIT_SETUP(16)
 		INIT_CALLS
 		CON_INITCALL
 		SECURITY_INITCALL
 		INIT_RAM_FS
 	}
-	.exit.data : {
-		ARM_EXIT_KEEP(EXIT_DATA)
-	}
 
 #ifdef CONFIG_SMP
 	PERCPU_SECTION(L1_CACHE_BYTES)
 #endif
 
-#ifdef CONFIG_STRICT_KERNEL_RWX
-	. = ALIGN(1<<SECTION_SHIFT);
-#else
-	. = ALIGN(THREAD_SIZE);
-#endif
-	__init_end = .;
-	__data_loc = .;
+	_exiprom = .;
+	__data_loc = ALIGN(4);
+	. = PAGE_OFFSET + TEXT_OFFSET;
 
 	.data : AT(__data_loc) {
 		_data = .;		/* address in memory */
@@ -273,6 +273,15 @@ SECTIONS
 		 * to an 8192 byte boundary.
 		 */
 		INIT_TASK_DATA(THREAD_SIZE)
+
+		. = ALIGN(PAGE_SIZE);
+		__init_begin = .;
+		INIT_DATA
+		ARM_EXIT_KEEP(EXIT_DATA)
+		. = ALIGN(PAGE_SIZE);
+		__init_end = .;
+
+		*(.data..ro_after_init)
 
 		NOSAVE_DATA
 		CACHELINE_ALIGNED_DATA(L1_CACHE_BYTES)

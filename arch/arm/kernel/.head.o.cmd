@@ -109,6 +109,7 @@ deps_arch/arm/kernel/head.o := \
     $(wildcard include/config/highmem.h) \
     $(wildcard include/config/dram/base.h) \
     $(wildcard include/config/dram/size.h) \
+    $(wildcard include/config/xip/kerne.h) \
     $(wildcard include/config/have/tcm.h) \
     $(wildcard include/config/phys/offset.h) \
     $(wildcard include/config/debug/virtual.h) \

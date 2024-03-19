@@ -228,6 +228,7 @@ deps_arch/arm/mm/context.o := \
     $(wildcard include/config/highmem.h) \
     $(wildcard include/config/dram/base.h) \
     $(wildcard include/config/dram/size.h) \
+    $(wildcard include/config/xip/kerne.h) \
     $(wildcard include/config/xip/kernel.h) \
     $(wildcard include/config/have/tcm.h) \
     $(wildcard include/config/arm/patch/phys/virt.h) \

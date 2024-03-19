@@ -82,11 +82,11 @@ __mmap_switched:
 	adr	r3, __mmap_switched_data
 
 	ldmia	r3!, {r4, r5, r6, r7}
-	cmp	r4, r5				@ Copy data segment if needed
-1:	cmpne	r5, r6
-	ldrne	fp, [r4], #4
-	strne	fp, [r5], #4
-	bne	1b
+@srliu:	cmp	r4, r5				@ Copy data segment if needed
+@srliu:1:	cmpne	r5, r6
+@srliu:	ldrne	fp, [r4], #4
+@srliu:	strne	fp, [r5], #4
+@srliu:	bne	1b
 
 	mov	fp, #0				@ Clear BSS (and zero fp)
 1:	cmp	r6, r7

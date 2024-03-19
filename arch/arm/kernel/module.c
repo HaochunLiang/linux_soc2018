@@ -26,7 +26,8 @@
 #include <asm/unwind.h>
 #include <asm/opcodes.h>
 
-#ifdef CONFIG_XIP_KERNEL
+//#ifdef CONFIG_XIP_KERNEL//by-srliu
+#ifndef CONFIG_XIP_KERNEL
 /*
  * The XIP kernel text is mapped in the module area for modules and
  * some other stuff to work without any indirect relocations.

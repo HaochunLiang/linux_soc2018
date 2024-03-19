@@ -207,6 +207,7 @@ deps_arch/arm/mm/init.o := \
     $(wildcard include/config/page/offset.h) \
     $(wildcard include/config/dram/base.h) \
     $(wildcard include/config/dram/size.h) \
+    $(wildcard include/config/xip/kerne.h) \
     $(wildcard include/config/xip/kernel.h) \
     $(wildcard include/config/arm/patch/phys/virt.h) \
     $(wildcard include/config/phys/offset.h) \
