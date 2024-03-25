@@ -853,13 +853,16 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 	struct resource *res;
 
 	kernel_code.start   = virt_to_phys(_text);
+	pr_info("kernel_code.start  success.\n");
 	kernel_code.end     = virt_to_phys(__init_begin - 1);
 	kernel_data.start   = virt_to_phys(_sdata);
 	kernel_data.end     = virt_to_phys(_end - 1);
 
 	for_each_memblock(memory, region) {
 		phys_addr_t start = __pfn_to_phys(memblock_region_memory_base_pfn(region));
+		pr_info("phys_addr_t start  success.\n");
 		phys_addr_t end = __pfn_to_phys(memblock_region_memory_end_pfn(region)) - 1;
+		pr_info("phys_addr_t end  success.\n");
 		unsigned long boot_alias_start;
 
 		/*
@@ -868,6 +871,7 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 		 * kexec-tools so they know where bootable RAM is located.
 		 */
 		boot_alias_start = phys_to_idmap(start);
+		pr_info("boot_alias_start success.\n");
 		if (arm_has_idmap_alias() && boot_alias_start != IDMAP_INVALID_ADDR) {
 			res = memblock_virt_alloc(sizeof(*res), 0);
 			res->name = "System RAM (boot alias)";
@@ -875,40 +879,49 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 			res->end = phys_to_idmap(end);
 			res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
 			request_resource(&iomem_resource, res);
+			pr_info("request_resource success.\n");
 		}
 
 		res = memblock_virt_alloc(sizeof(*res), 0);
+		pr_info(" memblock_virt_alloc  success.\n");
 		res->name  = "System RAM";
 		res->start = start;
 		res->end = end;
 		res->flags = IORESOURCE_SYSTEM_RAM | IORESOURCE_BUSY;
 
 		request_resource(&iomem_resource, res);
+		pr_info("request_resource(&iomem_resource, res)  success.\n");
 
 		if (kernel_code.start >= res->start &&
-		    kernel_code.end <= res->end)
+		    kernel_code.end <= res->end){
 			request_resource(res, &kernel_code);
+			pr_info("request_resource(res, &kernel_code);  success.\n");}
 		if (kernel_data.start >= res->start &&
-		    kernel_data.end <= res->end)
+		    kernel_data.end <= res->end){
 			request_resource(res, &kernel_data);
+			pr_info("request_resource(res, &kernel_data);  success.\n");}
 	}
 
 	if (mdesc->video_start) {
 		video_ram.start = mdesc->video_start;
 		video_ram.end   = mdesc->video_end;
 		request_resource(&iomem_resource, &video_ram);
+		pr_info("request_resource(&iomem_resource, &video_ram);  success.\n");
 	}
 
 	/*
 	 * Some machines don't have the possibility of ever
 	 * possessing lp0, lp1 or lp2
 	 */
-	if (mdesc->reserve_lp0)
+	if (mdesc->reserve_lp0){
 		request_resource(&ioport_resource, &lp0);
-	if (mdesc->reserve_lp1)
+		pr_info("lp0  success.\n");}
+	if (mdesc->reserve_lp1){
 		request_resource(&ioport_resource, &lp1);
-	if (mdesc->reserve_lp2)
+		pr_info("lp1  success.\n");}
+	if (mdesc->reserve_lp2){
 		request_resource(&ioport_resource, &lp2);
+		pr_info("lp2 success.\n");}
 }
 
 #if defined(CONFIG_VGA_CONSOLE) || defined(CONFIG_DUMMY_CONSOLE) || \
@@ -992,8 +1005,10 @@ static void __init reserve_crashkernel(void)
 	int ret;
 
 	total_mem = get_total_mem();
+	pr_info("total_mem = get_total_mem() success.\n");
 	ret = parse_crashkernel(boot_command_line, total_mem,
 				&crash_size, &crash_base);
+	pr_info("ret = parse_crashkernel success.\n");
 	if (ret)
 		return;
 
@@ -1004,6 +1019,7 @@ static void __init reserve_crashkernel(void)
 			crash_max = lowmem_max;
 		crash_base = memblock_find_in_range(CRASH_ALIGN, crash_max,
 						    crash_size, CRASH_ALIGN);
+		pr_info("crash_base = memblock_find_in_range success.\n");
 		if (!crash_base) {
 			pr_err("crashkernel reservation failed - No suitable area found.\n");
 			return;
@@ -1021,6 +1037,7 @@ static void __init reserve_crashkernel(void)
 	}
 
 	ret = memblock_reserve(crash_base, crash_size);
+	pr_info("ret = memblock_reserve is in use.\n");
 	if (ret < 0) {
 		pr_warn("crashkernel reservation failed - memory is in use (0x%lx)\n",
 			(unsigned long)crash_base);
@@ -1036,6 +1053,7 @@ static void __init reserve_crashkernel(void)
 	crashk_res.start = crash_base;
 	crashk_res.end = crash_base + crash_size - 1;
 	insert_resource(&iomem_resource, &crashk_res);
+	pr_info("insert_resource  is in use.\n");
 
 	if (arm_has_idmap_alias()) {
 		/*
@@ -1048,8 +1066,10 @@ static void __init reserve_crashkernel(void)
 		};
 
 		crashk_boot_res.start = phys_to_idmap(crash_base);
+		pr_info("crashk_boot_res.start  is in use.\n");
 		crashk_boot_res.end = crashk_boot_res.start + crash_size - 1;
 		insert_resource(&iomem_resource, &crashk_boot_res);
+		pr_info("insert_resource is in use.\n");
 	}
 }
 #else
@@ -1060,6 +1080,7 @@ void __init hyp_mode_check(void)
 {
 #ifdef CONFIG_ARM_VIRT_EXT
 	sync_boot_mode();
+	pr_info("sync_boot_mode success.\n");
 
 	if (is_hyp_mode_available()) {
 		pr_info("CPU: All CPU(s) started in HYP mode.\n");
@@ -1076,15 +1097,56 @@ void __init hyp_mode_check(void)
 void __init setup_arch(char **cmdline_p)
 {
 	const struct machine_desc *mdesc;
-
+    pr_info("setup_processor start executing.\n");
 	setup_processor();
+	pr_info("setup_processor execute success.\n");
+	pr_info("setup_machine_fdt start executing.\n");
 	mdesc = setup_machine_fdt(__atags_pointer);
-	if (!mdesc)
+	pr_info("name: %s\n", mdesc->name);
+	pr_info("atag_offset: %lx\n", mdesc->atag_offset);
+	pr_info("nr: %d\n", mdesc->nr);
+	pr_info("dt_compat: %s\n", mdesc->dt_compat);
+	pr_info("nr_irqs: %d\n", mdesc->nr_irqs);
+	pr_info("video_start: %d\n", mdesc->video_start);
+	pr_info("video_end: %d\n",  mdesc->video_end);
+	pr_info("reserve_lp0: %s\n", mdesc->reserve_lp0);
+	pr_info("reserve_lp1: %s\n", mdesc->reserve_lp1);
+	pr_info("reserve_lp2: %s\n", mdesc->reserve_lp2);
+	pr_info("REBOOT_COLD=0 %d\n");
+	pr_info("REBOOT_WARM=1: %s\n");
+	pr_info("REBOOT_HARD=2: %s\n");
+	pr_info("REBOOT_SOFT=3: %s\n");
+	pr_info("REBOOT_GPIO=4: %s\n");
+	pr_info("REBOOT_SOFT=3: %s\n");
+	pr_info("REBOOT_GPIO=4: %s\n");
+	pr_info("l2c_aux_val: %d\n",mdesc->l2c_aux_val);
+	pr_info("l2c_aux_mask: %d\n",mdesc->l2c_aux_mask);
+	if (!mdesc){
 		mdesc = setup_machine_tags(__atags_pointer, __machine_arch_type);
+		pr_info("name: %s\n", mdesc->name);
+		pr_info("atag_offset: %lx\n", mdesc->atag_offset);
+		pr_info("nr: %d\n", mdesc->nr);
+		pr_info("dt_compat: %s\n", mdesc->dt_compat);
+		pr_info("nr_irqs: %d\n", mdesc->nr_irqs);
+		pr_info("video_start: %d\n", mdesc->video_start);
+		pr_info("video_end: %d\n",  mdesc->video_end);
+		pr_info("reserve_lp0: %s\n", mdesc->reserve_lp0);
+		pr_info("reserve_lp1: %s\n", mdesc->reserve_lp1);
+		pr_info("reserve_lp2: %s\n", mdesc->reserve_lp2);
+		pr_info("REBOOT_COLD=0 %d\n");
+		pr_info("REBOOT_WARM=1: %s\n");
+		pr_info("REBOOT_HARD=2: %s\n");
+		pr_info("REBOOT_SOFT=3: %s\n");
+		pr_info("REBOOT_GPIO=4: %s\n");
+		pr_info("REBOOT_SOFT=3: %s\n");
+		pr_info("REBOOT_GPIO=4: %s\n");
+		pr_info("l2c_aux_val: %d\n",mdesc->l2c_aux_val);
+		pr_info("l2c_aux_mask: %d\n",mdesc->l2c_aux_mask);}
 	machine_desc = mdesc;
 	machine_name = mdesc->name;
+	pr_info("dump_stack_set_arch_desc start executing.\n");
 	dump_stack_set_arch_desc("%s", mdesc->name);
-
+	pr_info("setup_processor execute success.\n");
 	if (mdesc->reboot_mode != REBOOT_HARD)
 		reboot_mode = mdesc->reboot_mode;
 
@@ -1092,43 +1154,74 @@ void __init setup_arch(char **cmdline_p)
 	init_mm.end_code   = (unsigned long) _etext;
 	init_mm.end_data   = (unsigned long) _edata;
 	init_mm.brk	   = (unsigned long) _end;
+	pr_info("init_mm.start_code: %d\n",init_mm.start_code );
+	pr_info("init_mm.end_code: %d\n",init_mm.end_code);
+	pr_info("init_mm.end_data: %d\n",init_mm.end_data);
+	pr_info("init_mm.brk: %d\n",init_mm.brk	);
 
 	/* populate cmd_line too for later use, preserving boot_command_line */
+	pr_info("strlcpy start executing.\n");
 	strlcpy(cmd_line, boot_command_line, COMMAND_LINE_SIZE);
+	pr_info("strlcpy execute success.\n");
 	*cmdline_p = cmd_line;
-
+	pr_info("early_fixmap_init start executing.\n");
 	early_fixmap_init();
+	pr_info("early_fixmap_init success.\n");
+	pr_info("early_ioremap_init start executing.\n");
 	early_ioremap_init();
-
+	pr_info("early_ioremap_init success.\n");
+	pr_info("parse_early_param start executing.\n");
 	parse_early_param();
-
+	pr_info("parse_early_param success.\n");
 #ifdef CONFIG_MMU
+	pr_info("early_mm_init start executing.\n");
 	early_mm_init(mdesc);
+	pr_info("early_mm_init success.\n");
 #endif
+	pr_info("setup_dma_zone start executing.\n");
 	setup_dma_zone(mdesc);
+	pr_info("setup_dma_zone success.\n");
+	pr_info("xen_early_init start executing.\n");
 	xen_early_init();
+	pr_info("xen_early_init success.\n");
+	pr_info("efi_init start executing.\n");
 	efi_init();
+	pr_info("efi_init success.\n");
 	/*
 	 * Make sure the calculation for lowmem/highmem is set appropriately
 	 * before reserving/allocating any mmeory
 	 */
+	pr_info("adjust_lowmem_bounds start executing.\n");
 	adjust_lowmem_bounds();
+	pr_info("adjust_lowmem_bounds success.\n");
+	pr_info("arm_memblock_init start executing.\n");
 	arm_memblock_init(mdesc);
+	pr_info("arm_memblock_init success.\n");
 	/* Memory may have been removed so recalculate the bounds. */
+	pr_info("adjust_lowmem_bounds start executing.\n");
 	adjust_lowmem_bounds();
-
+	pr_info("adjust_lowmem_bounds success.\n");
+	pr_info("early_ioremap_resetstart executing.\n");
 	early_ioremap_reset();
-
+	pr_info("early_ioremap_reset success.\n");
+	pr_info("paging_init executing.\n");
 	paging_init(mdesc);
+	pr_info("paging_initsuccess.\n");
+	pr_info("request_standard_resources executing.\n");
 	request_standard_resources(mdesc);
+	pr_info("request_standard_resources success.\n");
 
 	if (mdesc->restart)
 		arm_pm_restart = mdesc->restart;
-
+	pr_info("unflatten_device_tree executing.\n");
 	unflatten_device_tree();
-
+	pr_info("unflatten_device_tree success.\n");
+	pr_info("arm_dt_init_cpu_maps executing.\n");
 	arm_dt_init_cpu_maps();
+	pr_info("arm_dt_init_cpu_maps success.\n");
+	pr_info("psci_dt_init executing.\n");
 	psci_dt_init();
+	pr_info("psci_dt_init success.\n");
 #ifdef CONFIG_SMP
 	if (is_smp()) {
 		if (!mdesc->smp_init || !mdesc->smp_init()) {
@@ -1143,9 +1236,12 @@ void __init setup_arch(char **cmdline_p)
 #endif
 
 	if (!is_smp())
+		pr_info("hyp_mode_check success.\n");
 		hyp_mode_check();
-
+		pr_info("hyp_mode_check success.\n");
+	pr_info("reserve_crashkernel success.\n");
 	reserve_crashkernel();
+	pr_info("reserve_crashkernel success.\n");
 
 #ifdef CONFIG_MULTI_IRQ_HANDLER
 	handle_arch_irq = mdesc->handle_irq;

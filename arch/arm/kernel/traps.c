@@ -900,6 +900,11 @@ void __init early_trap_init(void *vectors_base)
 	kuser_init(vectors_base);
 
 	flush_vectors(vectors_base, 0, PAGE_SIZE * 2);
+	pr_info("vectors_base:%s\n",vectors_base);
+	pr_info("__vectors_end:%s\n",__vectors_end);
+	pr_info(" __vectors_start:%s\n", __vectors_start);
+	pr_info("__stubs_start:%s\n",__stubs_start);
+	pr_info("__stubs_end:%s\n",__stubs_end);
 }
 #else /* ifndef CONFIG_CPU_V7M */
 void __init early_trap_init(void *vectors_base)

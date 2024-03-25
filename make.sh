@@ -5,4 +5,5 @@ export PATH=/home/boy/gcc-arm-9.2-2019.12-x86_64-arm-none-eabi/bin:$PATH
 export CROSS_COMPILE_ARM_PATH=/home/boy/gcc-arm-9.2-2019.12-x86_64-arm-none-eabi 
 sudo make menuconfig CROSS_COMPILE=arm-none-eabi- ARCH=arm
 sudo make CROSS_COMPILE=arm-none-eabi- ARCH=arm
+/home/boy/gcc-arm-9.2-2019.12-x86_64-arm-none-eabi/arm-none-eabi/bin/objdump -D vmlinux > /home/boy/kernel/input/new.txt
 

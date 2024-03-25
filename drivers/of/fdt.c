@@ -500,14 +500,17 @@ void *__unflatten_device_tree(const void *blob,
 
 	/* First pass, scan for size */
 	size = unflatten_dt_nodes(blob, NULL, dad, NULL);
+	pr_info("unflatten_dt_nodes success.\n");
 	if (size < 0)
 		return NULL;
 
 	size = ALIGN(size, 4);
+	pr_info("ALIGN success.\n");
 	pr_debug("  size is %d, allocating...\n", size);
 
 	/* Allocate memory for the expanded device tree */
 	mem = dt_alloc(size + 4, __alignof__(struct device_node));
+	pr_info("mem = dt_alloc  success.\n");
 	if (!mem)
 		return NULL;
 
@@ -519,6 +522,7 @@ void *__unflatten_device_tree(const void *blob,
 
 	/* Second pass, do actual unflattening */
 	unflatten_dt_nodes(blob, mem, dad, mynodes);
+	pr_info("unflatten_dt_nodes(blob, mem, dad, mynodes); success.\n");
 	if (be32_to_cpup(mem + size) != 0xdeadbeef)
 		pr_warning("End of tree marker overwritten: %08x\n",
 			   be32_to_cpup(mem + size));
@@ -1285,9 +1289,12 @@ bool __init early_init_dt_verify(void *params)
 void __init early_init_dt_scan_nodes(void)
 {
 	/* Retrieve various information from the /chosen node */
+
 	of_scan_flat_dt(early_init_dt_scan_chosen, boot_command_line);
 
+
 	/* Initialize {size,address}-cells info */
+
 	of_scan_flat_dt(early_init_dt_scan_root, NULL);
 
 	/* Setup memory, calling early_init_dt_add_memory_arch */

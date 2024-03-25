@@ -324,7 +324,7 @@ extern void __memblock_dump_all(void);
 
 static inline void memblock_dump_all(void)
 {
-	if (memblock_debug)
+	if (1)
 		__memblock_dump_all();
 }
 

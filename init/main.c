@@ -510,61 +510,95 @@ asmlinkage __visible void __init start_kernel(void)
 {
 	char *command_line;
 	char *after_dashes;
-
+	pr_info("set_task_stack_end_magic start executing.\n");
 	set_task_stack_end_magic(&init_task);
+	pr_info("set_task_stack_end_magic success.\n");
+	pr_info("smp_setup_processor_id start executing.\n");
 	smp_setup_processor_id();
+	pr_info("smp_setup_processor_id success.\n");
+	pr_info("debug_objects_early_init start executing.\n");
 	debug_objects_early_init();
-
+	pr_info("debug_objects_early_init success.\n");
+	pr_info("cgroup_init_early start executing.\n");
 	cgroup_init_early();
-
+	pr_info("cgroup_init_early success.\n");
+	pr_info("local_irq_disable start executing.\n");
 	local_irq_disable();
+	pr_info("local_irq_disable success.\n");
 	early_boot_irqs_disabled = true;
 
 	/*
 	 * Interrupts are still disabled. Do necessary setups, then
 	 * enable them.
 	 */
+	pr_info("boot_cpu_init start executing.\n");
 	boot_cpu_init();
+	pr_info("boot_cpu_init success.\n");
+	pr_info("page_address_init start executing.\n");
 	page_address_init();
+	pr_info("page_address_init success.\n");
+	pr_info("pr_notice start executing.\n");
 	pr_notice("%s", linux_banner);
+	pr_info("pr_notice success.\n");
 	setup_arch(&command_line);
+	pr_info("setup_arch success.\n");
+	pr_info("command_line:%s",&command_line);
 	mm_init_cpumask(&init_mm);
+	pr_info("mm_init_cpumask success.\n");
 	setup_command_line(command_line);
+	pr_info("setup_command_line success.\n");
 	setup_nr_cpu_ids();
+	pr_info("setup_nr_cpu_ids success.\n");
 	setup_per_cpu_areas();
+	pr_info("setup_per_cpu_areas success.\n");
 	smp_prepare_boot_cpu();	/* arch-specific boot-cpu hooks */
+	pr_info("smp_prepare_boot_cpu success.\n");
 	boot_cpu_hotplug_init();
+	pr_info("boot_cpu_hotplug_init success.\n");
 
 	build_all_zonelists(NULL);
+	pr_info("build_all_zonelists success.\n");
 	page_alloc_init();
+	pr_info("build_all_zonelists success.\n");
 
 	pr_notice("Kernel command line: %s\n", boot_command_line);
 	/* parameters may set static keys */
 	jump_label_init();
+	pr_info("jump_label_init success.\n");
 	parse_early_param();
+	pr_info("jump_label_init success.\n");
 	after_dashes = parse_args("Booting kernel",
 				  static_command_line, __start___param,
 				  __stop___param - __start___param,
 				  -1, -1, NULL, &unknown_bootoption);
+	pr_info("after_dashes success.\n");
 	if (!IS_ERR_OR_NULL(after_dashes))
 		parse_args("Setting init args", after_dashes, NULL, 0, -1, -1,
 			   NULL, set_init_arg);
-
+	pr_info("IS_ERR_OR_NULL success.\n");
 	/*
 	 * These use large bootmem allocations and must precede
 	 * kmem_cache_init()
 	 */
 	setup_log_buf(0);
+	pr_info("setup_log_bufsuccess.\n");
 	pidhash_init();
+	pr_info("pidhash_init success.\n");
 	vfs_caches_init_early();
+	pr_info("vfs_caches_init_early success.\n");
 	sort_main_extable();
+	pr_info("sort_main_extable success.\n");
 	trap_init();
+	pr_info("trap_init success.\n");
 	mm_init();
+	pr_info("mm_init success.\n");
 
 	ftrace_init();
+	pr_info("ftrace_init success.\n");
 
 	/* trace_printk can be enabled here */
 	early_trace_init();
+	pr_info("early_trace_init success.\n");
 
 	/*
 	 * Set up the scheduler prior starting any interrupts (such as the
@@ -577,34 +611,46 @@ asmlinkage __visible void __init start_kernel(void)
 	 * fragile until we cpu_idle() for the first time.
 	 */
 	preempt_disable();
+	pr_info("preempt_disable success.\n");
 	if (WARN(!irqs_disabled(),
 		 "Interrupts were enabled *very* early, fixing it\n"))
 		local_irq_disable();
+	pr_info("if (WARN(!irqs_disabled(), success.\n");
 	radix_tree_init();
-
+	pr_info("radix_tree_init success.\n");
 	/*
 	 * Allow workqueue creation and work item queueing/cancelling
 	 * early.  Work item execution depends on kthreads and starts after
 	 * workqueue_init().
 	 */
 	workqueue_init_early();
-
+	pr_info("workqueue_init_earlysuccess.\n");
 	rcu_init();
-
+	pr_info("rcu_init success.\n");
 	/* Trace events are available after this */
 	trace_init();
-
+	pr_info("trace_init success.\n");
 	context_tracking_init();
+	pr_info("context_tracking_init success.\n");
 	/* init some links before init_ISA_irqs() */
 	early_irq_init();
+	pr_info("early_irq_init success.\n");
 	init_IRQ();
+	pr_info("init_IRQ success.\n");
 	tick_init();
+	pr_info("tick_init success.\n");
 	rcu_init_nohz();
+	pr_info("rcu_init_nohz success.\n");
 	init_timers();
+	pr_info("init_timers success.\n");
 	hrtimers_init();
+	pr_info("hrtimers_init success.\n");
 	softirq_init();
+	pr_info("softirq_init success.\n");
 	timekeeping_init();
+	pr_info("timekeeping_init success.\n");
 	time_init();
+	pr_info("time_init success.\n");
 
 	/*
 	 * For best initial stack canary entropy, prepare it after:
@@ -614,18 +660,27 @@ asmlinkage __visible void __init start_kernel(void)
 	 * - random_init() to initialize the RNG from from early entropy sources
 	 */
 	random_init(command_line);
+	pr_info("random_init success.\n");
 	boot_init_stack_canary();
+	pr_info("boot_init_stack_canary success.\n");
 
 	sched_clock_postinit();
+	pr_info("sched_clock_postinit success.\n");
 	printk_safe_init();
+	pr_info("printk_safe_init success.\n");
 	perf_event_init();
+	pr_info("perf_event_init success.\n");
 	profile_init();
+	pr_info("profile_init success.\n");
 	call_function_init();
+	pr_info("call_function_init success.\n");
 	WARN(!irqs_disabled(), "Interrupts were enabled early\n");
 	early_boot_irqs_disabled = false;
 	local_irq_enable();
+	pr_info("local_irq_enable success.\n");
 
 	kmem_cache_init_late();
+	pr_info("kmem_cache_init_late success.\n");
 
 	/*
 	 * HACK ALERT! This is early. We're enabling the console before
@@ -633,11 +688,13 @@ asmlinkage __visible void __init start_kernel(void)
 	 * this. But we do want output early, in case something goes wrong.
 	 */
 	console_init();
+	pr_info("console_init success.\n");
 	if (panic_later)
 		panic("Too many boot %s vars at `%s'", panic_later,
 		      panic_param);
 
 	lockdep_info();
+	pr_info("lockdep_info success.\n");
 
 	/*
 	 * Need to run this when irqs are enabled, because it wants
@@ -645,6 +702,7 @@ asmlinkage __visible void __init start_kernel(void)
 	 * too:
 	 */
 	locking_selftest();
+	pr_info("locking_selftest success.\n");
 
 #ifdef CONFIG_BLK_DEV_INITRD
 	if (initrd_start && !initrd_below_start_ok &&
@@ -653,54 +711,86 @@ asmlinkage __visible void __init start_kernel(void)
 		    page_to_pfn(virt_to_page((void *)initrd_start)),
 		    min_low_pfn);
 		initrd_start = 0;
+	    pr_info("initrd_start  success.\n");
 	}
 #endif
 	kmemleak_init();
+	pr_info("kmemleak_init success.\n");
 	debug_objects_mem_init();
+	pr_info("debug_objects_mem_init success.\n");
 	setup_per_cpu_pageset();
+	pr_info("setup_per_cpu_pageset success.\n");
 	numa_policy_init();
+	pr_info("numa_policy_init success.\n");
 	if (late_time_init)
 		late_time_init();
+	pr_info("if (late_time_init) success.\n");
 	calibrate_delay();
+	pr_info("calibrate_delay success.\n");
 
 	arch_cpu_finalize_init();
-
+	pr_info("arch_cpu_finalize_init success.\n");
 	pidmap_init();
+	pr_info("pidmap_init success.\n");
 	anon_vma_init();
+	pr_info("anon_vma_init success.\n");
 	acpi_early_init();
+	pr_info("acpi_early_init success.\n");
 #ifdef CONFIG_X86
 	if (efi_enabled(EFI_RUNTIME_SERVICES))
 		efi_enter_virtual_mode();
+	pr_info("if (efi_enabled(EFI_RUNTIME_SERVICES) success.\n");
 #endif
 	thread_stack_cache_init();
+	pr_info("thread_stack_cache_init success.\n");
 	cred_init();
+	pr_info("cred_init success.\n");
 	fork_init();
+	pr_info("fork_init success.\n");
 	proc_caches_init();
+	pr_info("proc_caches_init success.\n");
 	buffer_init();
+	pr_info("abuffer_init success.\n");
 	key_init();
+	pr_info("key_init success.\n");
 	security_init();
+	pr_info("security_init success.\n");
 	dbg_late_init();
+	pr_info("dbg_late_init success.\n");
 	vfs_caches_init();
+	pr_info("vfs_caches_init success.\n");
 	pagecache_init();
+	pr_info("pagecache_initsuccess.\n");
 	signals_init();
+	pr_info("signals_init success.\n");
 	proc_root_init();
+	pr_info("proc_root_initsuccess.\n");
 	nsfs_init();
+	pr_info("nsfs_init success.\n");
 	cpuset_init();
+	pr_info("cpuset_init success.\n");
 	cgroup_init();
+	pr_info("cgroup_init success.\n");
 	taskstats_init_early();
+	pr_info("taskstats_init_early success.\n");
 	delayacct_init();
-
-
+	pr_info("delayacct_init success.\n");
 	acpi_subsystem_init();
+	pr_info("acpi_subsystem_init success.\n");
 	arch_post_acpi_subsys_init();
+	pr_info("arch_post_acpi_subsys_init success.\n");
 	sfi_init_late();
+	pr_info("sfi_init_late success.\n");
 
 	if (efi_enabled(EFI_RUNTIME_SERVICES)) {
 		efi_free_boot_services();
+		pr_info("efi_free_boot_services success.\n");
 	}
 
 	/* Do the rest non-__init'ed, we're now alive */
+	pr_info("rest_init start.\n");
 	rest_init();
+	pr_info("rest_init success.\n");
 
 	prevent_tail_call_optimization();
 }

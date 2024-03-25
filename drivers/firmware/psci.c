@@ -691,11 +691,15 @@ int __init psci_dt_init(void)
 	psci_initcall_t init_fn;
 
 	np = of_find_matching_node_and_match(NULL, psci_of_match, &matched_np);
+	pr_info("of_find_matching_node_and_match.\n");
 
-	if (!np || !of_device_is_available(np))
+	if (!np || !of_device_is_available(np)){
+		pr_info("of_device_is_available success.\n");
 		return -ENODEV;
+		}
 
 	init_fn = (psci_initcall_t)matched_np->data;
+	pr_info("init_fn = (psci_initcall_t)matched_np success.\n");
 	return init_fn(np);
 }
 

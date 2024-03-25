@@ -442,6 +442,7 @@ static void __init build_mem_type_table(void)
 	pteval_t hyp_device_pgprot, s2_pgprot, s2_device_pgprot;
 	int cpu_arch = cpu_architecture();
 	int i;
+	pr_info("build_mem_type_table cpu_architecture:%d\n build_mem_type_table  cr:%u\n",cpu_arch,cr);
 
 	if (cpu_arch < CPU_ARCH_ARMv6) {
 #if defined(CONFIG_CPU_DCACHE_DISABLE)
@@ -704,6 +705,7 @@ static void __init build_mem_type_table(void)
 		if (t->prot_sect)
 			t->prot_sect |= PMD_DOMAIN(t->domain);
 	}
+	pr_info("All executed");
 }
 
 #ifdef CONFIG_ARM_DMA_MEM_BUFFERABLE
@@ -723,13 +725,19 @@ EXPORT_SYMBOL(phys_mem_access_prot);
 
 static void __init *early_alloc_aligned(unsigned long sz, unsigned long align)
 {
+	pr_info("enter the early_alloc_aligned");
 	void *ptr = __va(memblock_alloc(sz, align));
 	memset(ptr, 0, sz);
+	pr_info("sz:%d\n", sz);
+	pr_info("align:%d\n", align);
+	pr_info("memblock_alloc(sz, align):%d\n", memblock_alloc(sz, align));
+	pr_info("tr:%p\n", ptr);
 	return ptr;
 }
 
 static void __init *early_alloc(unsigned long sz)
 {
+	pr_info("enter the early_alloc");
 	return early_alloc_aligned(sz, sz);
 }
 
@@ -962,20 +970,25 @@ static void __init __create_mapping(struct mm_struct *mm, struct map_desc *md,
  */
 static void __init create_mapping(struct map_desc *md)
 {
+	pr_info("enter the create_mapping \n");
 	if (md->virtual != vectors_base() && md->virtual < TASK_SIZE) {
 		pr_warn("BUG: not creating mapping for 0x%08llx at 0x%08lx in user region\n",
 			(long long)__pfn_to_phys((u64)md->pfn), md->virtual);
+		pr_info("the first if \n");
 		return;
 	}
-
+    pr_info("enter the second if\n");
 	if ((md->type == MT_DEVICE || md->type == MT_ROM) &&
 	    md->virtual >= PAGE_OFFSET && md->virtual < FIXADDR_START &&
 	    (md->virtual < VMALLOC_START || md->virtual >= VMALLOC_END)) {
 		pr_warn("BUG: mapping for 0x%08llx at 0x%08lx out of vmalloc space\n",
 			(long long)__pfn_to_phys((u64)md->pfn), md->virtual);
+		pr_info("the second if \n");
 	}
+	pr_info("pr_warn.\n");
 
 	__create_mapping(&init_mm, md, early_alloc, false);
+	pr_info("__create_mapping\n");
 }
 
 void __init create_mapping_late(struct mm_struct *mm, struct map_desc *md,
@@ -995,26 +1008,34 @@ void __init create_mapping_late(struct mm_struct *mm, struct map_desc *md,
  */
 void __init iotable_init(struct map_desc *io_desc, int nr)
 {
+	pr_info(" iotable_init enter\n");
 	struct map_desc *md;
 	struct vm_struct *vm;
 	struct static_vm *svm;
 
-	if (!nr)
-		return;
+	if (!nr){
+		pr_info("!nr\n");
+		return;}
 
 	svm = early_alloc_aligned(sizeof(*svm) * nr, __alignof__(*svm));
+	pr_info("early_alloc_aligned\n");
 
 	for (md = io_desc; nr; md++, nr--) {
 		create_mapping(md);
+		pr_info("create_mapping\n");
 
 		vm = &svm->vm;
 		vm->addr = (void *)(md->virtual & PAGE_MASK);
 		vm->size = PAGE_ALIGN(md->length + (md->virtual & ~PAGE_MASK));
+		pr_info("vm->size = PAGE_ALIGN\n");
 		vm->phys_addr = __pfn_to_phys(md->pfn);
 		vm->flags = VM_IOREMAP | VM_ARM_STATIC_MAPPING;
 		vm->flags |= VM_ARM_MTYPE(md->type);
+		pr_info("vm->flags |= VM_ARM_MTYPE\n");
 		vm->caller = iotable_init;
+		pr_info("vm->caller = iotable_init\n");
 		add_static_vm_early(svm++);
+		pr_info("add_static_vm_early\n");
 	}
 }
 
@@ -1118,15 +1139,18 @@ static void __init pci_reserve_io(void)
 void __init debug_ll_io_init(void)
 {
 	struct map_desc map;
-
+    pr_info("debug_ll_io_init enter.\n");
 	debug_ll_addr(&map.pfn, &map.virtual);
-	if (!map.pfn || !map.virtual)
-		return;
+	pr_info("debug_ll_addr success.\n");
+	if (!map.pfn || !map.virtual){
+		pr_info("!map.pfn || !map.virtual\n");
+		return;}
 	map.pfn = __phys_to_pfn(map.pfn);
 	map.virtual &= PAGE_MASK;
 	map.length = PAGE_SIZE;
 	map.type = MT_DEVICE;
 	iotable_init(&map, 1);
+	pr_info("iotable_init success\n");
 }
 #endif
 
@@ -1274,18 +1298,23 @@ static inline void prepare_page_table(void)
 	 */
 	for (addr = 0; addr < MODULES_VADDR; addr += PMD_SIZE)
 		pmd_clear(pmd_off_k(addr));
-
+	pr_info("MODULES_VADDR:%x \n",MODULES_VADDR);
+    
 //#ifdef CONFIG_XIP_KERNEL //@by-srliu
 	/* The XIP kernel is mapped in the module area -- skip over it */
 	addr = ((unsigned long)_exiprom + PMD_SIZE - 1) & PMD_MASK;
 //#endif
-	for ( ; addr < PAGE_OFFSET; addr += PMD_SIZE)
+	for ( ; addr < PAGE_OFFSET; addr += PMD_SIZE){
 		pmd_clear(pmd_off_k(addr));
+		}
+	pr_info("PAGE_OFFSET:%x \n",PAGE_OFFSET);
+	pr_info("PMD_SIZE:%x \n",PMD_SIZE);
 
 	/*
 	 * Find the end of the first block of lowmem.
 	 */
 	end = memblock.memory.regions[0].base + memblock.memory.regions[0].size;
+	pr_info("end :%x \n",end);
 	if (end >= arm_lowmem_limit)
 		end = arm_lowmem_limit;
 
@@ -1294,8 +1323,10 @@ static inline void prepare_page_table(void)
 	 * memory bank, up to the vmalloc region.
 	 */
 	for (addr = __phys_to_virt(end);
-	     addr < VMALLOC_START; addr += PMD_SIZE)
+	     addr < VMALLOC_START; addr += PMD_SIZE){
 		pmd_clear(pmd_off_k(addr));
+		pr_info("addr :%x \n",addr);}
+	pr_info("VMALLOC_START :%x \n",VMALLOC_START);
 }
 
 #ifdef CONFIG_ARM_LPAE
@@ -1343,9 +1374,11 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * Allocate the vector page early.
 	 */
 	vectors = early_alloc(PAGE_SIZE * 2);
+	//pr_info("vectors:%s",vectros);
+	pr_info("PAGE_SIZE:%d\n",PAGE_SIZE);
 
 	early_trap_init(vectors);
-
+	pr_info("early_trap_init");
 	/*
 	 * Clear page table except top pmd used by early fixmaps
 	 */
@@ -1356,13 +1389,19 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * Map the kernel if it is XIP.
 	 * It is always first in the modulearea.
 	 */
+	pr_info("pmd_clear(pmd_off_k(addr))");
 //#ifdef CONFIG_XIP_KERNEL//by-srliu
 #ifndef CONFIG_XIP_KERNEL
 	map.pfn = __phys_to_pfn(CONFIG_XIP_PHYS_ADDR & SECTION_MASK);
 	map.virtual = MODULES_VADDR;
 	map.length = ((unsigned long)_exiprom - map.virtual + ~SECTION_MASK) & SECTION_MASK;
 	map.type = MT_ROM;
+	pr_info("map.pfn :%d\n",map.pfn );
+	pr_info("map.virtual:%d\n",map.virtual);
+	pr_info("map.length:%d\n",map.length);
+	pr_info("map.type:%d\n",map.type);
 	create_mapping(&map);
+	pr_info("CONFIG_XIP_KERNEL");
 #endif
 
 	/*
@@ -1374,6 +1413,7 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	map.length = SZ_1M;
 	map.type = MT_CACHECLEAN;
 	create_mapping(&map);
+	pr_info(" FLUSH_BASE\n");
 #endif
 #ifdef FLUSH_BASE_MINICACHE
 	map.pfn = __phys_to_pfn(FLUSH_BASE_PHYS + SZ_1M);
@@ -1381,6 +1421,7 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	map.length = SZ_1M;
 	map.type = MT_MINICLEAN;
 	create_mapping(&map);
+	pr_info(" FLUSH_BASE_MINICACHE\n");
 #endif
 
 	/*
@@ -1391,18 +1432,23 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	map.pfn = __phys_to_pfn(virt_to_phys(vectors));
 	map.virtual = 0xffff0000;
 	map.length = PAGE_SIZE;
+	pr_info("__phys_to_pfn \n");
 #ifdef CONFIG_KUSER_HELPERS
 	map.type = MT_HIGH_VECTORS;
+	pr_info("CONFIG_KUSER_HELPERS\n");
 #else
 	map.type = MT_LOW_VECTORS;
+	pr_info("MT_LOW_VECTORS");
 #endif
 	create_mapping(&map);
+	pr_info("#endif create_mapping(&map);\n");
 
 	if (!vectors_high()) {
 		map.virtual = 0;
 		map.length = PAGE_SIZE * 2;
 		map.type = MT_LOW_VECTORS;
 		create_mapping(&map);
+		pr_info("vectors_high\n");
 	}
 
 	/* Now create a kernel read-only mapping */
@@ -1411,18 +1457,23 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	map.length = PAGE_SIZE;
 	map.type = MT_LOW_VECTORS;
 	create_mapping(&map);
+	pr_info(" Now create a kernel read-only mapping \n");
 
 	/*
 	 * Ask the machine support to map in the statically mapped devices.
 	 */
-	if (mdesc->map_io)
+	if (mdesc->map_io){
 		mdesc->map_io();
-	else
+		pr_info(" mdesc->map_io \n");}
+	else{
 		debug_ll_io_init();
+		pr_info("debug_ll_io_init\n");}
 	fill_pmd_gaps();
+	pr_info("fill_pmd_gaps\n");
 
 	/* Reserve fixed i/o space in VMALLOC region */
 	pci_reserve_io();
+	pr_info("pci_reserve_io\n");
 
 	/*
 	 * Finally flush the caches and tlb to ensure that we're in a
@@ -1431,10 +1482,13 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * back.  After this point, we can start to touch devices again.
 	 */
 	local_flush_tlb_all();
+	pr_info("local_flush_tlb_all\n");
 	flush_cache_all();
+	pr_info("flush_cache_all\n");
 
 	/* Enable asynchronous aborts */
 	early_abt_enable();
+	pr_info("early_abt_enable\n");
 }
 
 static void __init kmap_init(void)
@@ -1453,18 +1507,23 @@ static void __init map_lowmem(void)
 	struct memblock_region *reg;
 	phys_addr_t kernel_x_start = round_down(__pa(KERNEL_START), SECTION_SIZE);
 	phys_addr_t kernel_x_end = round_up(__pa(__init_end), SECTION_SIZE);
+	pr_info("kernel_x_start:%x\n",kernel_x_start);
+	pr_info("kernel_x_end:%x\n",kernel_x_end);
 
 	/* Map all the lowmem memory banks. */
 	for_each_memblock(memory, reg) {
 		phys_addr_t start = reg->base;
 		phys_addr_t end = start + reg->size;
+		pr_info("start:%x\n", start);
+		pr_info("end(phys_addr_t end):%x\n",end);
 		struct map_desc map;
 
 		if (memblock_is_nomap(reg))
 			continue;
 
-		if (end > arm_lowmem_limit)
+		if (end > arm_lowmem_limit){
 			end = arm_lowmem_limit;
+			pr_info("end(end > arm_lowmem_limit) :%x\n",end);}
 		if (start >= end)
 			break;
 
@@ -1473,13 +1532,16 @@ static void __init map_lowmem(void)
 			map.virtual = __phys_to_virt(start);
 			map.length = end - start;
 			map.type = MT_MEMORY_RWX;
-
+			pr_info("map.pfn(end < kernel_x_start):%x\n",map.pfn );
+			pr_info("map.virtual(end < kernel_x_start):%x\n",map.virtual);
 			create_mapping(&map);
 		} else if (start >= kernel_x_end) {
 			map.pfn = __phys_to_pfn(start);
 			map.virtual = __phys_to_virt(start);
 			map.length = end - start;
 			map.type = MT_MEMORY_RW;
+			pr_info("map.pfn(start >= kernel_x_end):%x\n",map.pfn );
+			pr_info("map.virtual(start >= kernel_x_end):%x\n",map.virtual);
 
 			create_mapping(&map);
 		} else {
@@ -1523,6 +1585,7 @@ pgtables_remap lpae_pgtables_remap_asm;
  */
 static void __init early_paging_init(const struct machine_desc *mdesc)
 {
+	pr_info("mdesc->pv_fixup:%d\n",mdesc->pv_fixup)
 	pgtables_remap *lpae_pgtables_remap;
 	unsigned long pa_pgd;
 	unsigned int cr, ttbcr;
@@ -1591,6 +1654,7 @@ static void __init early_paging_init(const struct machine_desc *mdesc)
 
 static void __init early_paging_init(const struct machine_desc *mdesc)
 {
+	pr_info("mdesc->pv_fixup:%d",mdesc->pv_fixup);
 	long long offset;
 
 	if (!mdesc->pv_fixup)
@@ -1644,32 +1708,70 @@ static void __init early_fixmap_shutdown(void)
 void __init paging_init(const struct machine_desc *mdesc)
 {
 	void *zero_page;
-
+	pr_info("prepare_page_table executing.\n");
 	prepare_page_table();
+	pr_info("prepare_page_table success.\n");
 	map_lowmem();
+	pr_info("map_lowmem success.\n");
 	memblock_set_current_limit(arm_lowmem_limit);
+	pr_info("memblock_set_current_limit success.\n");
 	dma_contiguous_remap();
+	pr_info("dma_contiguous_remap success.\n");
 	early_fixmap_shutdown();
+	pr_info("early_fixmap_shutdown success.\n");
 	devicemaps_init(mdesc);
+	pr_info("devicemaps_init success.\n");
 	kmap_init();
+	pr_info("kmap_init success.\n");
 	tcm_init();
+	pr_info("tcm_init success.\n");
 
 	top_pmd = pmd_off_k(0xffff0000);
+	pr_info("top_pmd  success.\n");
 
 	/* allocate the zero page. */
 	zero_page = early_alloc(PAGE_SIZE);
+	pr_info("zero_page success.\n");
+
 
 	bootmem_init();
-
+	pr_info("bootmem_init success.\n");
 	empty_zero_page = virt_to_page(zero_page);
+	pr_info("empty_zero_page  success.\n");
 	__flush_dcache_page(NULL, empty_zero_page);
+	pr_info("__flush_dcache_page success.\n");
 
 	/* Compute the virt/idmap offset, mostly for the sake of KVM */
 	kimage_voffset = (unsigned long)&kimage_voffset - virt_to_idmap(&kimage_voffset);
+	pr_info("kimage_voffset  success.\n");
+	pr_info("prepare_page_table executing.\n");
 }
 
 void __init early_mm_init(const struct machine_desc *mdesc)
 {
+	pr_info("mdesc information:\n");
+	pr_info("name: %s\n", mdesc->name);
+	pr_info("atag_offset: %d\n", mdesc->atag_offset);
+	pr_info("nr: %d\n", mdesc->nr);
+	pr_info("dt_compat: %s\n", mdesc->dt_compat);
+	pr_info("nr_irqs: %d\n", mdesc->nr_irqs);
+	pr_info("video_start: %d\n", mdesc->video_start);
+	pr_info("video_end: %s\n",  mdesc->video_end);
+	pr_info("reserve_lp0: %s\n", mdesc->reserve_lp0);
+	pr_info("reserve_lp1: %s\n", mdesc->reserve_lp1);
+	pr_info("reserve_lp2: %s\n", mdesc->reserve_lp2);
+	pr_info("REBOOT_COLD=0 %d\n");
+	pr_info("REBOOT_WARM=1: %s\n");
+	pr_info("REBOOT_HARD=2: %s\n");
+	pr_info("REBOOT_SOFT=3: %s\n");
+	pr_info("REBOOT_GPIO=4: %s\n");
+	pr_info("REBOOT_SOFT=3: %s\n");
+	pr_info("REBOOT_GPIO=4: %s\n");
+	pr_info("l2c_aux_val: %u\n",mdesc->l2c_aux_val);
+	pr_info("l2c_aux_mask: %u\n",mdesc->l2c_aux_mask);
+    pr_info("init_early function address: %p\n", mdesc->init_early);
+    pr_info("init_machine function address: %p\n", mdesc->init_machine);
+    pr_info("init_late function address: %p\n", mdesc->init_late);
 	build_mem_type_table();
 	early_paging_init(mdesc);
 }
