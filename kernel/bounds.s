@@ -9,27 +9,25 @@
 	.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
 	.eabi_attribute 18, 2	@ Tag_ABI_PCS_wchar_t
 	.file	"bounds.c"
-@ GNU C89 (GNU Toolchain for the A-profile Architecture 9.2-2019.12 (arm-9.10)) version 9.2.1 20191025 (arm-none-eabi)
-@	compiled by GNU C version 4.8.1, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+@ GNU C89 (Ubuntu 9.4.0-1ubuntu1~20.04.2) version 9.4.0 (arm-linux-gnueabihf)
+@	compiled by GNU C version 9.4.0, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
 
 @ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 @ options passed:  -nostdinc -I ./arch/arm/include
 @ -I ./arch/arm/include/generated -I ./include -I ./arch/arm/include/uapi
 @ -I ./arch/arm/include/generated/uapi -I ./include/uapi
-@ -I ./include/generated/uapi -imultilib thumb/v7-a/nofp
-@ -iprefix /home/boy/gcc-arm-9.2-2019.12-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/9.2.1/
-@ -D__USES_INITFINI__ -D __KERNEL__ -D __LINUX_ARM_ARCH__=7 -U arm
-@ -D CC_HAVE_ASM_GOTO -D KBUILD_BASENAME="bounds"
-@ -D KBUILD_MODNAME="bounds"
-@ -isystem /home/boy/gcc-arm-9.2-2019.12-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/9.2.1/include
+@ -I ./include/generated/uapi -imultilib sf -imultiarch arm-linux-gnueabi
+@ -D __KERNEL__ -D __LINUX_ARM_ARCH__=7 -U arm -D CC_HAVE_ASM_GOTO
+@ -D KBUILD_BASENAME="bounds" -D KBUILD_MODNAME="bounds"
+@ -isystem /usr/lib/gcc-cross/arm-linux-gnueabihf/9/include
 @ -include ./include/linux/kconfig.h -MD kernel/.bounds.s.d kernel/bounds.c
 @ -mlittle-endian -mabi=aapcs-linux -mfpu=vfp -marm -mfloat-abi=soft
-@ -march=armv7-a -auxbase-strip kernel/bounds.s -Os -Wall -Wundef
-@ -Wstrict-prototypes -Wno-trigraphs -Werror=implicit-function-declaration
-@ -Wno-format-security -Wno-frame-address -Wformat-truncation=0
-@ -Wformat-overflow=0 -Wno-int-in-bool-context
-@ -Wno-address-of-packed-member -Wattribute-alias=0
-@ -Wframe-larger-than=1024 -Wno-unused-but-set-variable
+@ -mtls-dialect=gnu -march=armv7-a -auxbase-strip kernel/bounds.s -Os -Wall
+@ -Wundef -Wstrict-prototypes -Wno-trigraphs
+@ -Werror=implicit-function-declaration -Wno-format-security
+@ -Wno-frame-address -Wformat-truncation=0 -Wformat-overflow=0
+@ -Wno-int-in-bool-context -Wno-address-of-packed-member
+@ -Wattribute-alias=0 -Wframe-larger-than=1024 -Wno-unused-but-set-variable
 @ -Wunused-const-variable=0 -Wdeclaration-after-statement -Wno-pointer-sign
 @ -Wno-stringop-truncation -Wno-array-bounds -Wstringop-overflow=0
 @ -Wno-restrict -Wno-maybe-uninitialized -Werror=implicit-int
@@ -80,7 +78,7 @@
 @ -ftree-reassoc -ftree-scev-cprop -ftree-sink -ftree-slsr -ftree-sra
 @ -ftree-switch-conversion -ftree-tail-merge -ftree-ter -ftree-vrp
 @ -funit-at-a-time -funwind-tables -fverbose-asm -fwrapv -fwrapv-pointer
-@ -fzero-initialized-in-bss -marm -mbe32 -mlittle-endian
+@ -fzero-initialized-in-bss -marm -mbe32 -mglibc -mlittle-endian
 @ -mpic-data-is-text-relative -msched-prolog -munaligned-access
 @ -mvectorize-with-neon-quad
 
@@ -120,4 +118,5 @@ main:
 	bx	lr	@
 	.fnend
 	.size	main, .-main
-	.ident	"GCC: (GNU Toolchain for the A-profile Architecture 9.2-2019.12 (arm-9.10)) 9.2.1 20191025"
+	.ident	"GCC: (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0"
+	.section	.note.GNU-stack,"",%progbits

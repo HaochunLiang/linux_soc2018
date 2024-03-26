@@ -725,13 +725,13 @@ EXPORT_SYMBOL(phys_mem_access_prot);
 
 static void __init *early_alloc_aligned(unsigned long sz, unsigned long align)
 {
-	pr_info("enter the early_alloc_aligned");
-	void *ptr = __va(memblock_alloc(sz, align));
+	phys_addr_t tempX = memblock_alloc(sz, align);
+	void *ptr = __va(tempX);
 	memset(ptr, 0, sz);
-	pr_info("sz:%d\n", sz);
-	pr_info("align:%d\n", align);
-	pr_info("memblock_alloc(sz, align):%d\n", memblock_alloc(sz, align));
-	pr_info("tr:%p\n", ptr);
+	pr_info("early_alloc_aligned | sz : %ld\n", sz);
+	pr_info("early_alloc_aligned | align : %ld\n", align);
+	pr_info("early_alloc_aligned | tempX : %ld\n", tempX);
+	pr_info("early_alloc_aligned | ptr : %p\n", ptr);
 	return ptr;
 }
 
@@ -1082,6 +1082,8 @@ static void __init fill_pmd_gaps(void)
 	unsigned long addr, next = 0;
 	pmd_t *pmd;
 
+	pr_info("fill_pmd_gaps\n", vm);
+
 	list_for_each_entry(svm, &static_vmlist, list) {
 		vm = &svm->vm;
 		addr = (unsigned long)vm->addr;
@@ -1095,8 +1097,10 @@ static void __init fill_pmd_gaps(void)
 		 */
 		if ((addr & ~PMD_MASK) == SECTION_SIZE) {
 			pmd = pmd_off_k(addr);
-			if (pmd_none(*pmd))
+			if (pmd_none(*pmd)){
 				pmd_empty_section_gap(addr & PMD_MASK);
+				pr_info("fill_pmd_gaps | pmd : %p\n", pmd);
+			}
 		}
 
 		/*
@@ -1107,6 +1111,7 @@ static void __init fill_pmd_gaps(void)
 		addr += vm->size;
 		if ((addr & ~PMD_MASK) == SECTION_SIZE) {
 			pmd = pmd_off_k(addr) + 1;
+			pr_info("fill_pmd_gaps | pmd : %p\n", pmd);
 			if (pmd_none(*pmd))
 				pmd_empty_section_gap(addr);
 		}
@@ -1139,18 +1144,22 @@ static void __init pci_reserve_io(void)
 void __init debug_ll_io_init(void)
 {
 	struct map_desc map;
-    pr_info("debug_ll_io_init enter.\n");
-	debug_ll_addr(&map.pfn, &map.virtual);
-	pr_info("debug_ll_addr success.\n");
+	map.pfn = 0xa00;
+	map.virtual = 0xf8000100;
+	//debug_ll_addr(&map.pfn, &map.virtual);
 	if (!map.pfn || !map.virtual){
-		pr_info("!map.pfn || !map.virtual\n");
+		pr_info("debug_ll_io_init | !map.pfn||!map.virtual\n");
 		return;}
 	map.pfn = __phys_to_pfn(map.pfn);
 	map.virtual &= PAGE_MASK;
 	map.length = PAGE_SIZE;
 	map.type = MT_DEVICE;
 	iotable_init(&map, 1);
-	pr_info("iotable_init success\n");
+
+	pr_info("debug_ll_io_init | map.pfn : %ld\n",map.pfn);
+	pr_info("debug_ll_io_init | map.virtual : %ld\n",map.virtual);
+	pr_info("debug_ll_io_init | map.length : %ld\n",map.length);
+	pr_info("debug_ll_io_init | map.type : MT_DEVICE\n");
 }
 #endif
 
@@ -1374,11 +1383,12 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * Allocate the vector page early.
 	 */
 	vectors = early_alloc(PAGE_SIZE * 2);
-	//pr_info("vectors:%s",vectros);
-	pr_info("PAGE_SIZE:%d\n",PAGE_SIZE);
+	pr_info("devicemaps_init | vectors : %p\n",vectors);
+	pr_info("devicemaps_init | PAGE_SIZE : %d\n",PAGE_SIZE);
 
 	early_trap_init(vectors);
-	pr_info("early_trap_init");
+	
+	pr_info("devicemaps_init | early_trap_init\n");
 	/*
 	 * Clear page table except top pmd used by early fixmaps
 	 */
@@ -1389,19 +1399,18 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * Map the kernel if it is XIP.
 	 * It is always first in the modulearea.
 	 */
-	pr_info("pmd_clear(pmd_off_k(addr))");
-//#ifdef CONFIG_XIP_KERNEL//by-srliu
 #ifndef CONFIG_XIP_KERNEL
 	map.pfn = __phys_to_pfn(CONFIG_XIP_PHYS_ADDR & SECTION_MASK);
 	map.virtual = MODULES_VADDR;
 	map.length = ((unsigned long)_exiprom - map.virtual + ~SECTION_MASK) & SECTION_MASK;
 	map.type = MT_ROM;
-	pr_info("map.pfn :%d\n",map.pfn );
-	pr_info("map.virtual:%d\n",map.virtual);
-	pr_info("map.length:%d\n",map.length);
-	pr_info("map.type:%d\n",map.type);
+	pr_info("devicemaps_init | NOTDEF CONFIG_XIP_KERNEL\n");
+	pr_info("devicemaps_init | map.pfn : %ld\n",map.pfn);
+	pr_info("devicemaps_init | map.virtual  :%ld\n",map.virtual);
+	pr_info("devicemaps_init | map.length : %ld\n",map.length);
+	pr_info("devicemaps_init | map.type : %d\n",map.type);
+	pr_info("devicemaps_init | CONFIG_XIP_KERNEL\n");
 	create_mapping(&map);
-	pr_info("CONFIG_XIP_KERNEL");
 #endif
 
 	/*
@@ -1412,16 +1421,26 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	map.virtual = FLUSH_BASE;
 	map.length = SZ_1M;
 	map.type = MT_CACHECLEAN;
+	pr_info("devicemaps_init | FLUSH_BASE : %d\n", FLUSH_BASE);
+	pr_info("devicemaps_init | map.pfn : %ld\n",map.pfn);
+	pr_info("devicemaps_init | map.virtual : %ld\n",map.virtual);
+	pr_info("devicemaps_init | map.length : %ld\n",map.length);
+	pr_info("devicemaps_init | map.type : %d\n",map.type);
+	pr_info("devicemaps_init | FLUSH_BASE\n");
 	create_mapping(&map);
-	pr_info(" FLUSH_BASE\n");
 #endif
 #ifdef FLUSH_BASE_MINICACHE
 	map.pfn = __phys_to_pfn(FLUSH_BASE_PHYS + SZ_1M);
 	map.virtual = FLUSH_BASE_MINICACHE;
 	map.length = SZ_1M;
 	map.type = MT_MINICLEAN;
+	pr_info("devicemaps_init | FLUSH_BASE_MINICACHE : %d\n", FLUSH_BASE_MINICACHE);
+	pr_info("devicemaps_init | map.pfn : %ld\n",map.pfn);
+	pr_info("devicemaps_init | map.virtual : %ld\n",map.virtual);
+	pr_info("devicemaps_init | map.length : %ld\n",map.length);
+	pr_info("devicemaps_init | map.type : %d\n",map.type);
+	pr_info("devicemaps_init | FLUSH_BASE_MINICACHE\n");
 	create_mapping(&map);
-	pr_info(" FLUSH_BASE_MINICACHE\n");
 #endif
 
 	/*
@@ -1432,23 +1451,33 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	map.pfn = __phys_to_pfn(virt_to_phys(vectors));
 	map.virtual = 0xffff0000;
 	map.length = PAGE_SIZE;
-	pr_info("__phys_to_pfn \n");
+	pr_info("devicemaps_init | map.pfn : %ld\n",map.pfn);
+	pr_info("devicemaps_init | map.virtual : %ld\n",map.virtual);
+	pr_info("devicemaps_init | map.length : %ld\n",map.length);
 #ifdef CONFIG_KUSER_HELPERS
 	map.type = MT_HIGH_VECTORS;
-	pr_info("CONFIG_KUSER_HELPERS\n");
+	pr_info("devicemaps_init | map.type : MT_HIGH_VECTORS\n");
 #else
 	map.type = MT_LOW_VECTORS;
-	pr_info("MT_LOW_VECTORS");
+	pr_info("devicemaps_init | map.type : MT_LOW_VECTORS\n");
 #endif
 	create_mapping(&map);
-	pr_info("#endif create_mapping(&map);\n");
+
+	pr_info("devicemaps_init | create_mapping()--END\n");
+	pr_info("devicemaps_init | MT_LOW_VECTORS : %d| MT_HIGH_VECTORS : %d\n", MT_LOW_VECTORS, MT_HIGH_VECTORS);
 
 	if (!vectors_high()) {
 		map.virtual = 0;
 		map.length = PAGE_SIZE * 2;
 		map.type = MT_LOW_VECTORS;
+
+		pr_info("devicemaps_init | !vectors_high()\n");
+		pr_info("devicemaps_init | map.pfn : %ld\n",map.pfn);
+		pr_info("devicemaps_init | map.virtual : %ld\n",map.virtual);
+		pr_info("devicemaps_init | map.length : %ld\n",map.length);
+		pr_info("devicemaps_init | map.type : MT_LOW_VECTORS\n");
+
 		create_mapping(&map);
-		pr_info("vectors_high\n");
 	}
 
 	/* Now create a kernel read-only mapping */
@@ -1456,6 +1485,12 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	map.virtual = 0xffff0000 + PAGE_SIZE;
 	map.length = PAGE_SIZE;
 	map.type = MT_LOW_VECTORS;
+
+	pr_info("devicemaps_init | map.pfn : %ld\n",map.pfn);
+	pr_info("devicemaps_init | map.virtual : %ld\n",map.virtual);
+	pr_info("devicemaps_init | map.length : %ld\n",map.length);
+	pr_info("devicemaps_init | map.type : MT_LOW_VECTORS\n");
+
 	create_mapping(&map);
 	pr_info(" Now create a kernel read-only mapping \n");
 
@@ -1463,17 +1498,17 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * Ask the machine support to map in the statically mapped devices.
 	 */
 	if (mdesc->map_io){
+		pr_info("devicemaps_init | mdesc->map_io\n");
 		mdesc->map_io();
-		pr_info(" mdesc->map_io \n");}
-	else{
+	}else{
+		pr_info("devicemaps_init | debug_ll_io_init\n");
 		debug_ll_io_init();
-		pr_info("debug_ll_io_init\n");}
+	}
+
 	fill_pmd_gaps();
-	pr_info("fill_pmd_gaps\n");
 
 	/* Reserve fixed i/o space in VMALLOC region */
 	pci_reserve_io();
-	pr_info("pci_reserve_io\n");
 
 	/*
 	 * Finally flush the caches and tlb to ensure that we're in a
@@ -1482,13 +1517,13 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 	 * back.  After this point, we can start to touch devices again.
 	 */
 	local_flush_tlb_all();
-	pr_info("local_flush_tlb_all\n");
+	pr_info("devicemaps_init | local_flush_tlb_all\n");
 	flush_cache_all();
-	pr_info("flush_cache_all\n");
+	pr_info("devicemaps_init | flush_cache_all\n");
 
 	/* Enable asynchronous aborts */
 	early_abt_enable();
-	pr_info("early_abt_enable\n");
+	pr_info("devicemaps_init | early_abt_enable\n");
 }
 
 static void __init kmap_init(void)
