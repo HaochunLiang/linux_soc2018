@@ -333,21 +333,46 @@ static inline void __local_flush_tlb_all(void)
 	tlb_op(TLB_V4_I_FULL | TLB_V6_I_FULL, "c8, c5, 0", zero);
 }
 
+//static inline void local_flush_tlb_all(void)
+//{
+//	const int zero = 0;
+//	const unsigned int __tlb_flag = __cpu_tlb_flags;
+//
+//	if (tlb_flag(TLB_WB))
+//		dsb(nshst);
+//
+//	__local_flush_tlb_all();
+//	tlb_op(TLB_V7_UIS_FULL, "c8, c7, 0", zero);
+//
+//	if (tlb_flag(TLB_BARRIER)) {
+//		dsb(nsh);
+//		isb();
+//	}
+//}
 static inline void local_flush_tlb_all(void)
 {
-	const int zero = 0;
-	const unsigned int __tlb_flag = __cpu_tlb_flags;
+    const int zero = 0;
+    const unsigned int __tlb_flag = __cpu_tlb_flags;
+	pr_info("__tlb_flag:%d\n", __tlb_flag);
 
-	if (tlb_flag(TLB_WB))
-		dsb(nshst);
+    if (tlb_flag(TLB_WB)) {
+        pr_info("local_flush_tlb_all: Executing data synchronization barrier (TLB_WB)\n");
+        dsb(nshst);
+    }
 
-	__local_flush_tlb_all();
-	tlb_op(TLB_V7_UIS_FULL, "c8, c7, 0", zero);
+    pr_info("local_flush_tlb_all: Calling __local_flush_tlb_all\n");
+    __local_flush_tlb_all();
 
-	if (tlb_flag(TLB_BARRIER)) {
-		dsb(nsh);
-		isb();
-	}
+    pr_info("local_flush_tlb_all: Performing tlb_op with TLB_V7_UIS_FULL\n");
+    tlb_op(TLB_V7_UIS_FULL, "c8, c7, 0", zero);
+
+    if (tlb_flag(TLB_BARRIER)) {
+        pr_info("local_flush_tlb_all: Executing data and instruction synchronization barriers (TLB_BARRIER)\n");
+        dsb(nsh);
+        isb();
+    }
+
+    pr_info("local_flush_tlb_all: TLB flush completed\n");
 }
 
 static inline void __flush_tlb_all(void)
