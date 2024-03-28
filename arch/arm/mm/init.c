@@ -144,15 +144,17 @@ void __init setup_dma_zone(const struct machine_desc *mdesc)
 static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 	unsigned long max_high)
 {
-	pr_info("enter zone_sizes_init");
+	pr_info("enter zone_sizes_init\n");
+	pr_info("zone_sizes_init->min:%d\n", min);
+	pr_info("zone_sizes_init->max_low:%d\n",max_low);
+	pr_info("zone_sizes_init->max_high:%d\n",max_high);
 	unsigned long zone_size[MAX_NR_ZONES], zhole_size[MAX_NR_ZONES];
 	struct memblock_region *reg;
-
 	/*
 	 * initialise the zones.
 	 */
 	memset(zone_size, 0, sizeof(zone_size));
-	pr_info("memset(zone_size, 0, sizeof(zone_size))");
+	pr_info("__init_single_page->memset(zone_size, 0, sizeof(zone_size))\n");
 
 	/*
 	 * The memory size has already been determined.  If we need
@@ -160,10 +162,10 @@ static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 	 * to the zones, now is the time to do it.
 	 */
 	zone_size[0] = max_low - min;
-	pr_info("zone_size[0]:%d",zone_size[0]);
+	pr_info("zone_size[0]:%d\n",zone_size[0]);
 #ifdef CONFIG_HIGHMEM
 	zone_size[ZONE_HIGHMEM] = max_high - max_low;
-	pr_info("zone_size[ZONE_HIGHMEM] :%d",zone_size[ZONE_HIGHMEM]);
+	pr_info("zone_size[ZONE_HIGHMEM] :%d\n",zone_size[ZONE_HIGHMEM]);
 #endif
 
 	/*
@@ -171,9 +173,9 @@ static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 	 *  holes = node_size - sum(bank_sizes)
 	 */
 	memcpy(zhole_size, zone_size, sizeof(zhole_size));
-	pr_info("memcpy(zhole_size, zone_size, sizeof(zhole_size));");
+	pr_info("memcpy(zhole_size, zone_size, sizeof(zhole_size));\n");
 	for_each_memblock(memory, reg) {
-		pr_info("enter for_each_memblock(memory, reg)");
+		pr_info("enter for_each_memblock(memory, reg)\n");
 		unsigned long start = memblock_region_memory_base_pfn(reg);
 		pr_info("start:%d\n",start);
 		unsigned long end = memblock_region_memory_end_pfn(reg);

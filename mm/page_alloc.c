@@ -1184,26 +1184,30 @@ static void __meminit __init_single_page(struct page *page, unsigned long pfn,
 				unsigned long zone, int nid)
 {
 	pr_info("enter __init_single_page\n");
+	pr_info("__init_single_page->page:%d\n",page);
+	pr_info("__init_single_page->zone:%d\n",zone);
+	pr_info("__init_single_page->nid:%d\n",nid);
+	pr_info("__init_single_page->pfn:%d\n",pfn);
 	set_page_links(page, zone, nid, pfn);
-	pr_info("page:%d\n",page);
-	pr_info("zone:%d\n",zone);
-	pr_info("nid:%d\n",nid);
-	pr_info("pfn:%d\n",pfn);
+	pr_info("second __init_single_page->page:%d\n",page);
+	pr_info("second __init_single_page->zone:%d\n",zone);
+	pr_info("second __init_single_page->nid:%d\n",nid);
+	pr_info("second __init_single_page->pfn:%d\n",pfn);
 	init_page_count(page);
-	pr_info("init_page_count(page)\n");
+	pr_info("__init_single_page->init_page_count(page)\n");
 	page_mapcount_reset(page);
-	pr_info("page_mapcount_reset(page)\n");
+	pr_info("__init_single_page->page_mapcount_reset(page)\n");
 	page_cpupid_reset_last(page);
-	pr_info("page_cpupid_reset_last(page)\n");
+	pr_info("__init_single_page->page_cpupid_reset_last(page)\n");
 
 	INIT_LIST_HEAD(&page->lru);
-	pr_info("INIT_LIST_HEAD(&page->lru)\n");
+	pr_info("__init_single_page->INIT_LIST_HEAD(&page->lru)\n");
 #ifdef WANT_PAGE_VIRTUAL
-	pr_info("#ifdef WANT_PAGE_VIRTUAL\n");
+	pr_info("__init_single_page->#ifdef WANT_PAGE_VIRTUAL\n");
 	/* The shift won't overflow because ZONE_NORMAL is below 4G. */
 	if (!is_highmem_idx(zone)){
 		set_page_address(page, __va(pfn << PAGE_SHIFT));
-		pr_info("set_page_address(page, __va(pfn << PAGE_SHIFT));\n");}
+		pr_info("__init_single_page->set_page_address(page, __va(pfn << PAGE_SHIFT));\n");}
 #endif
 }
 
