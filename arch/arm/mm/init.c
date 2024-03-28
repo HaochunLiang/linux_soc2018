@@ -211,6 +211,9 @@ static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 
 	free_area_init_node(0, zone_size, min, zhole_size);
 	pr_info("free_area_init_node end\n");
+	pr_info("zone_size:%d\n",zone_size);
+	pr_info("min:%d\n",min);
+	pr_info("zhole_size:%d\n",zhole_size);
 }
 
 #ifdef CONFIG_HAVE_ARCH_PFN_VALID
@@ -368,7 +371,11 @@ void __init bootmem_init(void)
 	 * for memmap_init_zone(), otherwise all PFNs are invalid.
 	 */
 	zone_sizes_init(min, max_low, max_high);
-	pr_info("zone_sizes_init over\n");
+	pr_info("min,max_low,max_high of zone_sizes_init\n");
+	pr_info("min:%d\n",min);
+	pr_info("max_low:%d\n",max_low);
+	pr_info("max_high:%d\n",max_high);
+	pr_info("min,max_low,max_high of zone_sizes_init over\n");
 
 	/*
 	 * This doesn't seem to be used by the Linux memory manager any
