@@ -1,1 +1,1 @@
-cmd_arch/arm/net/built-in.o :=  rm -f arch/arm/net/built-in.o; arm-linux-gnueabihf-ar rcSTPD arch/arm/net/built-in.o
+cmd_arch/arm/net/built-in.o :=  rm -f arch/arm/net/built-in.o; arm-none-eabi-ar rcSTPD arch/arm/net/built-in.o

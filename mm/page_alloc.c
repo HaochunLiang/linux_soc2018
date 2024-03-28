@@ -6162,15 +6162,22 @@ static void __paginginit free_area_init_core(struct pglist_data *pgdat)
 		zone->zone_pgdat = pgdat;
 		spin_lock_init(&zone->lock);
 		zone_seqlock_init(zone);
+		pr_info("zone_seqlock_init(\n");
 		zone_pcp_init(zone);
+		pr_info("zone_pcp_init\n");
 
-		if (!size)
-			continue;
+		if (!size){
+			pr_info("continue\n");
+			continue;}
 
 		set_pageblock_order();
+		pr_info("set_pageblock_order\n");
 		setup_usemap(pgdat, zone, zone_start_pfn, size);
+		pr_info("setup_usemap\n");
 		init_currently_empty_zone(zone, zone_start_pfn, size);
+		pr_info("init_currently_empty_zone\n");
 		memmap_init(size, nid, j, zone_start_pfn);
+		pr_info("memmap_init\n");
 	}
 }
 
@@ -6252,7 +6259,9 @@ void __paginginit free_area_init_node(int nid, unsigned long *zones_size,
 #endif
 
 	reset_deferred_meminit(pgdat);
+	pr_info("reset_deferred_meminit\n");
 	free_area_init_core(pgdat);
+	pr_info("reset_deferred_meminit\n");
 }
 
 #ifdef CONFIG_HAVE_MEMBLOCK_NODE_MAP

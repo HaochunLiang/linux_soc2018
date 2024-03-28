@@ -325,35 +325,25 @@ extern struct cpu_tlb_fns cpu_tlb;
 
 static inline void __local_flush_tlb_all(void)
 {
+	pr_info("in  __local_flush_tlb_all\n");
 	const int zero = 0;
+	pr_info("zero\n");
 	const unsigned int __tlb_flag = __cpu_tlb_flags;
-
-	tlb_op(TLB_V4_U_FULL | TLB_V6_U_FULL, "c8, c7, 0", zero);
+	pr_info("_tlb_flag\n");
+	//tlb_op(TLB_V4_U_FULL | TLB_V6_U_FULL, "c8, c7, 0", zero);
+	pr_info("c8, c7, 0\n");
 	tlb_op(TLB_V4_D_FULL | TLB_V6_D_FULL, "c8, c6, 0", zero);
+	pr_info("c8, c6, 0\n");
 	tlb_op(TLB_V4_I_FULL | TLB_V6_I_FULL, "c8, c5, 0", zero);
+	pr_info("c8, c5, 0\n");
 }
 
-//static inline void local_flush_tlb_all(void)
-//{
-//	const int zero = 0;
-//	const unsigned int __tlb_flag = __cpu_tlb_flags;
-//
-//	if (tlb_flag(TLB_WB))
-//		dsb(nshst);
-//
-//	__local_flush_tlb_all();
-//	tlb_op(TLB_V7_UIS_FULL, "c8, c7, 0", zero);
-//
-//	if (tlb_flag(TLB_BARRIER)) {
-//		dsb(nsh);
-//		isb();
-//	}
-//}
+
+
 static inline void local_flush_tlb_all(void)
 {
     const int zero = 0;
     const unsigned int __tlb_flag = __cpu_tlb_flags;
-	pr_info("__tlb_flag:%d\n", __tlb_flag);
 
     if (tlb_flag(TLB_WB)) {
         pr_info("local_flush_tlb_all: Executing data synchronization barrier (TLB_WB)\n");
@@ -374,24 +364,6 @@ static inline void local_flush_tlb_all(void)
 
     pr_info("local_flush_tlb_all: TLB flush completed\n");
 }
-
-static inline void __flush_tlb_all(void)
-{
-	const int zero = 0;
-	const unsigned int __tlb_flag = __cpu_tlb_flags;
-
-	if (tlb_flag(TLB_WB))
-		dsb(ishst);
-
-	__local_flush_tlb_all();
-	tlb_op(TLB_V7_UIS_FULL, "c8, c3, 0", zero);
-
-	if (tlb_flag(TLB_BARRIER)) {
-		dsb(ish);
-		isb();
-	}
-}
-
 static inline void __local_flush_tlb_mm(struct mm_struct *mm)
 {
 	const int zero = 0;

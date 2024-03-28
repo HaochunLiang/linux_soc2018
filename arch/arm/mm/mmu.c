@@ -725,13 +725,13 @@ EXPORT_SYMBOL(phys_mem_access_prot);
 
 static void __init *early_alloc_aligned(unsigned long sz, unsigned long align)
 {
-	phys_addr_t tempX = memblock_alloc(sz, align);
-	void *ptr = __va(tempX);
+	pr_info("enter the early_alloc_aligned");
+	void *ptr = __va(memblock_alloc(sz, align));
 	memset(ptr, 0, sz);
-	pr_info("early_alloc_aligned | sz : %ld\n", sz);
-	pr_info("early_alloc_aligned | align : %ld\n", align);
-	pr_info("early_alloc_aligned | tempX : %ld\n", tempX);
-	pr_info("early_alloc_aligned | ptr : %p\n", ptr);
+	pr_info("sz:%d\n", sz);
+	pr_info("align:%d\n", align);
+	pr_info("memblock_alloc(sz, align):%d\n", memblock_alloc(sz, align));
+	pr_info("tr:%p\n", ptr);
 	return ptr;
 }
 
@@ -1081,34 +1081,31 @@ static void __init fill_pmd_gaps(void)
 	struct vm_struct *vm;
 	unsigned long addr, next = 0;
 	pmd_t *pmd;
-	pr_info("list_for_each_entry start\n");
-	pr_info('&static_vmlist:%d',&static_vmlist);
-	pr_info('static_vmlist:%d',static_vmlist);
+
+	pr_info("fill_pmd_gaps_in\n");
+
 	list_for_each_entry(svm, &static_vmlist, list) {
-		pr_info("in the list_for_each_entry\n");
 		vm = &svm->vm;
 		addr = (unsigned long)vm->addr;
-		pr_info("vm :%d\n",vm );
+		pr_info("vm:%d\n",vm);
 		pr_info("addr:%d\n",addr);
-		if (addr < next){
-			pr_info("addr < next\n");
-			continue;}
-
+		if (addr < next)
+			continue;
+		pr_info("if (addr < next)\n");
 		/*
 		 * Check if this vm starts on an odd section boundary.
 		 * If so and the first section entry for this PMD is free
 		 * then we block the corresponding virtual address.
 		 */
 		if ((addr & ~PMD_MASK) == SECTION_SIZE) {
-			pr_info("(addr & ~PMD_MASK) == SECTION_SIZE\n");
 			pmd = pmd_off_k(addr);
-			pr_info("pmd_off_k(addr):%d\n",pmd_off_k(addr));
-			pr_info("addr:%d\n",addr);
+			pr_info("addr((addr & ~PMD_MASK)):%d\n",addr);
+			pr_info("pmd:%d\n",pmd);
 			if (pmd_none(*pmd)){
 				pr_info("pmd_none(*pmd):%d\n",pmd_none(*pmd));
-				pr_info("pmd_none(*pmd) \n");
 				pmd_empty_section_gap(addr & PMD_MASK);
-				pr_info("pmd_empty_section_gap over\n");}
+				pr_info("fill_pmd_gaps | pmd : %p\n", pmd);
+			}
 		}
 
 		/*
@@ -1117,26 +1114,21 @@ static void __init fill_pmd_gaps(void)
 		 * then we block the corresponding virtual address.
 		 */
 		addr += vm->size;
-		pr_info("addr:%d\n",addr);
+		pr_info("addr += vm->size:%d\n",addr );
 		if ((addr & ~PMD_MASK) == SECTION_SIZE) {
-			pr_info("(addr & ~PMD_MASK) == SECTION_SIZE\n");
-			pr_info("(addr & ~PMD_MASK) == SECTION_SIZE):%d\n",(addr & ~PMD_MASK) == SECTION_SIZE);
 			pmd = pmd_off_k(addr) + 1;
-			pr_info("pmd_off_k(addr):%d\n",pmd_off_k(addr));
-			pr_info("pmd:%d\n",pmd);
+			pr_info("fill_pmd_gaps | pmd : %p\n", pmd);
 			if (pmd_none(*pmd)){
-				pr_info("pmd_none(*pmd):%d\n",pmd_none(*pmd));
-				pr_info("pmd_none(*pmd)\n");
 				pmd_empty_section_gap(addr);
-				pr_info("pmd_empty_section_gap over\n");
+				pr_info("pmd_none(*pmd):%d\n",pmd_none(*pmd));
 				}
 		}
 
 		/* no need to look at any vm entry until we hit the next PMD */
 		next = (addr + PMD_SIZE - 1) & PMD_MASK;
-		pr_info("addr:%d\n",addr);
+		pr_info("next :%d\n",next );
+		pr_info("addr :%d\n",addr );
 		pr_info("PMD_SIZE:%d\n",PMD_SIZE);
-		pr_info("PMD_MASK:%d\n",PMD_MASK);
 	}
 }
 
@@ -1163,7 +1155,7 @@ static void __init pci_reserve_io(void)
 void __init debug_ll_io_init(void)
 {
 	struct map_desc map;
-	map.pfn = 0xa0000;
+	map.pfn = 0xa00;
 	map.virtual = 0xf8000100;
 	//debug_ll_addr(&map.pfn, &map.virtual);
 	if (!map.pfn || !map.virtual){
@@ -1520,15 +1512,14 @@ static void __init devicemaps_init(const struct machine_desc *mdesc)
 		mdesc->map_io();
 	}else{
 		pr_info("devicemaps_init | debug_ll_io_init\n");
-		//debug_ll_io_init();
-		pr_info("devicemaps_init | debug_ll_io_init\n");
+		debug_ll_io_init();
 	}
 
 	fill_pmd_gaps();
-	pr_info("fill_pmd_gaps\n");
+	pr_info("over\n");
 
 	/* Reserve fixed i/o space in VMALLOC region */
-	//pci_reserve_io();
+	pci_reserve_io();
 
 	/*
 	 * Finally flush the caches and tlb to ensure that we're in a

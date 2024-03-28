@@ -20,6 +20,9 @@
         "span": "c",
         "ratio": "cpp",
         "map": "c",
-        "valarray": "c"
+        "valarray": "c",
+        "tuple": "c",
+        "random": "c",
+        "limits": "c"
     }
 }

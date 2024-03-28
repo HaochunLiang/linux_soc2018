@@ -1714,6 +1714,8 @@ void __init_memblock __memblock_dump_all(void)
 void __init memblock_allow_resize(void)
 {
 	memblock_can_resize = 1;
+	pr_info(" enter memblock_allow_resize\n");
+	pr_info("memblock_can_resize = 1\n");
 }
 
 static int __init early_memblock(char *p)
