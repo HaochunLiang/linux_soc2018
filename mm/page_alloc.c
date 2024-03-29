@@ -6236,18 +6236,25 @@ static void __paginginit free_area_init_core(struct pglist_data *pgdat)
 
 static void __ref alloc_node_mem_map(struct pglist_data *pgdat)
 {
+
 	unsigned long __maybe_unused start = 0;
 	unsigned long __maybe_unused offset = 0;
 
 	/* Skip empty nodes */
-	if (!pgdat->node_spanned_pages)
-		return;
+	if (!pgdat->node_spanned_pages){
+		pr_info("alloc_node_mem_map || pgdat->node_spanned_pages:%d\n",pgdat->node_spanned_pages);
+		pr_info("alloc_node_mem_map || will return\n");
+		return;}
 
 #ifdef CONFIG_FLAT_NODE_MEM_MAP
 	start = pgdat->node_start_pfn & ~(MAX_ORDER_NR_PAGES - 1);
 	offset = pgdat->node_start_pfn - start;
+	pr_info("alloc_node_mem_map || start:%d\n",start);
+	pr_info("alloc_node_mem_map || offset:%d\n",offset);
+
 	/* ia64 gets its own node_mem_map, before this, without bootmem */
 	if (!pgdat->node_mem_map) {
+		pr_info("alloc_node_mem_map || pgdat->node_mem_map:%d\n", pgdat->node_mem_map);
 		unsigned long size, end;
 		struct page *map;
 
@@ -6257,23 +6264,31 @@ static void __ref alloc_node_mem_map(struct pglist_data *pgdat)
 		 * for the buddy allocator to function correctly.
 		 */
 		end = pgdat_end_pfn(pgdat);
+		pr_info("alloc_node_mem_map || end first:%d\n", end);
 		end = ALIGN(end, MAX_ORDER_NR_PAGES);
 		size =  (end - start) * sizeof(struct page);
 		map = alloc_remap(pgdat->node_id, size);
-		if (!map)
+		pr_info("alloc_node_mem_map || end second :%d\n", end);
+		pr_info("alloc_node_mem_map || size:%d\n", size);
+		pr_info("alloc_node_mem_map || map:%d\n", map);
+		if (!map){
+			pr_info("enter !map");
 			map = memblock_virt_alloc_node_nopanic(size,
 							       pgdat->node_id);
+			pr_info("alloc_node_mem_map || map(second ):%d\n", map);}
 		pgdat->node_mem_map = map + offset;
+		pr_info("alloc_node_mem_map || pgdat->node_mem_map:%d\n", pgdat->node_mem_map);
 	}
-#ifndef CONFIG_NEED_MULTIPLE_NODES
+#ifndef CONFIG_NEED_MULTIPLE_NODES//这个没定义
 	/*
 	 * With no DISCONTIG, the global mem_map is just set as node 0's
 	 */
 	if (pgdat == NODE_DATA(0)) {
 		mem_map = NODE_DATA(0)->node_mem_map;
 #if defined(CONFIG_HAVE_MEMBLOCK_NODE_MAP) || defined(CONFIG_FLATMEM)
-		if (page_to_pfn(mem_map) != pgdat->node_start_pfn)
+		if (page_to_pfn(mem_map) != pgdat->node_start_pfn){
 			mem_map -= offset;
+			pr_info("alloc_node_mem_map || mem_map:%d\n", mem_map);}
 #endif /* CONFIG_HAVE_MEMBLOCK_NODE_MAP */
 	}
 #endif
