@@ -495,15 +495,23 @@ static void __init mm_init(void)
 	 * bigger than MAX_ORDER unless SPARSEMEM.
 	 */
 	page_ext_init_flatmem();
+	pr_info("page_ext_init_flatmem\n");
 	mem_init();
+	pr_info("mem_init\n");
 	kmem_cache_init();
+	pr_info("kmem_cache_init\n");
 	pgtable_init();
+	pr_info("pgtable_init\n");
 	vmalloc_init();
+	pr_info("vmalloc_init\n");
 	ioremap_huge_init();
+	pr_info("ioremap_huge_init\n");
 	/* Should be run before the first non-init thread is created */
 	init_espfix_bsp();
+	pr_info("init_espfix_bsp\n");
 	/* Should be run after espfix64 is set up. */
 	pti_init();
+	pr_info("pti_init\n");
 }
 
 asmlinkage __visible void __init start_kernel(void)
@@ -589,10 +597,9 @@ asmlinkage __visible void __init start_kernel(void)
 	sort_main_extable();
 	pr_info("sort_main_extable success.\n");
 	trap_init();
-	pr_info("trap_init success.\n");
+	pr_info("trap_init success.\n");//到这里了
 	mm_init();
 	pr_info("mm_init success.\n");
-
 	ftrace_init();
 	pr_info("ftrace_init success.\n");
 

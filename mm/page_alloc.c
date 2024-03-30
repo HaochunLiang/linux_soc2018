@@ -1183,31 +1183,17 @@ static void free_one_page(struct zone *zone,
 static void __meminit __init_single_page(struct page *page, unsigned long pfn,
 				unsigned long zone, int nid)
 {
-	pr_info("enter __init_single_page\n");
-	pr_info("__init_single_page->page:%d\n",page);
-	pr_info("__init_single_page->zone:%d\n",zone);
-	pr_info("__init_single_page->nid:%d\n",nid);
-	pr_info("__init_single_page->pfn:%d\n",pfn);
 	set_page_links(page, zone, nid, pfn);
-	pr_info("second __init_single_page->page:%d\n",page);
-	pr_info("second __init_single_page->zone:%d\n",zone);
-	pr_info("second __init_single_page->nid:%d\n",nid);
-	pr_info("second __init_single_page->pfn:%d\n",pfn);
 	init_page_count(page);
-	pr_info("__init_single_page->init_page_count(page)\n");
 	page_mapcount_reset(page);
-	pr_info("__init_single_page->page_mapcount_reset(page)\n");
 	page_cpupid_reset_last(page);
-	pr_info("__init_single_page->page_cpupid_reset_last(page)\n");
 
 	INIT_LIST_HEAD(&page->lru);
-	pr_info("__init_single_page->INIT_LIST_HEAD(&page->lru)\n");
 #ifdef WANT_PAGE_VIRTUAL
-	pr_info("__init_single_page->#ifdef WANT_PAGE_VIRTUAL\n");
 	/* The shift won't overflow because ZONE_NORMAL is below 4G. */
 	if (!is_highmem_idx(zone)){
 		set_page_address(page, __va(pfn << PAGE_SHIFT));
-		pr_info("__init_single_page->set_page_address(page, __va(pfn << PAGE_SHIFT));\n");}
+		}
 #endif
 }
 
@@ -1340,9 +1326,6 @@ meminit_pfn_in_nid(unsigned long pfn, int node,
 /* Only safe to use early in boot when initialisation is single-threaded */
 static inline bool __meminit early_pfn_in_nid(unsigned long pfn, int node)
 {
-	pr_info("in early_pfn_in_nid\n");
-	pr_info("pfn:%d\n",pfn);
-	pr_info("node:%d\n",node);
 	return meminit_pfn_in_nid(pfn, node, &early_pfnnid_cache);
 }
 
@@ -1350,9 +1333,6 @@ static inline bool __meminit early_pfn_in_nid(unsigned long pfn, int node)
 
 static inline bool __meminit early_pfn_in_nid(unsigned long pfn, int node)
 {
-	pr_info("return ture\n");
-	pr_info("pfn:%d\n",pfn);
-	pr_info("node:%d\n",node);
 	return true;
 }
 static inline bool __meminit  __maybe_unused
@@ -5370,7 +5350,6 @@ void __meminit memmap_init_zone(unsigned long size, int nid, unsigned long zone,
 
 	if (highest_memmap_pfn < end_pfn - 1){
 		highest_memmap_pfn = end_pfn - 1;
-		pr_info(" highest_memmap_pfn:%d\n",highest_memmap_pfn);
 	}
 	/*
 	 * Honor reservation requested by the driver for this ZONE_DEVICE
@@ -5378,27 +5357,27 @@ void __meminit memmap_init_zone(unsigned long size, int nid, unsigned long zone,
 	 */
 	if (altmap && start_pfn == altmap->base_pfn){
 		start_pfn += altmap->reserve;
-		pr_info("start_pfn:%d\n",start_pfn);}
+		}
 
 	for (pfn = start_pfn; pfn < end_pfn; pfn++) {
-		pr_info("end_pfn:%d\n",end_pfn);
+
 		/*
 		 * There can be holes in boot-time mem_map[]s handed to this
 		 * function.  They do not exist on hotplugged memory.
 		 */
 		if (context != MEMMAP_EARLY){
-			pr_info("goto not_early\n");
+	
 			goto not_early;
 			}
 
 		if (!early_pfn_valid(pfn)){
-			pr_info("early_pfn_valid(pfn)\n");
+		
 			continue;}
 		if (!early_pfn_in_nid(pfn, nid)){
-			pr_info("early_pfn_in_nid(pfn, nid)\n");
+			
 			continue;}
 		if (!update_defer_init(pgdat, pfn, end_pfn, &nr_initialised)){
-			pr_info("break\n");
+		
 			break;}
 
 #ifdef CONFIG_HAVE_MEMBLOCK_NODE_MAP
@@ -5408,24 +5387,21 @@ void __meminit memmap_init_zone(unsigned long size, int nid, unsigned long zone,
 		 * mirrored, it's an overlapped memmap init. skip it.
 		 */
 		if (mirrored_kernelcore && zone == ZONE_MOVABLE) {
-			pr_info("mirrored_kernelcore:%d\n",mirrored_kernelcore);
-			pr_info("zone:%d\n",zone);
-			pr_info("ZONE_MOVABLE:%d\n",ZONE_MOVABLE);
+		
 			if (!r || pfn >= memblock_region_memory_end_pfn(r)) {
-				pr_info("pfn :%d\n",pfn);
-				pr_info("memblock_region_memory_end_pfn(r):%d\n",memblock_region_memory_end_pfn(r));
+				
 				for_each_memblock(memory, tmp)
 					if (pfn < memblock_region_memory_end_pfn(tmp)){
-						pr_info("pfn< break\n");
+					
 						break;}
 				r = tmp;
 			}
 			if (pfn >= memblock_region_memory_base_pfn(r) &&
 			    memblock_is_mirror(r)) {
-				pr_info("memblock_is_mirror(r):%d\n",memblock_is_mirror(r));
+				
 				/* already initialized as NORMAL */
 				pfn = memblock_region_memory_end_pfn(r);
-				pr_info("pfn = memblock_region_memory_end_pfn:%d\n",pfn);
+				
 				continue;
 			}
 		}
@@ -5446,27 +5422,12 @@ not_early:
 		 */
 		if (!(pfn & (pageblock_nr_pages - 1))) {
 			struct page *page = pfn_to_page(pfn);
-			pr_info("struct page *page");
 
 			__init_single_page(page, pfn, zone, nid);
-			pr_info("page:%d",page);
-			pr_info("pfn:%d",pfn);
-			pr_info("zone:%d",zone);
-			pr_info("nid:%d",nid);
-			pr_info("__init_single_page");
 			set_pageblock_migratetype(page, MIGRATE_MOVABLE);
-			pr_info("page2:%d",page);
-			pr_info("MIGRATE_MOVABLE:%d",MIGRATE_MOVABLE);
-			pr_info("set_pageblock_migratetype");
 			cond_resched();
-			pr_info("set_pageblock_migratetype");
 		} else {
 			__init_single_pfn(pfn, zone, nid);
-			pr_info("of __init_single_pfn");
-			pr_info("pfn:%d",pfn);
-			pr_info("zone:%d",zone);
-			pr_info("nid:%d",nid);
-			pr_info("__init_single_pfn");
 		}
 }
 }

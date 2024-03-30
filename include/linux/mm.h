@@ -1045,12 +1045,8 @@ static inline unsigned long page_to_section(const struct page *page)
 
 static inline void set_page_zone(struct page *page, enum zone_type zone)
 {
-	pr_info("enter set_page_zone\n");
-	pr_info("set_page_zone->page:%d\n",page);
 	page->flags &= ~(ZONES_MASK << ZONES_PGSHIFT);
-	pr_info("first set_page_zone->(page->flags):%d\n",page->flags);
 	page->flags |= (zone & ZONES_MASK) << ZONES_PGSHIFT;
-	pr_info("second  set_page_zone->(page->flags):%d\n",page->flags);
 }
 
 static inline void set_page_node(struct page *page, unsigned long node)
@@ -1062,18 +1058,10 @@ static inline void set_page_node(struct page *page, unsigned long node)
 static inline void set_page_links(struct page *page, enum zone_type zone,
 	unsigned long node, unsigned long pfn)
 {
-	pr_info("set_page_links->page:%d\n",&page);
-	pr_info("set_page_links->node:%d\n",node);
-	pr_info("set_page_links->node:%d\n",pfn);
 	set_page_zone(page, zone);
-	pr_info("set_page_links->first set_page_zone(page, zone)\n");
 	set_page_node(page, node);
-	pr_info("set_page_links->second set_page_zone(page, zone)\n");
 #ifdef SECTION_IN_PAGE_FLAGS
-	pr_info("set_page_links->set_page_section\n");
-	pr_info("set_page_links->pfn_to_section_nr(pfn):%d\n",pfn_to_section_nr(pfn));
 	set_page_section(page, pfn_to_section_nr(pfn));
-	pr_info("set_page_links->set_page_section over\n");
 #endif
 }
 
