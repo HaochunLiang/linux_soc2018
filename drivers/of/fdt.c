@@ -397,6 +397,7 @@ static int unflatten_dt_nodes(const void *blob,
 			      struct device_node *dad,
 			      struct device_node **nodepp)
 {
+	pr_info("enter unflatten_dt_nodes\n");
 	struct device_node *root;
 	int offset = 0, depth = 0, initial_depth = 0;
 #define FDT_MAX_DEPTH	64
@@ -478,45 +479,51 @@ void *__unflatten_device_tree(const void *blob,
 			      void *(*dt_alloc)(u64 size, u64 align),
 			      bool detached)
 {
+	pr_info("__unflatten_device_tree || blob:%d\n",blob);
+	pr_info("__unflatten_device_tree ||detached:%d\n",detached);
 	int size;
 	void *mem;
 
-	pr_debug(" -> unflatten_device_tree()\n");
+	pr_info(" -> unflatten_device_tree()\n");
 
 	if (!blob) {
-		pr_debug("No device tree pointer\n");
+
+		pr_debug("__unflatten_device_tree || No device tree pointer\n");
 		return NULL;
 	}
 
-	pr_debug("Unflattening device tree:\n");
-	pr_debug("magic: %08x\n", fdt_magic(blob));
-	pr_debug("size: %08x\n", fdt_totalsize(blob));
-	pr_debug("version: %08x\n", fdt_version(blob));
+	pr_info("__unflatten_device_tree ||Unflattening device tree:\n");
+	pr_info("__unflatten_device_tree ||magic: %08x\n", fdt_magic(blob));
+	pr_info("__unflatten_device_tree ||size: %08x\n", fdt_totalsize(blob));
+	pr_info("__unflatten_device_tree ||version: %08x\n", fdt_version(blob));
 
 	if (fdt_check_header(blob)) {
-		pr_err("Invalid device tree blob header\n");
+		pr_err("__unflatten_device_tree ||Invalid device tree blob header\n");
 		return NULL;
 	}
 
 	/* First pass, scan for size */
 	size = unflatten_dt_nodes(blob, NULL, dad, NULL);
-	pr_info("unflatten_dt_nodes success.\n");
+	pr_info("__unflatten_device_tree ||size:%d\n",size);
+	pr_info("__unflatten_device_tree ||unflatten_dt_nodes success.\n");
 	if (size < 0)
 		return NULL;
 
 	size = ALIGN(size, 4);
-	pr_info("ALIGN success.\n");
-	pr_debug("  size is %d, allocating...\n", size);
+	pr_info("__unflatten_device_tree ||ALIGN success.\n");
+	pr_info(" __unflatten_device_tree || second size is %d, allocating...\n", size);
 
 	/* Allocate memory for the expanded device tree */
 	mem = dt_alloc(size + 4, __alignof__(struct device_node));
-	pr_info("mem = dt_alloc  success.\n");
+	pr_info("__unflatten_device_tree ||mem = dt_alloc  success.\n");
+	pr_info(" __unflatten_device_tree || mem %d, allocating...\n", mem);
 	if (!mem)
 		return NULL;
 
 	memset(mem, 0, size);
 
 	*(__be32 *)(mem + size) = cpu_to_be32(0xdeadbeef);
+	pr_info("__unflatten_device_tree || mem + size:&d",mem+size);
 
 	pr_debug("  unflattening %p...\n", mem);
 
@@ -1323,13 +1330,17 @@ bool __init early_init_dt_scan(void *params)
  */
 void __init unflatten_device_tree(void)
 {
+	pr_info("enter unflatten_device_tree\n");
 	__unflatten_device_tree(initial_boot_params, NULL, &of_root,
 				early_init_dt_alloc_memory_arch, false);
-
+	pr_info("unflatten_device_tree || initial_boot_params:%d",initial_boot_params);
+	pr_info("unflatten_device_tree || __unflatten_device_tree over\n");
 	/* Get pointer to "/chosen" and "/aliases" nodes for use everywhere */
 	of_alias_scan(early_init_dt_alloc_memory_arch);
+	pr_info("unflatten_device_tree ||of_alias_scan over\n");
 
 	unittest_unflatten_overlay_base();
+	pr_info("unflatten_device_tree ||unittest_unflatten_overlay_base over\n");
 }
 
 /**
