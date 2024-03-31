@@ -1289,7 +1289,7 @@ void __init kmem_cache_init(void)
 	memcg_link_cache(kmem_cache);
 	slab_state = PARTIAL;
 
-	/*
+	/*f
 	 * Initialize the caches that provide memory for the  kmem_cache_node
 	 * structures first.  Without this, further allocations will bug.
 	 */

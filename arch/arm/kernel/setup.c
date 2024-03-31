@@ -857,11 +857,18 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 	kernel_code.end     = virt_to_phys(__init_begin - 1);
 	kernel_data.start   = virt_to_phys(_sdata);
 	kernel_data.end     = virt_to_phys(_end - 1);
+	pr_info("request_standard_resources||kernel_code.start:%d",kernel_code.start);
+	pr_info("request_standard_resources||kernel_code.end :%d",kernel_code.end);
+	pr_info("request_standard_resources||kernel_data.start :%d",kernel_data.start );
+	pr_info("request_standard_resources||kernel_data.end :%d",kernel_data.end);
+
 
 	for_each_memblock(memory, region) {
 		phys_addr_t start = __pfn_to_phys(memblock_region_memory_base_pfn(region));
+		pr_info("request_standard_resources||start:%d",start);
 		pr_info("phys_addr_t start  success.\n");
 		phys_addr_t end = __pfn_to_phys(memblock_region_memory_end_pfn(region)) - 1;
+		pr_info("request_standard_resources||end:%d",end);
 		pr_info("phys_addr_t end  success.\n");
 		unsigned long boot_alias_start;
 
@@ -871,6 +878,7 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 		 * kexec-tools so they know where bootable RAM is located.
 		 */
 		boot_alias_start = phys_to_idmap(start);
+		pr_info("request_standard_resources||boot_alias_start:%d",boot_alias_start);
 		pr_info("boot_alias_start success.\n");
 		if (arm_has_idmap_alias() && boot_alias_start != IDMAP_INVALID_ADDR) {
 			res = memblock_virt_alloc(sizeof(*res), 0);
@@ -878,6 +886,8 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 			res->start = boot_alias_start;
 			res->end = phys_to_idmap(end);
 			res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
+			pr_info("request_standard_resources||res->start:%d",res->start);
+			pr_info("request_standard_resources||res->flags:%d",res->flags);
 			request_resource(&iomem_resource, res);
 			pr_info("request_resource success.\n");
 		}
@@ -887,6 +897,8 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 		res->name  = "System RAM";
 		res->start = start;
 		res->end = end;
+		pr_info("request_standard_resources||second res->start:%d",res->start);
+		pr_info("request_standard_resources||second res->flags:%d",res->flags);
 		res->flags = IORESOURCE_SYSTEM_RAM | IORESOURCE_BUSY;
 
 		request_resource(&iomem_resource, res);
@@ -907,6 +919,8 @@ static void __init request_standard_resources(const struct machine_desc *mdesc)
 		video_ram.end   = mdesc->video_end;
 		request_resource(&iomem_resource, &video_ram);
 		pr_info("request_resource(&iomem_resource, &video_ram);  success.\n");
+		pr_info("request_standard_resources||video_ram.start:%d",video_ram.start);
+		pr_info("request_standard_resources||video_ram.end:%d",video_ram.end);
 	}
 
 	/*

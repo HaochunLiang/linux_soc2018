@@ -547,7 +547,7 @@ static void bad_page(struct page *page, const char *reason,
 	 * Allow a burst of 60 reports, then keep quiet for that minute;
 	 * or allow a steady drip of one report per second.
 	 */
-	if (nr_shown == 60) {
+	if (nr_shown == 120) {
 		if (time_before(jiffies, resume)) {
 			nr_unshown++;
 			goto out;
@@ -5426,6 +5426,7 @@ not_early:
 			__init_single_page(page, pfn, zone, nid);
 			set_pageblock_migratetype(page, MIGRATE_MOVABLE);
 			cond_resched();
+			print_hex_dump(KERN_ALERT,"raw:",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 		} else {
 			__init_single_pfn(pfn, zone, nid);
 		}
@@ -5614,6 +5615,7 @@ static __meminit void zone_pcp_init(struct zone *zone)
 	 * offset of a (static) per cpu variable into the per cpu area.
 	 */
 	zone->pageset = &boot_pageset;
+	pr_info("zone_pcp_init||zone->pageset:%d",zone->pageset);
 
 	if (populated_zone(zone))
 		printk(KERN_DEBUG "  %s zone: %lu pages, LIFO batch:%u\n",
@@ -5625,13 +5627,19 @@ void __meminit init_currently_empty_zone(struct zone *zone,
 					unsigned long zone_start_pfn,
 					unsigned long size)
 {
+	pr_info("init_currently_empty_zone||zone_start_pfn:%d",zone_start_pfn);
+	pr_info("init_currently_empty_zone||size:%d",size);
 	struct pglist_data *pgdat = zone->zone_pgdat;
 	int zone_idx = zone_idx(zone) + 1;
+	pr_info("init_currently_empty_zone||zone_idx:%d",zone_idx);
 
-	if (zone_idx > pgdat->nr_zones)
+	if (zone_idx > pgdat->nr_zones){
 		pgdat->nr_zones = zone_idx;
+		pr_info("init_currently_empty_zone||pgdat->nr_zones:%d",pgdat->nr_zones);}
 
 	zone->zone_start_pfn = zone_start_pfn;
+	pr_info("init_currently_empty_zone||zone->zone_start_pfn :%d",zone->zone_start_pfn );
+
 
 	mminit_dprintk(MMINIT_TRACE, "memmap_init",
 			"Initialising map node %d zone %lu pfns %lu -> %lu\n",
@@ -6019,12 +6027,16 @@ static void __init setup_usemap(struct pglist_data *pgdat,
 				unsigned long zone_start_pfn,
 				unsigned long zonesize)
 {
+	pr_info("setup_usemap||zone_start_pfn:%d",zone_start_pfn);
+	pr_info("setup_usemap||zonesize:%d",zonesize);
 	unsigned long usemapsize = usemap_size(zone_start_pfn, zonesize);
+	pr_info("setup_usemap||usemapsize:%d",usemapsize);
 	zone->pageblock_flags = NULL;
-	if (usemapsize)
+	if (usemapsize){
 		zone->pageblock_flags =
 			memblock_virt_alloc_node_nopanic(usemapsize,
 							 pgdat->node_id);
+			pr_info("setup_usemap||zone->pageblock_flags:%d",zone->pageblock_flags);}
 }
 #else
 static inline void setup_usemap(struct pglist_data *pgdat, struct zone *zone,
@@ -6042,10 +6054,12 @@ void __paginginit set_pageblock_order(void)
 	if (pageblock_order)
 		return;
 
-	if (HPAGE_SHIFT > PAGE_SHIFT)
+	if (HPAGE_SHIFT > PAGE_SHIFT){
 		order = HUGETLB_PAGE_ORDER;
-	else
+		pr_info("order:%d",order);}
+	else{
 		order = MAX_ORDER - 1;
+		pr_info("order:%d",order);}
 
 	/*
 	 * Assume the largest contiguous order of interest is a huge page.
@@ -6072,6 +6086,8 @@ static unsigned long __paginginit calc_memmap_size(unsigned long spanned_pages,
 						   unsigned long present_pages)
 {
 	unsigned long pages = spanned_pages;
+	pr_info("pages:%d",pages);
+	pr_info("present_pages:%d",present_pages);
 
 	/*
 	 * Provide a more accurate estimation if there are holes within
@@ -6082,8 +6098,9 @@ static unsigned long __paginginit calc_memmap_size(unsigned long spanned_pages,
 	 * So the (present_pages >> 4) heuristic is a tradeoff for that.
 	 */
 	if (spanned_pages > present_pages + (present_pages >> 4) &&
-	    IS_ENABLED(CONFIG_SPARSEMEM))
+	    IS_ENABLED(CONFIG_SPARSEMEM)){
 		pages = present_pages;
+		pr_info("pages second :%d",pages);}
 
 	return PAGE_ALIGN(pages * sizeof(struct page)) >> PAGE_SHIFT;
 }
@@ -6100,14 +6117,14 @@ static void __paginginit free_area_init_core(struct pglist_data *pgdat)
 {
 	enum zone_type j;
 	int nid = pgdat->node_id;
-
+	pr_info("free_area_init_core||nid:%d",nid);
 	pgdat_resize_init(pgdat);
-#ifdef CONFIG_NUMA_BALANCING
+#ifdef CONFIG_NUMA_BALANCING //没开
 	spin_lock_init(&pgdat->numabalancing_migrate_lock);
 	pgdat->numabalancing_migrate_nr_pages = 0;
 	pgdat->numabalancing_migrate_next_window = jiffies;
 #endif
-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+#ifdef CONFIG_TRANSPARENT_HUGEPAGE //没开
 	spin_lock_init(&pgdat->split_queue_lock);
 	INIT_LIST_HEAD(&pgdat->split_queue);
 	pgdat->split_queue_len = 0;
@@ -6122,14 +6139,20 @@ static void __paginginit free_area_init_core(struct pglist_data *pgdat)
 	lruvec_init(node_lruvec(pgdat));
 
 	pgdat->per_cpu_nodestats = &boot_nodestats;
+	pr_info("free_area_init_core||pgdat->per_cpu_nodestats:%d",pgdat->per_cpu_nodestats);
+	
+
 
 	for (j = 0; j < MAX_NR_ZONES; j++) {
 		struct zone *zone = pgdat->node_zones + j;
 		unsigned long size, realsize, freesize, memmap_pages;
 		unsigned long zone_start_pfn = zone->zone_start_pfn;
+		pr_info("free_area_init_core||zone_start_pfn:%d",zone_start_pfn);
 
 		size = zone->spanned_pages;
 		realsize = freesize = zone->present_pages;
+		pr_info("free_area_init_core||size:%d",size);
+		pr_info("free_area_init_core||realsize:%d",realsize);
 
 		/*
 		 * Adjust freesize so that it accounts for how much memory
@@ -6137,9 +6160,11 @@ static void __paginginit free_area_init_core(struct pglist_data *pgdat)
 		 * and per-cpu initialisations
 		 */
 		memmap_pages = calc_memmap_size(size, realsize);
+		pr_info("free_area_init_core||memmap_pages:%d",memmap_pages);
 		if (!is_highmem_idx(j)) {
 			if (freesize >= memmap_pages) {
 				freesize -= memmap_pages;
+				pr_info("free_area_init_core||freesize:%d",freesize);
 				if (memmap_pages)
 					printk(KERN_DEBUG
 					       "  %s zone: %lu pages used for memmap\n",
@@ -6152,16 +6177,20 @@ static void __paginginit free_area_init_core(struct pglist_data *pgdat)
 		/* Account for reserved pages */
 		if (j == 0 && freesize > dma_reserve) {
 			freesize -= dma_reserve;
+			pr_info("free_area_init_core||second freesize:%d",freesize);
 			printk(KERN_DEBUG "  %s zone: %lu pages reserved\n",
 					zone_names[0], dma_reserve);
 		}
 
-		if (!is_highmem_idx(j))
+		if (!is_highmem_idx(j)){
 			nr_kernel_pages += freesize;
+			pr_info("free_area_init_core||nr_kernel_pages:%d",nr_kernel_pages);}
 		/* Charge for highmem memmap if there are enough kernel pages */
-		else if (nr_kernel_pages > memmap_pages * 2)
+		else if (nr_kernel_pages > memmap_pages * 2){
 			nr_kernel_pages -= memmap_pages;
+			pr_info("free_area_init_core||second nr_kernel_pages:%d",nr_kernel_pages);}
 		nr_all_pages += freesize;
+		pr_info("free_area_init_core||nr_all_pages:%d",nr_all_pages);
 
 		/*
 		 * Set an approximate value for lowmem here, it will be adjusted
@@ -6169,14 +6198,17 @@ static void __paginginit free_area_init_core(struct pglist_data *pgdat)
 		 * And all highmem pages will be managed by the buddy system.
 		 */
 		zone->managed_pages = is_highmem_idx(j) ? realsize : freesize;
+		pr_info("free_area_init_core||zone->managed_pages:%d",zone->managed_pages);
 #ifdef CONFIG_NUMA
 		zone->node = nid;
 #endif
 		zone->name = zone_names[j];
+		pr_info("free_area_init_core||zone->name :%d\n",zone->name);
 		zone->zone_pgdat = pgdat;
+		pr_info("free_area_init_core||zone->zone_pgdat:%d\n",zone->zone_pgdat);
 		spin_lock_init(&zone->lock);
 		zone_seqlock_init(zone);
-		pr_info("zone_seqlock_init(\n");
+		pr_info("zone_seqlock_init\n");
 		zone_pcp_init(zone);
 		pr_info("zone_pcp_init\n");
 
@@ -6271,7 +6303,6 @@ void __paginginit free_area_init_node(int nid, unsigned long *zones_size,
 	pgdat->per_cpu_nodestats = NULL;
 	pr_info("pgdat->node_id :%d",pgdat->node_id );
 	pr_info("pgdat->node_start_pfn :%d",pgdat->node_start_pfn );
-	pr_info("pgdat->per_cpu_nodestats:%d",pgdat->per_cpu_nodestats);
 #ifdef CONFIG_HAVE_MEMBLOCK_NODE_MAP
 	get_pfn_range_for_nid(nid, &start_pfn, &end_pfn);
 	pr_info("nid:%d",nid);
@@ -6289,8 +6320,8 @@ void __paginginit free_area_init_node(int nid, unsigned long *zones_size,
 	pr_info("pgdat:%d",pgdat);
 	pr_info("start_pfn:%d",start_pfn);
 	pr_info("end_pfn:%d",end_pfn);
-	pr_info("zones_size:%d",zones_size);
-	pr_info("zholes_size:%d",zholes_size);
+	pr_info("zones_size:%ln",zones_size);
+	pr_info("zholes_size:%ln",zholes_size);
 
 	alloc_node_mem_map(pgdat);
 	pr_info("alloc_node_mem_map");

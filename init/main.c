@@ -500,6 +500,8 @@ static void __init mm_init(void)
 	pr_info("mem_init\n");
 	kmem_cache_init();
 	pr_info("kmem_cache_init\n");
+
+	
 	pgtable_init();
 	pr_info("pgtable_init\n");
 	vmalloc_init();

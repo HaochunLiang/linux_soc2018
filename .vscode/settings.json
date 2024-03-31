@@ -23,6 +23,7 @@
         "valarray": "c",
         "tuple": "c",
         "random": "c",
-        "limits": "c"
+        "limits": "c",
+        "mutex": "c"
     }
 }

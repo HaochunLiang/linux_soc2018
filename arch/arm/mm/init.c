@@ -213,9 +213,9 @@ static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 
 	free_area_init_node(0, zone_size, min, zhole_size);
 	pr_info("free_area_init_node end\n");
-	pr_info("zone_size:%d\n",zone_size);
+	pr_info("zone_size:%d\n",&zone_size);
 	pr_info("min:%d\n",min);
-	pr_info("zhole_size:%d\n",zhole_size);
+	pr_info("zhole_size:%d\n",&zhole_size);
 }
 
 #ifdef CONFIG_HAVE_ARCH_PFN_VALID
