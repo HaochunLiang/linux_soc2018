@@ -1201,6 +1201,7 @@ static void free_one_page(struct zone *zone,
 static void __meminit __init_single_page(struct page *page, unsigned long pfn,
 				unsigned long zone, int nid)
 {
+	//print_hex_dump(KERN_ALERT,"raw(init_single_page):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 	set_page_links(page, zone, nid, pfn);
 	init_page_count(page);
 	page_mapcount_reset(page);
@@ -1213,6 +1214,7 @@ static void __meminit __init_single_page(struct page *page, unsigned long pfn,
 		set_page_address(page, __va(pfn << PAGE_SHIFT));
 		}
 #endif
+	//print_hex_dump(KERN_ALERT,"raw(init_single_page second):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 }
 
 static void __meminit __init_single_pfn(unsigned long pfn, unsigned long zone,
@@ -5440,14 +5442,17 @@ not_early:
 		 */
 		if (!(pfn & (pageblock_nr_pages - 1))) {
 			struct page *page = pfn_to_page(pfn);
-
+			pr_info("pfn:%d\n",pfn);
 			__init_single_page(page, pfn, zone, nid);
+			print_hex_dump(KERN_ALERT,"raw(__init_single_page):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 			set_pageblock_migratetype(page, MIGRATE_MOVABLE);
+			print_hex_dump(KERN_ALERT,"raw(set_pageblock_migratetype):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 			cond_resched();
-			print_hex_dump(KERN_ALERT,"raw:",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
+			print_hex_dump(KERN_ALERT,"raw(cond_resched):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 		} else {
 			__init_single_pfn(pfn, zone, nid);
 		}
+		//print_hex_dump(KERN_ALERT,"raw:",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 }
 }
 
