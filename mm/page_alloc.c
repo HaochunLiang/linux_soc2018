@@ -448,6 +448,12 @@ void set_pfnblock_flags_mask(struct page *page, unsigned long flags,
 					unsigned long end_bitidx,
 					unsigned long mask)
 {
+	pr_info("set_pfnblock_flags_mask enter\n");
+	pr_info("set_pfnblock_flags_mask || page:%d\n",&page);
+	pr_info("set_pfnblock_flags_mask ||pfn:%d\n",pfn);
+	pr_info("set_pfnblock_flags_mask ||end_bitidx:%d\n",end_bitidx);
+	pr_info("set_pfnblock_flags_mask ||flags:%d\n",flags);
+	pr_info("set_pfnblock_flags_mask ||mask:%d\n",mask);
 	unsigned long *bitmap;
 	unsigned long bitidx, word_bitidx;
 	unsigned long old_word, word;
@@ -456,29 +462,41 @@ void set_pfnblock_flags_mask(struct page *page, unsigned long flags,
 
 	bitmap = get_pageblock_bitmap(page, pfn);
 	bitidx = pfn_to_bitidx(page, pfn);
+	pr_info("set_pfnblock_flags_mask ||bitidx:%d\n",bitidx);
 	word_bitidx = bitidx / BITS_PER_LONG;
 	bitidx &= (BITS_PER_LONG-1);
-
+	pr_info("set_pfnblock_flags_mask ||bitmap:%d\n",bitmap);
+	pr_info("set_pfnblock_flags_mask ||word_bitidx%d\n",word_bitidx);
+	pr_info("set_pfnblock_flags_mask ||second bitidx:%d\n",bitidx);
 	VM_BUG_ON_PAGE(!zone_spans_pfn(page_zone(page), pfn), page);
 
 	bitidx += end_bitidx;
+	pr_info("set_pfnblock_flags_mask ||third bitidx:%d\n",bitidx);
 	mask <<= (BITS_PER_LONG - bitidx - 1);
 	flags <<= (BITS_PER_LONG - bitidx - 1);
+	pr_info("set_pfnblock_flags_mask ||mask:%d\n",mask);
+	pr_info("set_pfnblock_flags_mask ||flags:%d\n",flags);
 
 	word = READ_ONCE(bitmap[word_bitidx]);
+	pr_info("set_pfnblock_flags_mask ||word:%d\n",word);
 	for (;;) {
 		old_word = cmpxchg(&bitmap[word_bitidx], word, (word & ~mask) | flags);
+		pr_info("set_pfnblock_flags_mask ||old_word :%d\n",old_word);
 		if (word == old_word)
 			break;
 		word = old_word;
+		pr_info("set_pfnblock_flags_mask ||word:%d\n",word);
 	}
 }
 
 void set_pageblock_migratetype(struct page *page, int migratetype)
 {
+	pr_info("set_pageblock_migratetype||page:%d\n",&page);
+	pr_info("set_pageblock_migratetype||migratetype:%d\n",migratetype);
 	if (unlikely(page_group_by_mobility_disabled &&
-		     migratetype < MIGRATE_PCPTYPES))
+		     migratetype < MIGRATE_PCPTYPES)){
 		migratetype = MIGRATE_UNMOVABLE;
+		pr_info("set_pageblock_migratetype||migratetype:%d\n",migratetype);}
 
 	set_pageblock_flags_group(page, (unsigned long)migratetype,
 					PB_migrate, PB_migrate_end);
