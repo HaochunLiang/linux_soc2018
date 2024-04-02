@@ -406,7 +406,7 @@ static noinline void __ref rest_init(void)
 	 * CPUs for init to the non isolated CPUs.
 	 */
 	rcu_read_lock();
-	pr_info("rest_init||rcu_read_lock\n");
+	pr_info("rest_init||rcu_read_lock\n");   
 	tsk = find_task_by_pid_ns(pid, &init_pid_ns);
 	pr_info("rest_init||tsk:%d\n",tsk);
 	set_cpus_allowed_ptr(tsk, cpumask_of(smp_processor_id()));
@@ -748,7 +748,7 @@ asmlinkage __visible void __init start_kernel(void)
 	if (late_time_init)
 		late_time_init();
 	pr_info("if (late_time_init) success.\n");
-	calibrate_delay();
+	//calibrate_delay();
 	pr_info("calibrate_delay success.\n");
 
 	arch_cpu_finalize_init();
@@ -1048,6 +1048,7 @@ void __init load_default_modules(void)
 static int run_init_process(const char *init_filename)
 {
 	argv_init[0] = init_filename;
+	pr_info("run_init_process||argv_init[0]\n");
 	return do_execve(getname_kernel(init_filename),
 		(const char __user *const __user *)argv_init,
 		(const char __user *const __user *)envp_init);
@@ -1105,21 +1106,29 @@ static inline void mark_readonly(void)
 
 static int __ref kernel_init(void *unused)
 {
+	pr_info("enter kernel_init\n");
 	int ret;
 
 	kernel_init_freeable();
+	pr_info("kernel_init||kernel_init_freeable\n");
 	/* need to finish all async __init code before freeing the memory */
 	async_synchronize_full();
+	pr_info("kernel_init||async_synchronize_full\n");
 	ftrace_free_init_mem();
+	pr_info("kernel_init||ftrace_free_init_mem\n");
 	free_initmem();
+	pr_info("kernel_init||free_initmem\n");
 	mark_readonly();
+	pr_info("kernel_init||mark_readonly\n");
 	system_state = SYSTEM_RUNNING;
 	numa_default_policy();
-
+	pr_info("kernel_init||numa_default_policy\n");
 	rcu_end_inkernel_boot();
+	pr_info("kernel_init||rcu_end_inkernel_boot\n");
 
 	if (ramdisk_execute_command) {
 		ret = run_init_process(ramdisk_execute_command);
+		pr_info("kernel_init||run_init_process\n");
 		if (!ret)
 			return 0;
 		pr_err("Failed to execute %s (error %d)\n",
@@ -1134,6 +1143,7 @@ static int __ref kernel_init(void *unused)
 	 */
 	if (execute_command) {
 		ret = run_init_process(execute_command);
+		pr_info("kernel_init||second run_init_process\n");
 		if (!ret)
 			return 0;
 		panic("Requested init %s failed (error %d).",
@@ -1142,8 +1152,9 @@ static int __ref kernel_init(void *unused)
 	if (!try_to_run_init_process("/sbin/init") ||
 	    !try_to_run_init_process("/etc/init") ||
 	    !try_to_run_init_process("/bin/init") ||
-	    !try_to_run_init_process("/bin/sh"))
-		return 0;
+	    !try_to_run_init_process("/bin/sh")){
+		pr_info("kernel_init||return 0\n");
+		return 0;}
 
 	panic("No working init found.  Try passing init= option to kernel. "
 	      "See Linux Documentation/admin-guide/init.rst for guidance.");
@@ -1154,7 +1165,9 @@ static noinline void __init kernel_init_freeable(void)
 	/*
 	 * Wait until kthreadd is all set-up.
 	 */
+	pr_info("kernel_init_freeable\n");
 	wait_for_completion(&kthreadd_done);
+	pr_info("kernel_init_freeable||wait_for_completion\n");
 
 	/* Now the scheduler is fully set up and can do blocking allocations */
 	gfp_allowed_mask = __GFP_BITS_MASK;
@@ -1163,27 +1176,38 @@ static noinline void __init kernel_init_freeable(void)
 	 * init can allocate pages on any node
 	 */
 	set_mems_allowed(node_states[N_MEMORY]);
+	pr_info("kernel_init_freeable||set_mems_allowed\n");
 
 	cad_pid = get_pid(task_pid(current));
+	pr_info("kernel_init_freeable||cad_pid:%d\n",cad_pid);
 
 	smp_prepare_cpus(setup_max_cpus);
+	pr_info("kernel_init_freeable||smp_prepare_cpus\n");
 
 	workqueue_init();
+	pr_info("kernel_init_freeable||workqueue_init\n");
+
 
 	init_mm_internals();
+	pr_info("kernel_init_freeable||init_mm_internals\n");
 
 	do_pre_smp_initcalls();
+	pr_info("kernel_init_freeable||do_pre_smp_initcalls\n");
 	lockup_detector_init();
+	pr_info("kernel_init_freeable||lockup_detector_init\n");
 
 	smp_init();
+	pr_info("kernel_init_freeable||smp_init\n");
 	sched_init_smp();
+	pr_info("kernel_init_freeable||sched_init_smp\n");
 
 	page_alloc_init_late();
+	pr_info("kernel_init_freeable||page_alloc_init_late\n");
 	/* Initialize page ext after all struct pages are initialized. */
 	page_ext_init();
-
+	pr_info("kernel_init_freeable||page_ext_init\n");
 	do_basic_setup();
-
+	pr_info("kernel_init_freeable||do_basic_setup\n");
 	/* Open the /dev/console on the rootfs, this should never fail */
 	if (sys_open((const char __user *) "/dev/console", O_RDWR, 0) < 0)
 		pr_err("Warning: unable to open an initial console.\n");
@@ -1201,6 +1225,7 @@ static noinline void __init kernel_init_freeable(void)
 	if (sys_access((const char __user *) ramdisk_execute_command, 0) != 0) {
 		ramdisk_execute_command = NULL;
 		prepare_namespace();
+		pr_info("kernel_init_freeable||prepare_namespace\n");
 	}
 
 	/*
@@ -1213,5 +1238,7 @@ static noinline void __init kernel_init_freeable(void)
 	 */
 
 	integrity_load_keys();
+	pr_info("kernel_init_freeable\n");
 	load_default_modules();
+	pr_info("kernel_init_freeable\n");
 }

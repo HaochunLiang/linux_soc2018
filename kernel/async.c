@@ -283,19 +283,23 @@ EXPORT_SYMBOL_GPL(async_synchronize_full_domain);
  */
 void async_synchronize_cookie_domain(async_cookie_t cookie, struct async_domain *domain)
 {
+	pr_info("enter async_synchronize_cookie_domain\n");
 	ktime_t starttime, delta, endtime;
 
 	if (initcall_debug && system_state < SYSTEM_RUNNING) {
 		pr_debug("async_waiting @ %i\n", task_pid_nr(current));
 		starttime = ktime_get();
+		pr_info("async_synchronize_cookie_domain||starttime = ktime_get\n");
 	}
 
 	wait_event(async_done, lowest_in_progress(domain) >= cookie);
+	pr_info("async_synchronize_cookie_domain||wait_event\n");
 
 	if (initcall_debug && system_state < SYSTEM_RUNNING) {
 		endtime = ktime_get();
+		pr_info("async_synchronize_cookie_domain||endtime = ktime_get\n");
 		delta = ktime_sub(endtime, starttime);
-
+		pr_info("async_synchronize_cookie_domain||delta\n");
 		pr_debug("async_continuing @ %i after %lli usec\n",
 			task_pid_nr(current),
 			(long long)ktime_to_ns(delta) >> 10);
