@@ -625,10 +625,14 @@ static inline void rcu_preempt_sleep_check(void) { }
 static __always_inline void rcu_read_lock(void)
 {
 	__rcu_read_lock();
+	pr_info("rcu_read_lock||__rcu_read_lock\n");
 	__acquire(RCU);
+	pr_info("rcu_read_lock||__acquire\n");
 	rcu_lock_acquire(&rcu_lock_map);
+	pr_info("rcu_read_lock||rcu_lock_acquire\n");
 	RCU_LOCKDEP_WARN(!rcu_is_watching(),
 			 "rcu_read_lock() used illegally while idle");
+	pr_info("rcu_read_lock||over\n");
 }
 
 /*
@@ -678,11 +682,14 @@ static __always_inline void rcu_read_lock(void)
  */
 static inline void rcu_read_unlock(void)
 {
+	pr_info("enter rcu_read_unlock\n");
 	RCU_LOCKDEP_WARN(!rcu_is_watching(),
 			 "rcu_read_unlock() used illegally while idle");
 	__release(RCU);
 	__rcu_read_unlock();
+	pr_info("rcu_read_unlock||__rcu_read_unlock\n");
 	rcu_lock_release(&rcu_lock_map); /* Keep acq info for rls diags. */
+	pr_info("rcu_read_unlock||rcu_lock_release\n");
 }
 
 /**

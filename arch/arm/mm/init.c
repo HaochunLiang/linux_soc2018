@@ -444,6 +444,8 @@ static void __init free_unused_memmap(void)
 	 */
 	for_each_memblock(memory, reg) {
 		start = memblock_region_memory_base_pfn(reg);
+	pr_info(" free_unused_memmap||start:%d\n",start);
+	pr_info(" free_unused_memmap||reg:%d\n",reg);
 
 #ifdef CONFIG_SPARSEMEM
 		/*
@@ -459,11 +461,15 @@ static void __init free_unused_memmap(void)
 		 * MAX_ORDER_NR_PAGES.
 		 */
 		start = round_down(start, MAX_ORDER_NR_PAGES);
+		pr_info(" free_unused_memmap second||start:%d\n",start);
+	    pr_info(" free_unused_memmap||MAX_ORDER_NR_PAGES:%d\n",MAX_ORDER_NR_PAGES);
+
 #endif
 		/*
 		 * If we had a previous bank, and there is a space
 		 * between the current bank and the previous, free it.
 		 */
+		pr_info(" free_unused_memmap||prev_end:%d\n",prev_end);
 		if (prev_end && prev_end < start)
 			free_memmap(prev_end, start);
 
@@ -474,6 +480,7 @@ static void __init free_unused_memmap(void)
 		 */
 		prev_end = ALIGN(memblock_region_memory_end_pfn(reg),
 				 MAX_ORDER_NR_PAGES);
+	    pr_info(" free_unused_memmap second||prev_end:%d\n",prev_end);
 	}
 
 #ifdef CONFIG_SPARSEMEM
@@ -554,9 +561,12 @@ void __init mem_init(void)
 	extern u32 dtcm_end;
 	extern u32 itcm_end;
 #endif
+pr_info("mem_init||max_pfn:%d\n",max_pfn);
+pr_info("mem_init||mem_map:%d\n",mem_map);
 
 	set_max_mapnr(pfn_to_page(max_pfn) - mem_map);
-
+pr_info("mem_init||pfn_to_page(max_pfn) - mem_map:%d\n",pfn_to_page(max_pfn) - mem_map);
+pr_info("mem_init||max_mapnr:%d\n",max_mapnr);
 	/* this will put all unused low memory onto the freelists */
 	free_unused_memmap();
 	free_all_bootmem();

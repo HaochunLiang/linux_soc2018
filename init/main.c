@@ -387,31 +387,42 @@ static __initdata DECLARE_COMPLETION(kthreadd_done);
 
 static noinline void __ref rest_init(void)
 {
+	pr_info("enter rest_init\n");
 	struct task_struct *tsk;
 	int pid;
 
 	rcu_scheduler_starting();
+	pr_info("rest_init||rcu_scheduler_starting\n");
 	/*
 	 * We need to spawn init first so that it obtains pid 1, however
 	 * the init task will end up wanting to create kthreads, which, if
 	 * we schedule it before we create kthreadd, will OOPS.
 	 */
 	pid = kernel_thread(kernel_init, NULL, CLONE_FS);
+	pr_info("rest_init||pid:%d\n",pid);
 	/*
 	 * Pin init on the boot CPU. Task migration is not properly working
 	 * until sched_init_smp() has been run. It will set the allowed
 	 * CPUs for init to the non isolated CPUs.
 	 */
 	rcu_read_lock();
+	pr_info("rest_init||rcu_read_lock\n");
 	tsk = find_task_by_pid_ns(pid, &init_pid_ns);
+	pr_info("rest_init||tsk:%d\n",tsk);
 	set_cpus_allowed_ptr(tsk, cpumask_of(smp_processor_id()));
+	pr_info("rest_init||set_cpus_allowed_ptr\n");
 	rcu_read_unlock();
-
+	pr_info("rest_init||rcu_read_unlock\n");
 	numa_default_policy();
+	pr_info("rest_init||numa_default_policy\n");
 	pid = kernel_thread(kthreadd, NULL, CLONE_FS | CLONE_FILES);
+	pr_info("rest_init||pid(second):%d\n",pid);
 	rcu_read_lock();
+	pr_info("rest_init||rcu_read_lock\n");
 	kthreadd_task = find_task_by_pid_ns(pid, &init_pid_ns);
+	pr_info("rest_init||kthreadd_task:%d\n",kthreadd_task);
 	rcu_read_unlock();
+	pr_info("rest_init||cu_read_unlock\n");
 
 	/*
 	 * Enable might_sleep() and smp_processor_id() checks.
@@ -423,14 +434,17 @@ static noinline void __ref rest_init(void)
 	system_state = SYSTEM_SCHEDULING;
 
 	complete(&kthreadd_done);
+	pr_info("rest_init||complete\n");
 
 	/*
 	 * The boot idle thread must execute schedule()
 	 * at least once to get things moving:
 	 */
 	schedule_preempt_disabled();
+	pr_info("rest_init||schedule_preempt_disabled\n");
 	/* Call into cpu_idle with preempt disabled */
 	cpu_startup_entry(CPUHP_ONLINE);
+	pr_info("rest_init||cpu_startup_entry\n");
 }
 
 /* Check for early params. */

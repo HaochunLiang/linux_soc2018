@@ -449,7 +449,7 @@ void set_pfnblock_flags_mask(struct page *page, unsigned long flags,
 					unsigned long mask)
 {
 	pr_info("set_pfnblock_flags_mask enter\n");
-	pr_info("set_pfnblock_flags_mask || page:%d\n",&page);
+	print_hex_dump(KERN_ALERT,"raw(init_single_page):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 	pr_info("set_pfnblock_flags_mask ||pfn:%d\n",pfn);
 	pr_info("set_pfnblock_flags_mask ||end_bitidx:%d\n",end_bitidx);
 	pr_info("set_pfnblock_flags_mask ||flags:%d\n",flags);
@@ -491,7 +491,7 @@ void set_pfnblock_flags_mask(struct page *page, unsigned long flags,
 
 void set_pageblock_migratetype(struct page *page, int migratetype)
 {
-	pr_info("set_pageblock_migratetype||page:%d\n",&page);
+	print_hex_dump(KERN_ALERT,"raw(init_single_page):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),page,sizeof(struct page),false);
 	pr_info("set_pageblock_migratetype||migratetype:%d\n",migratetype);
 	if (unlikely(page_group_by_mobility_disabled &&
 		     migratetype < MIGRATE_PCPTYPES)){
@@ -4534,6 +4534,7 @@ EXPORT_SYMBOL(free_pages_exact);
  */
 static unsigned long nr_free_zone_pages(int offset)
 {
+	pr_info("enter nr_free_zone_pages\n");
 	struct zoneref *z;
 	struct zone *zone;
 
@@ -4545,8 +4546,11 @@ static unsigned long nr_free_zone_pages(int offset)
 	for_each_zone_zonelist(zone, z, zonelist, offset) {
 		unsigned long size = zone->managed_pages;
 		unsigned long high = high_wmark_pages(zone);
-		if (size > high)
+		pr_info("enter nr_free_zone_pages||size:%d\n",size);
+		pr_info("enter nr_free_zone_pages||high:%d\n",high);
+		if (size > high){
 			sum += size - high;
+			pr_info("enter nr_free_zone_pages||sum:%d\n",sum);}
 	}
 
 	return sum;
@@ -5231,9 +5235,12 @@ static DEFINE_PER_CPU(struct per_cpu_nodestat, boot_nodestats);
 
 static void __build_all_zonelists(void *data)
 {
+	pr_info("enter __build_all_zonelists\n");
 	int nid;
 	int __maybe_unused cpu;
 	pg_data_t *self = data;
+	pr_info("__build_all_zonelists||data:%d\n",data);
+	//pr_info("__build_all_zonelists||*data:%d\n",*data);
 	unsigned long flags;
 
 	/*
@@ -5322,13 +5329,18 @@ build_all_zonelists_init(void)
  */
 void __ref build_all_zonelists(pg_data_t *pgdat)
 {
+	pr_info("enter build_all_zonelists\n");
+	//print_hex_dump(KERN_ALERT,"pgdat raw( build_all_zonelists(pg_data_t *pgdat)):",DUMP_PREFIX_NONE,32,sizeof(unsigned long),pgdat,sizeof(struct pgdat),false);
 	if (system_state == SYSTEM_BOOTING) {
+		pr_info("build_all_zonelists_init\n");
 		build_all_zonelists_init();
 	} else {
+		pr_info("__build_all_zonelists\n");
 		__build_all_zonelists(pgdat);
 		/* cpuset refresh routine should be here */
 	}
 	vm_total_pages = nr_free_pagecache_pages();
+	pr_info("build_all_zonelists||vm_total_pages:%d",vm_total_pages);
 	/*
 	 * Disable grouping by mobility if the number of pages in the
 	 * system is too low to allow the mechanism to work. It would be
@@ -5336,10 +5348,12 @@ void __ref build_all_zonelists(pg_data_t *pgdat)
 	 * made on memory-hotadd so a system can start with mobility
 	 * disabled and enable it later
 	 */
-	if (vm_total_pages < (pageblock_nr_pages * MIGRATE_TYPES))
+	if (vm_total_pages < (pageblock_nr_pages * MIGRATE_TYPES)){
 		page_group_by_mobility_disabled = 1;
-	else
+		pr_info("page_group_by_mobility_disabled = 1\n");}
+	else{
 		page_group_by_mobility_disabled = 0;
+		pr_info("page_group_by_mobility_disabled = 0\n");}
 
 	pr_info("Built %i zonelists, mobility grouping %s.  Total pages: %ld\n",
 		nr_online_nodes,

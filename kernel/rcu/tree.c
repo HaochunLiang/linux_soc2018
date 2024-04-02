@@ -4004,11 +4004,14 @@ early_initcall(rcu_spawn_gp_kthread);
  */
 void rcu_scheduler_starting(void)
 {
+	pr_info("enter rcu_scheduler_starting\n");
 	WARN_ON(num_online_cpus() != 1);
 	WARN_ON(nr_context_switches() > 0);
 	rcu_test_sync_prims();
+	pr_info("rcu_test_sync_prims success\n");
 	rcu_scheduler_active = RCU_SCHEDULER_INIT;
 	rcu_test_sync_prims();
+	pr_info("rcu_test_sync_prims success\n");
 }
 
 /*

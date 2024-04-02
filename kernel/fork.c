@@ -2151,6 +2151,7 @@ long do_fork(unsigned long clone_flags,
  */
 pid_t kernel_thread(int (*fn)(void *), void *arg, unsigned long flags)
 {
+	pr_info("flags:%d",flags);
 	return _do_fork(flags|CLONE_VM|CLONE_UNTRACED, (unsigned long)fn,
 		(unsigned long)arg, NULL, NULL, 0);
 }
