@@ -748,7 +748,7 @@ asmlinkage __visible void __init start_kernel(void)
 	if (late_time_init)
 		late_time_init();
 	pr_info("if (late_time_init) success.\n");
-	//calibrate_delay();
+	calibrate_delay();
 	pr_info("calibrate_delay success.\n");
 
 	arch_cpu_finalize_init();

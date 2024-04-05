@@ -225,7 +225,7 @@ ENTRY(stext)
 	mrc	p15, 0, r9, c0, c0		@ get processor id
 	mov r0, #0
 	mov r1, #0
-	mov r2, #0x4000000
+	mov r2, #0x420000
 	bl	__lookup_processor_type		@ r5=procinfo r9=cpuid
 	movs	r10, r5				@ invalid processor (r5=0)?
  THUMB( it	eq )		@ force fixup-able long branch encoding

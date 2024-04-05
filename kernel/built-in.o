@@ -110,7 +110,7 @@ events/ring_buffer.o/
 events/callchain.o/
 events/hw_breakpoint.o/
 memremap.o/
-/0              0           0     0     644     21556     `
+/0              0           0     0     644     31668     `
 /8              0           0     0     644     2692      `
 /23             0           0     0     644     10244     `
 /32             0           0     0     644     12820     `
