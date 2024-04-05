@@ -2221,8 +2221,8 @@ long _do_fork(unsigned long clone_flags,
 	long nr;
 	pr_info("_do_fork||clone_flags:%d\n",clone_flags);
 	pr_info("_do_fork||stack_start:%d\n",stack_start);
-	pr_info("_do_fork||*parent_tidptr:%d\n",*parent_tidptr);
-	pr_info("_do_fork||*child_tidptr:%d\n",*child_tidptr);
+	pr_info("_do_fork||*parent_tidptr:%d\n",(int)parent_tidptr);
+	pr_info("_do_fork||*child_tidptr:%d\n",(int)child_tidptr);
 	pr_info("_do_fork||tls:%d\n",tls);
 
 	/*
@@ -2232,7 +2232,7 @@ long _do_fork(unsigned long clone_flags,
 	 * for the type of forking is enabled.
 	 */
 	if (!(clone_flags & CLONE_UNTRACED)) {
-		pr_info("enter (clone_flags & CLONE_UNTRACED)\n");
+		//pr_info("enter (clone_flags & CLONE_UNTRACED)\n");
 		if (clone_flags & CLONE_VFORK)
 			trace = PTRACE_EVENT_VFORK;
 		else if ((clone_flags & CSIGNAL) != SIGCHLD)
@@ -2241,15 +2241,15 @@ long _do_fork(unsigned long clone_flags,
 			trace = PTRACE_EVENT_FORK;
 
 		if (likely(!ptrace_event_enabled(current, trace))){
-			pr_info("ptrace_event_enabled(current, trace))\n");
+			//pr_info("ptrace_event_enabled(current, trace))\n");
 			trace = 0;}
 	}
 
 	p = copy_process(clone_flags, stack_start, stack_size,
 			 child_tidptr, NULL, trace, tls, NUMA_NO_NODE);
-	pr_info("_do_fork||p:%d\n",p);
+	//pr_info("_do_fork||p:%d\n",p);
 	add_latent_entropy();
-	pr_info("add_latent_entropy over\n");
+	//pr_info("add_latent_entropy over\n");
 	/*
 	 * Do this prior waking up the new thread - the thread pointer
 	 * might get invalid after that point, if the thread exits quickly.
@@ -2257,46 +2257,47 @@ long _do_fork(unsigned long clone_flags,
 	if (!IS_ERR(p)) {
 		struct completion vfork;
 		struct pid *pid;
-		pr_info("IS_ERR(p) enter\n");
+		//pr_info("IS_ERR(p) enter\n");
 		trace_sched_process_fork(current, p);
-		pr_info("trace_sched_process_fork over\n");
+		//pr_info("trace_sched_process_fork over\n");
 		pid = get_task_pid(p, PIDTYPE_PID);
-		pr_info("trace_sched_process_fork|| pid:%d\n",pid);
+		//pr_info("trace_sched_process_fork|| pid:%d\n",pid);
 		nr = pid_vnr(pid);
-		pr_info("trace_sched_process_fork nr:%d\n",nr);
+		printk("trace_sched_process_fork nr:%d\n",nr);
 
 		if (clone_flags & CLONE_PARENT_SETTID){
-			put_user(nr, parent_tidptr);
-			pr_info("put_user over\n");}
+			put_user(nr, parent_tidptr);}
+			//pr_info("put_user over\n");}
 
 		if (clone_flags & CLONE_VFORK) {
 			p->vfork_done = &vfork;
-			pr_info("clone_flags & CLONE_VFORK||p->vfork_done:%d\n",p->vfork_done);
+			//pr_info("clone_flags & CLONE_VFORK||p->vfork_done:%d\n",p->vfork_done);
 			init_completion(&vfork);
-			pr_info("init_completion over\n");
+			//pr_info("init_completion over\n");
 			get_task_struct(p);
-			pr_info("get_task_struct over\n");
+			//pr_info("get_task_struct over\n");
 		}
 
 		wake_up_new_task(p);
-		pr_info("wake_up_new_task over\n");
+		//pr_info("wake_up_new_task over\n");
 
 		/* forking complete and child started to run, tell ptracer */
 		if (unlikely(trace)){
 			ptrace_event_pid(trace, pid);
-			pr_info("ptrace_event_pid over\n");}
+			//pr_info("ptrace_event_pid over\n");
+			}
 
 		if (clone_flags & CLONE_VFORK) {
 			if (!wait_for_vfork_done(p, &vfork))
 				ptrace_event_pid(PTRACE_EVENT_VFORK_DONE, pid);
-			pr_info("clone_flags & CLONE_VFORK over\n");
+			//pr_info("clone_flags & CLONE_VFORK over\n");
 		}
 
 		put_pid(pid);
-		pr_info("put_pid over\n");
+		//pr_info("put_pid over\n");
 	} else {
 		nr = PTR_ERR(p);
-		pr_info("nr:%d\n",nr);
+		//pr_info("nr:%d\n",nr);
 	}
 	return nr;
 }
@@ -2321,6 +2322,7 @@ long do_fork(unsigned long clone_flags,
 pid_t kernel_thread(int (*fn)(void *), void *arg, unsigned long flags)
 {
 	pr_info("flags:%d",flags);
+	//printk("flags:%d",flags);
 	return _do_fork(flags|CLONE_VM|CLONE_UNTRACED, (unsigned long)fn,
 		(unsigned long)arg, NULL, NULL, 0);
 }
