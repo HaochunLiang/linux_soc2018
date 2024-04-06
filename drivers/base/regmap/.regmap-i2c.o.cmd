@@ -137,6 +137,9 @@ deps_drivers/base/regmap/regmap-i2c.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/rbtree.h \
   include/linux/rcupdate.h \
     $(wildcard include/config/preempt/rcu.h) \
@@ -267,9 +270,6 @@ deps_drivers/base/regmap/regmap-i2c.o := \
   include/linux/spinlock_api_up.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \

@@ -131,6 +131,9 @@ deps_lib/sha1.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/cryptohash.h \
   include/linux/string.h \
     $(wildcard include/config/binary/printf.h) \

@@ -203,6 +203,9 @@ deps_drivers/char/random.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/restart_block.h \
   include/linux/errno.h \
   include/uapi/linux/errno.h \
@@ -316,9 +319,6 @@ deps_drivers/char/random.o := \
   include/linux/spinlock_api_up.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \
@@ -656,6 +656,31 @@ deps_drivers/char/random.o := \
     $(wildcard include/config/unixware/disklabel.h) \
     $(wildcard include/config/minix/subpartition.h) \
   include/linux/percpu-refcount.h \
+  include/linux/device.h \
+    $(wildcard include/config/debug/devres.h) \
+    $(wildcard include/config/generic/msi/irq/domain.h) \
+    $(wildcard include/config/pinctrl.h) \
+    $(wildcard include/config/generic/msi/irq.h) \
+    $(wildcard include/config/dma/cma.h) \
+    $(wildcard include/config/of.h) \
+    $(wildcard include/config/devtmpfs.h) \
+    $(wildcard include/config/sysfs/deprecated.h) \
+  include/linux/ioport.h \
+  include/linux/klist.h \
+  include/linux/pinctrl/devinfo.h \
+    $(wildcard include/config/pm.h) \
+  include/linux/pm.h \
+    $(wildcard include/config/vt/console/sleep.h) \
+    $(wildcard include/config/pm/clk.h) \
+    $(wildcard include/config/pm/generic/domains.h) \
+  include/linux/ratelimit.h \
+  arch/arm/include/asm/device.h \
+    $(wildcard include/config/dmabounce.h) \
+    $(wildcard include/config/iommu/api.h) \
+    $(wildcard include/config/arm/dma/use/iommu.h) \
+    $(wildcard include/config/xen.h) \
+    $(wildcard include/config/arch/omap.h) \
+  include/linux/pm_wakeup.h \
   include/linux/interrupt.h \
     $(wildcard include/config/irq/forced/threading.h) \
     $(wildcard include/config/generic/irq/probe.h) \
@@ -716,7 +741,6 @@ deps_drivers/char/random.o := \
     $(wildcard include/config/ksm.h) \
   include/linux/tracepoint-defs.h \
   include/linux/memremap.h \
-  include/linux/ioport.h \
   arch/arm/include/asm/pgtable.h \
     $(wildcard include/config/highpte.h) \
   arch/arm/include/asm/proc-fns.h \
@@ -826,7 +850,6 @@ deps_drivers/char/random.o := \
     $(wildcard include/config/no/generic/pci/ioport/map.h) \
     $(wildcard include/config/generic/pci/iomap.h) \
   include/xen/xen.h \
-    $(wildcard include/config/xen.h) \
     $(wildcard include/config/xen/pvh.h) \
     $(wildcard include/config/xen/dom0.h) \
   include/asm-generic/io.h \
@@ -839,7 +862,6 @@ deps_drivers/char/random.o := \
     $(wildcard include/config/generic/irq/debugfs.h) \
     $(wildcard include/config/handle/domain/irq.h) \
   arch/arm/include/asm/hw_irq.h \
-  include/linux/ratelimit.h \
   include/linux/syscalls.h \
     $(wildcard include/config/ftrace/syscalls.h) \
     $(wildcard include/config/old/sigsuspend.h) \
@@ -893,28 +915,6 @@ deps_drivers/char/random.o := \
     $(wildcard include/config/hotplug/smt.h) \
   include/linux/node.h \
     $(wildcard include/config/memory/hotplug/sparse.h) \
-  include/linux/device.h \
-    $(wildcard include/config/debug/devres.h) \
-    $(wildcard include/config/generic/msi/irq/domain.h) \
-    $(wildcard include/config/pinctrl.h) \
-    $(wildcard include/config/generic/msi/irq.h) \
-    $(wildcard include/config/dma/cma.h) \
-    $(wildcard include/config/of.h) \
-    $(wildcard include/config/devtmpfs.h) \
-    $(wildcard include/config/sysfs/deprecated.h) \
-  include/linux/klist.h \
-  include/linux/pinctrl/devinfo.h \
-    $(wildcard include/config/pm.h) \
-  include/linux/pm.h \
-    $(wildcard include/config/vt/console/sleep.h) \
-    $(wildcard include/config/pm/clk.h) \
-    $(wildcard include/config/pm/generic/domains.h) \
-  arch/arm/include/asm/device.h \
-    $(wildcard include/config/dmabounce.h) \
-    $(wildcard include/config/iommu/api.h) \
-    $(wildcard include/config/arm/dma/use/iommu.h) \
-    $(wildcard include/config/arch/omap.h) \
-  include/linux/pm_wakeup.h \
   include/linux/cpuhotplug.h \
   include/linux/irq_work.h \
     $(wildcard include/config/irq/work.h) \

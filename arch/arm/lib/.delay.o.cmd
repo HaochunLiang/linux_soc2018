@@ -152,6 +152,9 @@ deps_arch/arm/lib/delay.o := \
     $(wildcard include/config/strict/module/rwx.h) \
   include/linux/kern_levels.h \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   arch/arm/include/generated/asm/preempt.h \
   include/asm-generic/preempt.h \
   include/linux/thread_info.h \
@@ -242,9 +245,6 @@ deps_arch/arm/lib/delay.o := \
   include/asm-generic/atomic-long.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/uapi/linux/param.h \

@@ -143,6 +143,9 @@ deps_mm/mmap.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/slab.h \
     $(wildcard include/config/debug/slab.h) \
     $(wildcard include/config/debug/objects.h) \
@@ -350,9 +353,6 @@ deps_mm/mmap.o := \
     $(wildcard include/config/arch/uses/gettimeoffset.h) \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \
@@ -597,6 +597,14 @@ deps_mm/mmap.o := \
   include/linux/sched/clock.h \
     $(wildcard include/config/have/unstable/sched/clock.h) \
     $(wildcard include/config/irq/time/accounting.h) \
+  include/uapi/linux/major.h \
+  include/linux/genhd.h \
+    $(wildcard include/config/fail/make/request.h) \
+    $(wildcard include/config/solaris/x86/partition.h) \
+    $(wildcard include/config/bsd/disklabel.h) \
+    $(wildcard include/config/unixware/disklabel.h) \
+    $(wildcard include/config/minix/subpartition.h) \
+  include/linux/percpu-refcount.h \
   include/linux/device.h \
     $(wildcard include/config/debug/devres.h) \
     $(wildcard include/config/generic/msi/irq/domain.h) \
@@ -630,15 +638,7 @@ deps_mm/mmap.o := \
     $(wildcard include/config/xen.h) \
     $(wildcard include/config/arch/omap.h) \
   include/linux/pm_wakeup.h \
-  include/linux/writeback.h \
-  include/linux/flex_proportions.h \
-  include/linux/backing-dev-defs.h \
-    $(wildcard include/config/debug/fs.h) \
-  include/linux/percpu-refcount.h \
-  include/linux/blk_types.h \
-    $(wildcard include/config/alpha.h) \
-    $(wildcard include/config/blk/dev/throttling/low.h) \
-  include/linux/bvec.h \
+  include/linux/pagemap.h \
   include/linux/mm.h \
     $(wildcard include/config/sysctl.h) \
     $(wildcard include/config/arch/uses/high/vma/flags.h) \
@@ -733,6 +733,85 @@ deps_mm/mmap.o := \
   include/linux/vm_event_item.h \
     $(wildcard include/config/memory/balloon.h) \
     $(wildcard include/config/balloon/compaction.h) \
+  include/linux/highmem.h \
+    $(wildcard include/config/x86/32.h) \
+    $(wildcard include/config/debug/highmem.h) \
+  include/linux/uaccess.h \
+  arch/arm/include/asm/uaccess.h \
+    $(wildcard include/config/cpu/sw/domain/pan.h) \
+    $(wildcard include/config/cpu/use/domains.h) \
+    $(wildcard include/config/uaccess/with/memcpy.h) \
+  arch/arm/include/asm/domain.h \
+    $(wildcard include/config/io/36.h) \
+    $(wildcard include/config/cpu/cp15/mmu.h) \
+  arch/arm/include/generated/asm/extable.h \
+  include/asm-generic/extable.h \
+  include/linux/hardirq.h \
+  include/linux/ftrace_irq.h \
+    $(wildcard include/config/ftrace/nmi/enter.h) \
+    $(wildcard include/config/hwlat/tracer.h) \
+  include/linux/vtime.h \
+    $(wildcard include/config/virt/cpu/accounting.h) \
+  include/linux/context_tracking_state.h \
+    $(wildcard include/config/context/tracking.h) \
+  arch/arm/include/asm/hardirq.h \
+  arch/arm/include/asm/irq.h \
+    $(wildcard include/config/sparse/irq.h) \
+    $(wildcard include/config/multi/irq/handler.h) \
+  include/linux/irq_cpustat.h \
+  arch/arm/include/asm/cacheflush.h \
+    $(wildcard include/config/arm/errata/411920.h) \
+    $(wildcard include/config/cpu/cache/vipt.h) \
+    $(wildcard include/config/outer/cache.h) \
+    $(wildcard include/config/frame/pointer.h) \
+  arch/arm/include/asm/glue-cache.h \
+    $(wildcard include/config/cpu/cache/v4.h) \
+    $(wildcard include/config/cpu/cache/v4wb.h) \
+  arch/arm/include/asm/cachetype.h \
+    $(wildcard include/config/cpu/cache/vivt.h) \
+  arch/arm/include/asm/outercache.h \
+    $(wildcard include/config/outer/cache/sync.h) \
+  arch/arm/include/asm/kmap_types.h \
+  include/linux/hugetlb_inline.h \
+  include/linux/backing-dev-defs.h \
+    $(wildcard include/config/debug/fs.h) \
+  include/linux/flex_proportions.h \
+  include/linux/mempool.h \
+  include/linux/bio.h \
+  include/linux/ioprio.h \
+  include/linux/iocontext.h \
+  arch/arm/include/asm/io.h \
+    $(wildcard include/config/pci.h) \
+    $(wildcard include/config/need/mach/io/h.h) \
+    $(wildcard include/config/pcmcia/soc/common.h) \
+    $(wildcard include/config/isa.h) \
+    $(wildcard include/config/pccard.h) \
+  include/asm-generic/pci_iomap.h \
+    $(wildcard include/config/no/generic/pci/ioport/map.h) \
+    $(wildcard include/config/generic/pci/iomap.h) \
+  include/xen/xen.h \
+    $(wildcard include/config/xen/pvh.h) \
+    $(wildcard include/config/xen/dom0.h) \
+  include/asm-generic/io.h \
+    $(wildcard include/config/generic/iomap.h) \
+    $(wildcard include/config/has/ioport/map.h) \
+    $(wildcard include/config/virt/to/bus.h) \
+  include/linux/blk_types.h \
+    $(wildcard include/config/alpha.h) \
+    $(wildcard include/config/blk/dev/throttling/low.h) \
+  include/linux/bvec.h \
+  include/linux/bsg.h \
+  include/uapi/linux/bsg.h \
+  include/linux/scatterlist.h \
+    $(wildcard include/config/debug/sg.h) \
+    $(wildcard include/config/need/sg/dma/length.h) \
+    $(wildcard include/config/sgl/alloc.h) \
+    $(wildcard include/config/arch/has/sg/chain.h) \
+    $(wildcard include/config/sg/pool.h) \
+  include/uapi/linux/blkzoned.h \
+  include/linux/elevator.h \
+  include/linux/hashtable.h \
+  include/linux/writeback.h \
   include/linux/blk-cgroup.h \
   include/linux/cgroup.h \
     $(wildcard include/config/sock/cgroup/data.h) \
@@ -775,47 +854,6 @@ deps_mm/mmap.o := \
   include/uapi/asm-generic/mman.h \
   include/uapi/asm-generic/mman-common.h \
     $(wildcard include/config/mmap/allow/uninitialized.h) \
-  include/linux/pagemap.h \
-  include/linux/highmem.h \
-    $(wildcard include/config/x86/32.h) \
-    $(wildcard include/config/debug/highmem.h) \
-  include/linux/uaccess.h \
-  arch/arm/include/asm/uaccess.h \
-    $(wildcard include/config/cpu/sw/domain/pan.h) \
-    $(wildcard include/config/cpu/use/domains.h) \
-    $(wildcard include/config/uaccess/with/memcpy.h) \
-  arch/arm/include/asm/domain.h \
-    $(wildcard include/config/io/36.h) \
-    $(wildcard include/config/cpu/cp15/mmu.h) \
-  arch/arm/include/generated/asm/extable.h \
-  include/asm-generic/extable.h \
-  include/linux/hardirq.h \
-  include/linux/ftrace_irq.h \
-    $(wildcard include/config/ftrace/nmi/enter.h) \
-    $(wildcard include/config/hwlat/tracer.h) \
-  include/linux/vtime.h \
-    $(wildcard include/config/virt/cpu/accounting.h) \
-  include/linux/context_tracking_state.h \
-    $(wildcard include/config/context/tracking.h) \
-  arch/arm/include/asm/hardirq.h \
-  arch/arm/include/asm/irq.h \
-    $(wildcard include/config/sparse/irq.h) \
-    $(wildcard include/config/multi/irq/handler.h) \
-  include/linux/irq_cpustat.h \
-  arch/arm/include/asm/cacheflush.h \
-    $(wildcard include/config/arm/errata/411920.h) \
-    $(wildcard include/config/cpu/cache/vipt.h) \
-    $(wildcard include/config/outer/cache.h) \
-    $(wildcard include/config/frame/pointer.h) \
-  arch/arm/include/asm/glue-cache.h \
-    $(wildcard include/config/cpu/cache/v4.h) \
-    $(wildcard include/config/cpu/cache/v4wb.h) \
-  arch/arm/include/asm/cachetype.h \
-    $(wildcard include/config/cpu/cache/vivt.h) \
-  arch/arm/include/asm/outercache.h \
-    $(wildcard include/config/outer/cache/sync.h) \
-  arch/arm/include/asm/kmap_types.h \
-  include/linux/hugetlb_inline.h \
   include/linux/swap.h \
     $(wildcard include/config/frontswap.h) \
     $(wildcard include/config/memcg/swap.h) \

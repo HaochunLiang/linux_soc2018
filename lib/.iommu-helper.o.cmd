@@ -135,6 +135,9 @@ deps_lib/iommu-helper.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/bug.h \
     $(wildcard include/config/generic/bug.h) \
     $(wildcard include/config/bug/on/data/corruption.h) \

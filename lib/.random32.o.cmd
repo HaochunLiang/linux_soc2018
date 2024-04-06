@@ -149,6 +149,9 @@ deps_lib/random32.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/preempt.h \
     $(wildcard include/config/preempt/count.h) \
     $(wildcard include/config/debug/preempt.h) \
@@ -248,9 +251,6 @@ deps_lib/random32.o := \
   include/linux/jiffies.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time.h \
     $(wildcard include/config/arch/uses/gettimeoffset.h) \
   include/linux/seqlock.h \

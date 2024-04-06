@@ -177,6 +177,9 @@ deps_arch/arm/kernel/vdso.o := \
     $(wildcard include/config/strict/module/rwx.h) \
   include/linux/kern_levels.h \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/mm.h \
     $(wildcard include/config/need/multiple/nodes.h) \
     $(wildcard include/config/sysctl.h) \
@@ -362,9 +365,6 @@ deps_arch/arm/kernel/vdso.o := \
     $(wildcard include/config/arch/uses/gettimeoffset.h) \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \

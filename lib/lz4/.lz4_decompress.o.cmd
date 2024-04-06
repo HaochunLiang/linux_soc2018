@@ -140,6 +140,9 @@ deps_lib/lz4/lz4_decompress.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/unaligned/be_byteshift.h \
   include/linux/unaligned/generic.h \
   include/linux/module.h \
@@ -262,9 +265,6 @@ deps_lib/lz4/lz4_decompress.o := \
   include/asm-generic/atomic-long.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/uidgid.h \

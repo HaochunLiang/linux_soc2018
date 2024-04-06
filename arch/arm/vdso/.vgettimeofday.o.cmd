@@ -137,6 +137,9 @@ deps_arch/arm/vdso/vgettimeofday.o := \
   arch/arm/include/asm/cache.h \
     $(wildcard include/config/arm/l1/cache/shift.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/rcupdate.h \
     $(wildcard include/config/preempt/rcu.h) \
     $(wildcard include/config/rcu/stall/common.h) \
@@ -271,9 +274,6 @@ deps_arch/arm/vdso/vgettimeofday.o := \
   include/linux/spinlock_api_up.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \

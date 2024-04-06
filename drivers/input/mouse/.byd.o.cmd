@@ -130,6 +130,9 @@ deps_drivers/input/mouse/byd.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   arch/arm/include/asm/delay.h \
   arch/arm/include/asm/memory.h \
     $(wildcard include/config/need/mach/memory/h.h) \
@@ -243,9 +246,6 @@ deps_drivers/input/mouse/byd.o := \
   include/asm-generic/atomic-long.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/uapi/linux/input.h \
