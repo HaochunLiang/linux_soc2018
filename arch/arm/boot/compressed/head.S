@@ -221,7 +221,25 @@ not_angel:
 		addcc	r0, r0, pc
 		cmpcc	r4, r0
 		orrcc	r4, r4, #1		@ remember we skipped cache_on
-		blcs	cache_on
+		@ blcs	cache_on
+		@ bl	cache_off            @ changed by LHC
+
+		@ @ changed by LHC, open the I-cache
+		@ mcr p15, 0, r0, c1, c0, 0
+		@ @ bic	r0, r0, #0x00002000	@ clear bits 13 (--V-)
+		@ @ bic	r0, r0, #0x00000007	@ clear bits 2:0 (-CAM)
+		@ @ orr	r0, r0, #0x00000002	@ set bit 1 (--A-) Align 
+		@ @ orr	r0, r0, #0x00000800	@ set bit 11 (Z---) BTB    
+		@ orr r0, r0, #0x00001000 @ clear bit 12(I)I-cache
+		@ mcr p15, 0, r0, c1, c0, 0
+
+
+		@ changed by LHC, open the D-cache
+		@ #define CR_C	(1 << 2)	/* Dcache enable			*/
+		@ mrc p15, 0, r0, c1, c0, 0  @ SCTLR(System Contrl Register)
+		@ orr r0, r0, #(CR_C)  @ MMU and Dcache enable
+		@ mrc p15, 0, r0, c1, c0, 0  @ SCTLR(System Contrl Register)
+
 
 restart:	adr	r0, LC0
 		ldmia	r0, {r1, r2, r3, r6, r10, r11, r12}
@@ -541,9 +559,9 @@ not_relocated:	mov	r0, #0
 		 * That is indicated by the LSB in r4.
 		 * Do it now if so.
 		 */
-		tst	r4, #1
-		bic	r4, r4, #1
-		blne	cache_on
+		@ tst	r4, #1      @ changed by LHC
+		@ bic	r4, r4, #1
+		@ blne	cache_on
 
 /*
  * The C runtime environment should now be setup sufficiently.
@@ -557,7 +575,7 @@ not_relocated:	mov	r0, #0
 		add	r2, sp, #0x10000	@ 64k max
 		mov	r3, r7
 		bl	decompress_kernel
-		bl 	compare_flash_with_memeory
+		# bl 	compare_flash_with_memeory   @ changed by LHC
 		bl	cache_clean_flush
 		bl	cache_off
 
@@ -622,7 +640,7 @@ params:		ldr	r0, =0x10000100		@ params_phys for RPC
  */
 		.align	5
 cache_on:	mov	r3, #8			@ cache_on function
-		b	call_cache_fn
+		b	cache_on
 
 /*
  * Initialize the highest priority protection region, PR7
@@ -768,16 +786,16 @@ __armv4_mmu_cache_on:
 
 __armv7_mmu_cache_on:
 		mov	r12, lr
-#ifdef CONFIG_MMU
-		mrc	p15, 0, r11, c0, c1, 4	@ read ID_MMFR0
-		tst	r11, #0xf		@ VMSA
-		movne	r6, #CB_BITS | 0x02	@ !XN
-		blne	__setup_mmu
-		mov	r0, #0
-		mcr	p15, 0, r0, c7, c10, 4	@ drain write buffer
-		tst	r11, #0xf		@ VMSA
-		mcrne	p15, 0, r0, c8, c7, 0	@ flush I,D TLBs
-#endif
+@ #ifdef CONFIG_MMU
+@ 		mrc	p15, 0, r11, c0, c1, 4	@ read ID_MMFR0
+@ 		tst	r11, #0xf		@ VMSA
+@ 		movne	r6, #CB_BITS | 0x02	@ !XN
+@ 		blne	__setup_mmu
+@ 		mov	r0, #0
+@ 		mcr	p15, 0, r0, c7, c10, 4	@ drain write buffer
+@ 		tst	r11, #0xf		@ VMSA
+@ 		mcrne	p15, 0, r0, c8, c7, 0	@ flush I,D TLBs
+@ #endif
 		mrc	p15, 0, r0, c1, c0, 0	@ read control reg
 		bic	r0, r0, #1 << 28	@ clear SCTLR.TRE
 		orr	r0, r0, #0x5000		@ I-cache enable, RR cache replacement
@@ -785,17 +803,17 @@ __armv7_mmu_cache_on:
 		bic	r0, r0, #2		@ A (no unaligned access fault)
 		orr	r0, r0, #1 << 22	@ U (v6 unaligned access model)
 						@ (needed for ARM1176)
-#ifdef CONFIG_MMU
- ARM_BE8(	orr	r0, r0, #1 << 25 )	@ big-endian page tables
-		mrcne   p15, 0, r6, c2, c0, 2   @ read ttb control reg
-		orrne	r0, r0, #1		@ MMU enabled
-		movne	r1, #0xfffffffd		@ domain 0 = client
-		bic     r6, r6, #1 << 31        @ 32-bit translation system
-		bic     r6, r6, #(7 << 0) | (1 << 4)	@ use only ttbr0
-		mcrne	p15, 0, r3, c2, c0, 0	@ load page table pointer
-		mcrne	p15, 0, r1, c3, c0, 0	@ load domain access control
-		mcrne   p15, 0, r6, c2, c0, 2   @ load ttb control
-#endif
+@ #ifdef CONFIG_MMU
+@  ARM_BE8(	orr	r0, r0, #1 << 25 )	@ big-endian page tables
+@ 		mrcne   p15, 0, r6, c2, c0, 2   @ read ttb control reg
+@ 		orrne	r0, r0, #1		@ MMU enabled
+@ 		movne	r1, #0xfffffffd		@ domain 0 = client
+@ 		bic     r6, r6, #1 << 31        @ 32-bit translation system
+@ 		bic     r6, r6, #(7 << 0) | (1 << 4)	@ use only ttbr0
+@ 		mcrne	p15, 0, r3, c2, c0, 0	@ load page table pointer
+@ 		mcrne	p15, 0, r1, c3, c0, 0	@ load domain access control
+@ 		mcrne   p15, 0, r6, c2, c0, 2   @ load ttb control
+@ #endif
 		mcr	p15, 0, r0, c7, c5, 4	@ ISB
 		mcr	p15, 0, r0, c1, c0, 0	@ load control register
 		mrc	p15, 0, r0, c1, c0, 0	@ and read it back

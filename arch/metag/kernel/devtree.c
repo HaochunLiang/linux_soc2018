@@ -59,12 +59,16 @@ const struct machine_desc * __init setup_machine_fdt(void *dt)
 	const struct machine_desc *mdesc;
 
 	/* check device tree validity */
-	if (!early_init_dt_scan(dt))
-		return NULL;
-
+	if (!early_init_dt_scan(dt)){
+		pr_info("setup_machine_fdt full\n");
+		return NULL;}
+	pr_info("set_machine_fdt in\n");
 	mdesc = of_flat_dt_match_machine(NULL, arch_get_next_mach);
-	if (!mdesc)
+	pr_info("mdesc = of_flat_dt_match_machine(NULL, arch_get_next_mach);\n");
+	if (!mdesc){
+		pr_info("!mdesc\n");
 		dump_machine_table(); /* does not return */
+		pr_info("dump_machine_table over\n");}
 	pr_info("Machine name: %s\n", mdesc->name);
 
 	return mdesc;

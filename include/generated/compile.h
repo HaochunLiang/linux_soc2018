@@ -1,6 +1,6 @@
-/* This file is auto generated, version 47 */
+/* This file is auto generated, version 93 */
 #define UTS_MACHINE "arm"
-#define UTS_VERSION "#47 Tue Mar 12 22:20:10 CST 2024"
+#define UTS_VERSION "#93 Sun May 5 17:09:21 CST 2024"
 #define LINUX_COMPILE_BY "root"
-#define LINUX_COMPILE_HOST "neu-ThinkPad"
-#define LINUX_COMPILER "gcc version 9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599] (15:9-2019-q4-0ubuntu1)"
+#define LINUX_COMPILE_HOST ""
+#define LINUX_COMPILER "gcc version 9.2.1 20191025 (GNU Toolchain for the A-profile Architecture 9.2-2019.12 (arm-9.10))"

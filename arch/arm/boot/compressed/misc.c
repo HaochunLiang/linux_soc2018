@@ -256,7 +256,7 @@ decompress_kernel(unsigned long output_start, unsigned long free_mem_ptr_p,
 		unsigned long free_mem_ptr_end_p,
 		int arch_id)
 {
-	compare_memory(0x40,0xc3000000,0x100000);
+	//compare_memory(0x40,0xc3000000,0x100000);
 
 	int ret;
 

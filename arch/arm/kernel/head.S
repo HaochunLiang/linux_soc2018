@@ -59,18 +59,18 @@
 
 
 @ write_bytes:
-@     push {r0-r3}       
+@     push {r0-r3}
 
-@     ldr r0, =0xc0413d98 
+@     ldr r0, =0xc0413d98
 
-@     mov r1, #0x90        
-@     strb r1, [r0], #1   
-@     mov r1, #0xc0        
-@     strb r1, [r0], #1    
-@     mov r1, #0x0f        
-@     strb r1, [r0], #1    
-@     mov r1, #0x41        
-@     strb r1, [r0], #1    
+@     mov r1, #0x90
+@     strb r1, [r0], #1
+@     mov r1, #0xc0
+@     strb r1, [r0], #1
+@     mov r1, #0x0f
+@     strb r1, [r0], #1
+@     mov r1, #0x41
+@     strb r1, [r0], #1
 
 @     mov r1, #0xf0
 @     strb r1, [r0], #1
@@ -99,7 +99,7 @@
 @     strb r1, [r0], #1
 @     mov r1, #0x00
 @     strb r1, [r0], #1
-	
+
 @ 	mov r1, #0x7c
 @     strb r1, [r0], #1
 @     mov r1, #0x76
@@ -181,8 +181,8 @@
 @     mov r1, #0xc0
 @     strb r1, [r0], #1
 
-@     pop {r0-r3}         
-@     bx lr               
+@     pop {r0-r3}
+@     bx lr
 
 
 /*
@@ -216,13 +216,16 @@ ENTRY(stext)
 	@ 修复对应内存的cpu信息
 	@ bl write_bytes
 
-#ifdef CONFIG_ARM_VIRT_EXT
-	bl	__hyp_stub_install
-#endif
+@#ifdef CONFIG_ARM_VIRT_EXT//@srliu
+	@bl	__hyp_stub_install
+@#endif
 	@ ensure svc mode and all interrupts masked
 	safe_svcmode_maskall r9
 
 	mrc	p15, 0, r9, c0, c0		@ get processor id
+	mov r0, #0
+	mov r1, #0
+	mov r2, #0x420000
 	bl	__lookup_processor_type		@ r5=procinfo r9=cpuid
 	movs	r10, r5				@ invalid processor (r5=0)?
  THUMB( it	eq )		@ force fixup-able long branch encoding
@@ -236,7 +239,7 @@ ENTRY(stext)
 	blo	__error_lpae			@ only classic page table format
 #endif
 
-#ifndef CONFIG_XIP_KERNEL
+#ifndef CONFIG_XIP_KERNEL//@srliu: ndef->def
 	adr	r3, 2f
 	ldmia	r3, {r4, r8}
 	sub	r4, r3, r4			@ (PHYS_OFFSET - PAGE_OFFSET)
@@ -292,7 +295,7 @@ ENTRY(stext)
 1:	b	__enable_mmu
 ENDPROC(stext)
 	.ltorg
-#ifndef CONFIG_XIP_KERNEL
+#ifndef CONFIG_XIP_KERNEL//@srliu: ndef->def
 2:	.long	.
 	.long	PAGE_OFFSET
 #endif
@@ -384,7 +387,7 @@ __create_page_tables:
 	cmp	r0, r6
 	bls	1b
 
-#ifdef CONFIG_XIP_KERNEL
+#ifdef CONFIG_XIP_KERNEL//@srliu: def->ndef
 	/*
 	 * Map the kernel image separately as it is not located in RAM.
 	 */
@@ -407,7 +410,7 @@ __create_page_tables:
 	 * Then map boot params address in r2 if specified.
 	 * We map 2 sections in case the ATAGs/DTB crosses a section boundary.
 	 */
-	mov	r0, r2, lsr #SECTION_SHIFT
+	mov		r0, r2, lsr #SECTION_SHIFT
 	movs	r0, r0, lsl #SECTION_SHIFT
 	subne	r3, r0, r8
 	addne	r3, r3, #PAGE_OFFSET
@@ -438,19 +441,19 @@ __create_page_tables:
 	mov	r3, r7, lsr #SECTION_SHIFT
 	ldr	r7, [r10, #PROCINFO_IO_MMUFLAGS] @ io_mmuflags
 	orr	r3, r7, r3, lsl #SECTION_SHIFT
-#ifdef CONFIG_ARM_LPAE
-	mov	r7, #1 << (54 - 32)		@ XN
-#ifdef CONFIG_CPU_ENDIAN_BE8
-	str	r7, [r0], #4
-	str	r3, [r0], #4
-#else
-	str	r3, [r0], #4
-	str	r7, [r0], #4
-#endif
-#else
+@srliu:#ifdef CONFIG_ARM_LPAE
+@srliu:	mov	r7, #1 << (54 - 32)		@ XN
+@srliu:#ifdef CONFIG_CPU_ENDIAN_BE8
+@srliu:	str	r7, [r0], #4
+@srliu:	str	r3, [r0], #4
+@srliu:#else
+@srliu:	str	r3, [r0], #4
+@srliu:	str	r7, [r0], #4
+@srliu:#endif
+@srliu:#else
 	orr	r3, r3, #PMD_SECT_XN
 	str	r3, [r0], #4
-#endif
+@srliu:#endif
 
 #else /* CONFIG_DEBUG_ICEDCC || CONFIG_DEBUG_SEMIHOSTING */
 	/* we don't need any serial debugging mappings */
@@ -478,7 +481,7 @@ __create_page_tables:
 	add	r0, r4, #0xd8000000 >> (SECTION_SHIFT - PMD_ORDER)
 	str	r3, [r0]
 #endif
-#endif
+#endif	//CONFIG_DEBUG_LL
 #ifdef CONFIG_ARM_LPAE
 	sub	r4, r4, #0x1000		@ point to the PGD table
 #endif

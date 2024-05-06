@@ -21,6 +21,11 @@
 #define DEBUG_LL_VIRT_BASE 0xf8000000
 
 
+#define DEBUG_LL_SOC2018_PHYS_BASE      0xA0000000
+#define DEBUG_LL_SOC2018_UART_OFFSET    0x00000100
+#define DEBUG_LL_SOC2018_VIRT_BASE      0xf8000000
+
+
 #define UART1_BASE 0xa0000100
 #define UART1_OFF_LCR 0x0c
 #define UART1_OFF_DLL 0x00
@@ -42,6 +47,8 @@
 @movw \rv, 0xc091
 @movt \rv, 0x410f
 @cmp \rp, \rv
+
+@ Begin with UART init.
 
 ldr \rp, =#UART1_BASE @NOTE: use uart1
 mov \rv, 0x83
@@ -71,6 +78,11 @@ strb \rv, [\rp, #UART1_OFF_FCR]
 @movne \rp, #DEBUG_LL_UART_OFFSET_RS1
 @orrne \rv, \rp, #DEBUG_LL_VIRT_BASE
 @orrne \rp, \rp, #DEBUG_LL_PHYS_BASE_RS1
+
+@ Now we set the virt & phys address
+mov \rp, #DEBUG_LL_SOC2018_UART_OFFSET
+orr \rv, \rp, #DEBUG_LL_SOC2018_VIRT_BASE
+orr \rp, \rp, #DEBUG_LL_SOC2018_PHYS_BASE
 
 .endm
 
