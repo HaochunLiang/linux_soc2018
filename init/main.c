@@ -1125,7 +1125,17 @@ static int __ref kernel_init(void *unused)
 	pr_info("kernel_init||numa_default_policy\n");
 	rcu_end_inkernel_boot();
 	pr_info("kernel_init||rcu_end_inkernel_boot\n");
+	while(1)
+	{
+		long long int i;
 
+		for(i=0;i<100000000;i++)
+		{
+			
+		}
+
+		pr_info("kernel_init||while\n");
+	}
 	if (ramdisk_execute_command) {
 		ret = run_init_process(ramdisk_execute_command);
 		pr_info("kernel_init||run_init_process\n");

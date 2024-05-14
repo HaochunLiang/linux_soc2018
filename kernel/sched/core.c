@@ -3323,7 +3323,7 @@ static void __sched notrace __schedule(bool preempt)
 	struct rq_flags rf;
 	struct rq *rq;
 	int cpu;
-
+	pr_info("enter __schedule\n");
 	cpu = smp_processor_id();
 	rq = cpu_rq(cpu);
 	prev = rq->curr;
@@ -3350,13 +3350,16 @@ static void __sched notrace __schedule(bool preempt)
 
 	switch_count = &prev->nivcsw;
 	if (!preempt && prev->state) {
+		pr_info("rif (!preempt && prev->state) \n");
 		if (unlikely(signal_pending_state(prev->state, prev))) {
 			prev->state = TASK_RUNNING;
 		} else {
+			pr_info("prev->state = TASK_RUNNING; else\n");
 			deactivate_task(rq, prev, DEQUEUE_SLEEP | DEQUEUE_NOCLOCK);
 			prev->on_rq = 0;
 
 			if (prev->in_iowait) {
+				pr_info("if (prev->in_iowait) {\n");
 				atomic_inc(&rq->nr_iowait);
 				delayacct_blkio_start();
 			}
@@ -3367,6 +3370,7 @@ static void __sched notrace __schedule(bool preempt)
 			 * concurrency.
 			 */
 			if (prev->flags & PF_WQ_WORKER) {
+				pr_info("if (prev->flags & PF_WQ_WORKER) {\n");
 				struct task_struct *to_wakeup;
 
 				to_wakeup = wq_worker_sleeping(prev);
@@ -3382,6 +3386,7 @@ static void __sched notrace __schedule(bool preempt)
 	clear_preempt_need_resched();
 
 	if (likely(prev != next)) {
+		pr_info("likely(prev != next)\n");
 		rq->nr_switches++;
 		rq->curr = next;
 		/*
@@ -3406,11 +3411,13 @@ static void __sched notrace __schedule(bool preempt)
 		/* Also unlocks the rq: */
 		rq = context_switch(rq, prev, next, &rf);
 	} else {
+		pr_info("rq = context_switch else\n");
 		rq->clock_update_flags &= ~(RQCF_ACT_SKIP|RQCF_REQ_SKIP);
 		rq_unlock_irq(rq, &rf);
 	}
 
 	balance_callback(rq);
+	pr_info("balance_callback(rq);\n");
 }
 
 void __noreturn do_task_dead(void)

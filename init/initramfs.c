@@ -450,14 +450,21 @@ static unsigned long my_inptr; /* index of next byte to be processed in inbuf */
 
 static char * __init unpack_to_rootfs(char *buf, unsigned long len)
 {
+	pr_info("enter unpack_to_rootfs\n");
 	long written;
 	decompress_fn decompress;
 	const char *compress_name;
 	static __initdata char msg_buf[64];
 
 	header_buf = kmalloc(110, GFP_KERNEL);
+	pr_info("header_buf:%s\n",*header_buf);
+	pr_info("header_buf:%d\n",header_buf);
 	symlink_buf = kmalloc(PATH_MAX + N_ALIGN(PATH_MAX) + 1, GFP_KERNEL);
+	pr_info("symlink_buf:%s:\n",*symlink_buf);
+	pr_info("symlink_buf:%d:\n",symlink_buf);
 	name_buf = kmalloc(N_ALIGN(PATH_MAX), GFP_KERNEL);
+	pr_info("header_buf:%s\n",*header_buf);
+	pr_info("header_buf:%d\n",header_buf);
 
 	if (!header_buf || !symlink_buf || !name_buf)
 		panic("can't allocate buffers");
@@ -466,29 +473,39 @@ static char * __init unpack_to_rootfs(char *buf, unsigned long len)
 	this_header = 0;
 	message = NULL;
 	while (!message && len) {
+		pr_info("while (!message && len)\n");
 		loff_t saved_offset = this_header;
 		if (*buf == '0' && !(this_header & 3)) {
+			pr_info("(*buf == '0' && !(this_header & 3))\n");
 			state = Start;
 			written = write_buffer(buf, len);
+			pr_info("written:%d\n",written);
 			buf += written;
+			pr_info("buf:%s\n",*buf);
 			len -= written;
+			pr_info("len:%d\n",len);
 			continue;
 		}
 		if (!*buf) {
 			buf++;
+			pr_info("buf:%s\n",*buf);
 			len--;
+			pr_info("len:%d\n",len);
 			this_header++;
 			continue;
 		}
 		this_header = 0;
 		decompress = decompress_method(buf, len, &compress_name);
+		pr_info("decompress\n");
 		pr_debug("Detected %s compressed data\n", compress_name);
 		if (decompress) {
+			pr_info("decompress in\n");
 			int res = decompress(buf, len, NULL, flush_buffer, NULL,
 				   &my_inptr, error);
 			if (res)
 				error("decompressor failed");
 		} else if (compress_name) {
+			pr_info("decompress 2\n");
 			if (!message) {
 				snprintf(msg_buf, sizeof msg_buf,
 					 "compression method %s not configured",
@@ -500,13 +517,20 @@ static char * __init unpack_to_rootfs(char *buf, unsigned long len)
 		if (state != Reset)
 			error("junk in compressed archive");
 		this_header = saved_offset + my_inptr;
+		pr_info("this_header = saved_offset + my_inptr;\n");
 		buf += my_inptr;
+		pr_info("buf:%s\n",*buf);
 		len -= my_inptr;
+		pr_info("len:%d\n",len);
 	}
 	dir_utime();
+	pr_info("dir_utime();\n");
 	kfree(name_buf);
+	pr_info("kfree(name_buf);\n");
 	kfree(symlink_buf);
+	pr_info("kfree(symlink_buf);\n");
 	kfree(header_buf);
+	pr_info("kfree(header_buf);\n");
 	return message;
 }
 
@@ -610,22 +634,30 @@ static void __init clean_rootfs(void)
 static int __init populate_rootfs(void)
 {
 	/* Load the built in initramfs */
+	pr_info("enter populate_rootfs\n");
 	char *err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
+	//pr_info("err:%s\n",*err);
 	if (err)
 		panic("%s", err); /* Failed to decompress INTERNAL initramfs */
 	/* If available load the bootloader supplied initrd */
 	if (initrd_start && !IS_ENABLED(CONFIG_INITRAMFS_FORCE)) {
+		pr_info("if (initrd_start && !IS_ENABLED(CONFIG_INITRAMFS_FORCE))\n");
 #ifdef CONFIG_BLK_DEV_RAM
 		int fd;
 		printk(KERN_INFO "Trying to unpack rootfs image as initramfs...\n");
 		err = unpack_to_rootfs((char *)initrd_start,
 			initrd_end - initrd_start);
+		//pr_info("err2:%s",*err);
+		pr_info("err = unpack_to_rootfs\n");
 		if (!err) {
 			free_initrd();
+			pr_info("free_initrd();\n");
 			goto done;
 		} else {
 			clean_rootfs();
+			pr_info("clean_rootfs()\n");
 			unpack_to_rootfs(__initramfs_start, __initramfs_size);
+			pr_info("unpack_to_rootfs\n\n");
 		}
 		printk(KERN_INFO "rootfs image is not initramfs (%s)"
 				"; looks like an initrd\n", err);
@@ -634,13 +666,16 @@ static int __init populate_rootfs(void)
 		if (fd >= 0) {
 			ssize_t written = xwrite(fd, (char *)initrd_start,
 						initrd_end - initrd_start);
+			pr_info("ssize_t written = xwrite\n");
 
 			if (written != initrd_end - initrd_start)
 				pr_err("/initrd.image: incomplete write (%zd != %ld)\n",
 				       written, initrd_end - initrd_start);
-
+			pr_info("if (written != initrd_end - initrd_start)\n");
 			sys_close(fd);
+			pr_info("sys_close(fd)\n");
 			free_initrd();
+			pr_info("free_initrd();\n");
 		}
 	done:
 		/* empty statement */;
@@ -648,17 +683,21 @@ static int __init populate_rootfs(void)
 		printk(KERN_INFO "Unpacking initramfs...\n");
 		err = unpack_to_rootfs((char *)initrd_start,
 			initrd_end - initrd_start);
+		//pr_info("err3:%s",*err);
 		if (err)
 			printk(KERN_EMERG "Initramfs unpacking failed: %s\n", err);
 		free_initrd();
+		pr_info("free_initrd();\n");
 #endif
 	}
 	flush_delayed_fput();
+	pr_info("flush_delayed_fput();\n");
 	/*
 	 * Try loading default modules from initramfs.  This gives
 	 * us a chance to load before device_initcalls.
 	 */
 	load_default_modules();
+	pr_info("load_default_modules();\n");
 
 	return 0;
 }
