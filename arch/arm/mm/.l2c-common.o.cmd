@@ -140,6 +140,9 @@ deps_arch/arm/mm/l2c-common.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/smp.h \
     $(wildcard include/config/up/late/init.h) \
     $(wildcard include/config/debug/preempt.h) \

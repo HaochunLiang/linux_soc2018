@@ -213,6 +213,9 @@ deps_kernel/sched/core.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/restart_block.h \
   include/linux/errno.h \
   include/uapi/linux/errno.h \
@@ -324,9 +327,6 @@ deps_kernel/sched/core.o := \
   include/linux/spinlock_api_up.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \
@@ -979,16 +979,26 @@ deps_kernel/sched/core.o := \
     $(wildcard include/config/blk/dev/bsg.h) \
     $(wildcard include/config/blk/dev/throttling.h) \
     $(wildcard include/config/blk/debug/fs.h) \
-  include/linux/kprobes.h \
-    $(wildcard include/config/kprobes.h) \
-    $(wildcard include/config/kretprobes.h) \
-    $(wildcard include/config/kprobes/sanity/test.h) \
-    $(wildcard include/config/optprobes.h) \
-    $(wildcard include/config/kprobes/on/ftrace.h) \
-  arch/arm/include/asm/kprobes.h \
-  include/asm-generic/kprobes.h \
-  include/linux/mmu_context.h \
-  arch/arm/include/asm/mmu_context.h \
+  include/uapi/linux/major.h \
+  include/linux/genhd.h \
+    $(wildcard include/config/fail/make/request.h) \
+    $(wildcard include/config/solaris/x86/partition.h) \
+    $(wildcard include/config/bsd/disklabel.h) \
+    $(wildcard include/config/unixware/disklabel.h) \
+    $(wildcard include/config/minix/subpartition.h) \
+  include/linux/pagemap.h \
+  include/linux/highmem.h \
+    $(wildcard include/config/x86/32.h) \
+    $(wildcard include/config/debug/highmem.h) \
+  include/linux/hardirq.h \
+  include/linux/ftrace_irq.h \
+    $(wildcard include/config/ftrace/nmi/enter.h) \
+    $(wildcard include/config/hwlat/tracer.h) \
+  arch/arm/include/asm/hardirq.h \
+  arch/arm/include/asm/irq.h \
+    $(wildcard include/config/sparse/irq.h) \
+    $(wildcard include/config/multi/irq/handler.h) \
+  include/linux/irq_cpustat.h \
   arch/arm/include/asm/cacheflush.h \
     $(wildcard include/config/arm/errata/411920.h) \
     $(wildcard include/config/cpu/cache/vipt.h) \
@@ -1000,6 +1010,33 @@ deps_kernel/sched/core.o := \
     $(wildcard include/config/cpu/cache/vivt.h) \
   arch/arm/include/asm/outercache.h \
     $(wildcard include/config/outer/cache/sync.h) \
+  arch/arm/include/asm/kmap_types.h \
+  include/linux/hugetlb_inline.h \
+  include/linux/backing-dev-defs.h \
+    $(wildcard include/config/debug/fs.h) \
+  include/linux/flex_proportions.h \
+  include/linux/mempool.h \
+  include/linux/bio.h \
+  include/linux/ioprio.h \
+  include/linux/iocontext.h \
+  include/linux/blk_types.h \
+    $(wildcard include/config/blk/dev/throttling/low.h) \
+  include/linux/bvec.h \
+  include/linux/bsg.h \
+  include/uapi/linux/bsg.h \
+  include/uapi/linux/blkzoned.h \
+  include/linux/elevator.h \
+  include/linux/hashtable.h \
+  include/linux/kprobes.h \
+    $(wildcard include/config/kprobes.h) \
+    $(wildcard include/config/kretprobes.h) \
+    $(wildcard include/config/kprobes/sanity/test.h) \
+    $(wildcard include/config/optprobes.h) \
+    $(wildcard include/config/kprobes/on/ftrace.h) \
+  arch/arm/include/asm/kprobes.h \
+  include/asm-generic/kprobes.h \
+  include/linux/mmu_context.h \
+  arch/arm/include/asm/mmu_context.h \
   arch/arm/include/asm/smp_plat.h \
   arch/arm/include/asm/cpu.h \
   include/linux/cpu.h \
@@ -1021,9 +1058,6 @@ deps_kernel/sched/core.o := \
     $(wildcard include/config/hardlockup/detector/perf.h) \
     $(wildcard include/config/hardlockup/check/timestamp.h) \
     $(wildcard include/config/have/acpi/apei/nmi.h) \
-  arch/arm/include/asm/irq.h \
-    $(wildcard include/config/sparse/irq.h) \
-    $(wildcard include/config/multi/irq/handler.h) \
   include/linux/profile.h \
     $(wildcard include/config/profiling.h) \
   include/linux/security.h \
@@ -1061,12 +1095,6 @@ deps_kernel/sched/core.o := \
   include/uapi/asm-generic/poll.h \
   include/linux/trace_seq.h \
   include/linux/seq_buf.h \
-  include/linux/hardirq.h \
-  include/linux/ftrace_irq.h \
-    $(wildcard include/config/ftrace/nmi/enter.h) \
-    $(wildcard include/config/hwlat/tracer.h) \
-  arch/arm/include/asm/hardirq.h \
-  include/linux/irq_cpustat.h \
   include/linux/perf_event.h \
     $(wildcard include/config/cgroup/perf.h) \
     $(wildcard include/config/cpu/sup/intel.h) \
@@ -1110,19 +1138,7 @@ deps_kernel/sched/core.o := \
   include/linux/eventfd.h \
     $(wildcard include/config/eventfd.h) \
   include/linux/writeback.h \
-  include/linux/flex_proportions.h \
-  include/linux/backing-dev-defs.h \
-    $(wildcard include/config/debug/fs.h) \
-  include/linux/blk_types.h \
-    $(wildcard include/config/blk/dev/throttling/low.h) \
-  include/linux/bvec.h \
   arch/arm/include/asm/pgalloc.h \
-  include/linux/pagemap.h \
-  include/linux/highmem.h \
-    $(wildcard include/config/x86/32.h) \
-    $(wildcard include/config/debug/highmem.h) \
-  arch/arm/include/asm/kmap_types.h \
-  include/linux/hugetlb_inline.h \
   kernel/sched/sched.h \
     $(wildcard include/config/cpu/idle.h) \
     $(wildcard include/config/cpu/freq.h) \

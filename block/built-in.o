@@ -1,1 +1,74 @@
-!<arch>
+!<thin>
+//                                              498       `
+bio.o/
+elevator.o/
+blk-core.o/
+blk-tag.o/
+blk-sysfs.o/
+blk-flush.o/
+blk-settings.o/
+blk-ioc.o/
+blk-map.o/
+blk-exec.o/
+blk-merge.o/
+blk-softirq.o/
+blk-timeout.o/
+blk-lib.o/
+blk-mq.o/
+blk-mq-tag.o/
+blk-stat.o/
+blk-mq-sysfs.o/
+blk-mq-cpumap.o/
+blk-mq-sched.o/
+ioctl.o/
+genhd.o/
+partition-generic.o/
+ioprio.o/
+badblocks.o/
+partitions/check.o/
+partitions/msdos.o/
+partitions/efi.o/
+scsi_ioctl.o/
+bsg.o/
+noop-iosched.o/
+deadline-iosched.o/
+cfq-iosched.o/
+mq-deadline.o/
+kyber-iosched.o/
+blk-mq-virtio.o/
+/0              0           0     0     644     21048     `
+/7              0           0     0     644     14464     `
+/19             0           0     0     644     37768     `
+/31            /0           0     0     644     4888      `
+/42             0           0     0     644     13544     `
+/55             0           0     0     644     5500      `
+/68             0           0     0     644     8452      `
+/84            /0           0     0     644     5176      `
+/95            /0           0     0     644     3020      `
+/106            0           0     0     644     2140      `
+/118            0           0     0     644     13076     `
+/131            0           0     0     644     2988      `
+/146            0           0     0     644     2856      `
+/161           /0           0     0     644     4572      `
+/172            0           0     0     644     29128     `
+/182            0           0     0     644     6300      `
+/196            0           0     0     644     3840      `
+/208            0           0     0     644     5776      `
+/224            0           0     0     644     1168      `
+/241            0           0     0     644     7056      `
+/257            0           0     0     644     8628      `
+/266            0           0     0     644     24048     `
+/275            0           0     0     644     10696     `
+/296            0           0     0     644     3208      `
+/306            0           0     0     644     5936      `
+/319            0           0     0     644     2596      `
+/339            0           0     0     644     4624      `
+/359            0           0     0     644     6936      `
+/377            0           0     0     644     8340      `
+/391            0           0     0     644     12412     `
+/398            0           0     0     644     3840      `
+/414            0           0     0     644     7368      `
+/434            0           0     0     644     31240     `
+/449            0           0     0     644     8160      `
+/464            0           0     0     644     8436      `
+/481            0           0     0     644     1268      `

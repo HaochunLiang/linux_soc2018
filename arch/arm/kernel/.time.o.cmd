@@ -152,6 +152,9 @@ deps_arch/arm/kernel/time.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/err.h \
   arch/arm/include/generated/uapi/asm/errno.h \
   include/uapi/asm-generic/errno.h \
@@ -296,9 +299,6 @@ deps_arch/arm/kernel/time.o := \
   include/linux/seqlock.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \

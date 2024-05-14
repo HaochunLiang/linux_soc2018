@@ -141,6 +141,9 @@ deps_lib/vsprintf.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/notifier.h \
   include/linux/errno.h \
   include/uapi/linux/errno.h \
@@ -289,9 +292,6 @@ deps_lib/vsprintf.o := \
   include/linux/seqlock.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \
@@ -1097,8 +1097,18 @@ deps_lib/vsprintf.o := \
   include/linux/if_arp.h \
     $(wildcard include/config/firewire/net.h) \
   include/uapi/linux/if_arp.h \
-  lib/../mm/internal.h \
-    $(wildcard include/config/debug/memory/init.h) \
+  include/linux/blkdev.h \
+    $(wildcard include/config/blk/dev/zoned.h) \
+    $(wildcard include/config/blk/dev/bsg.h) \
+    $(wildcard include/config/blk/dev/throttling.h) \
+    $(wildcard include/config/blk/debug/fs.h) \
+  include/uapi/linux/major.h \
+  include/linux/genhd.h \
+    $(wildcard include/config/fail/make/request.h) \
+    $(wildcard include/config/solaris/x86/partition.h) \
+    $(wildcard include/config/bsd/disklabel.h) \
+    $(wildcard include/config/unixware/disklabel.h) \
+    $(wildcard include/config/minix/subpartition.h) \
   include/linux/pagemap.h \
   include/linux/highmem.h \
     $(wildcard include/config/x86/32.h) \
@@ -1117,6 +1127,16 @@ deps_lib/vsprintf.o := \
     $(wildcard include/config/outer/cache/sync.h) \
   arch/arm/include/asm/kmap_types.h \
   include/linux/hugetlb_inline.h \
+  include/linux/mempool.h \
+  include/linux/bio.h \
+  include/linux/ioprio.h \
+  include/linux/iocontext.h \
+  include/linux/bsg.h \
+  include/uapi/linux/bsg.h \
+  include/uapi/linux/blkzoned.h \
+  include/linux/elevator.h \
+  lib/../mm/internal.h \
+    $(wildcard include/config/debug/memory/init.h) \
   arch/arm/include/asm/sections.h \
   include/asm-generic/sections.h \
   include/linux/string_helpers.h \

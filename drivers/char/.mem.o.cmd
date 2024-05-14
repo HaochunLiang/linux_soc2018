@@ -191,6 +191,9 @@ deps_drivers/char/mem.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/gfp.h \
     $(wildcard include/config/lockdep.h) \
     $(wildcard include/config/zone/dma.h) \
@@ -358,9 +361,6 @@ deps_drivers/char/mem.o := \
     $(wildcard include/config/arch/uses/gettimeoffset.h) \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \
@@ -833,14 +833,53 @@ deps_drivers/char/mem.o := \
     $(wildcard include/config/blk/debug/fs.h) \
   include/linux/sched/clock.h \
     $(wildcard include/config/have/unstable/sched/clock.h) \
-  include/linux/writeback.h \
-  include/linux/flex_proportions.h \
+  include/linux/genhd.h \
+    $(wildcard include/config/fail/make/request.h) \
+    $(wildcard include/config/solaris/x86/partition.h) \
+    $(wildcard include/config/bsd/disklabel.h) \
+    $(wildcard include/config/unixware/disklabel.h) \
+    $(wildcard include/config/minix/subpartition.h) \
+  include/linux/pagemap.h \
+  include/linux/hugetlb_inline.h \
   include/linux/backing-dev-defs.h \
     $(wildcard include/config/debug/fs.h) \
+  include/linux/flex_proportions.h \
+  include/linux/mempool.h \
+  include/linux/bio.h \
+  include/linux/ioprio.h \
+  include/linux/iocontext.h \
+  arch/arm/include/asm/io.h \
+    $(wildcard include/config/pci.h) \
+    $(wildcard include/config/need/mach/io/h.h) \
+    $(wildcard include/config/pcmcia/soc/common.h) \
+    $(wildcard include/config/isa.h) \
+    $(wildcard include/config/pccard.h) \
+  include/asm-generic/pci_iomap.h \
+    $(wildcard include/config/no/generic/pci/ioport/map.h) \
+    $(wildcard include/config/generic/pci/iomap.h) \
+  include/xen/xen.h \
+    $(wildcard include/config/xen/pvh.h) \
+    $(wildcard include/config/xen/dom0.h) \
+  include/asm-generic/io.h \
+    $(wildcard include/config/generic/iomap.h) \
+    $(wildcard include/config/has/ioport/map.h) \
+    $(wildcard include/config/virt/to/bus.h) \
   include/linux/blk_types.h \
     $(wildcard include/config/alpha.h) \
     $(wildcard include/config/blk/dev/throttling/low.h) \
   include/linux/bvec.h \
+  include/linux/bsg.h \
+  include/uapi/linux/bsg.h \
+  include/linux/scatterlist.h \
+    $(wildcard include/config/debug/sg.h) \
+    $(wildcard include/config/need/sg/dma/length.h) \
+    $(wildcard include/config/sgl/alloc.h) \
+    $(wildcard include/config/arch/has/sg/chain.h) \
+    $(wildcard include/config/sg/pool.h) \
+  include/uapi/linux/blkzoned.h \
+  include/linux/elevator.h \
+  include/linux/hashtable.h \
+  include/linux/writeback.h \
   include/linux/blk-cgroup.h \
   include/linux/cgroup.h \
     $(wildcard include/config/sock/cgroup/data.h) \
@@ -876,8 +915,6 @@ deps_drivers/char/mem.o := \
     $(wildcard include/config/arch/enable/hugepage/migration.h) \
   include/linux/dax.h \
     $(wildcard include/config/dax.h) \
-  include/linux/pagemap.h \
-  include/linux/hugetlb_inline.h \
   include/uapi/linux/mempolicy.h \
   include/linux/xattr.h \
   include/uapi/linux/xattr.h \
@@ -886,22 +923,6 @@ deps_drivers/char/mem.o := \
   include/linux/splice.h \
   include/linux/pipe_fs_i.h \
   include/linux/io.h \
-    $(wildcard include/config/has/ioport/map.h) \
-    $(wildcard include/config/pci.h) \
-  arch/arm/include/asm/io.h \
-    $(wildcard include/config/need/mach/io/h.h) \
-    $(wildcard include/config/pcmcia/soc/common.h) \
-    $(wildcard include/config/isa.h) \
-    $(wildcard include/config/pccard.h) \
-  include/asm-generic/pci_iomap.h \
-    $(wildcard include/config/no/generic/pci/ioport/map.h) \
-    $(wildcard include/config/generic/pci/iomap.h) \
-  include/xen/xen.h \
-    $(wildcard include/config/xen/pvh.h) \
-    $(wildcard include/config/xen/dom0.h) \
-  include/asm-generic/io.h \
-    $(wildcard include/config/generic/iomap.h) \
-    $(wildcard include/config/virt/to/bus.h) \
   include/linux/uio.h \
     $(wildcard include/config/arch/has/uaccess/flushcache.h) \
   include/uapi/linux/uio.h \

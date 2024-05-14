@@ -167,6 +167,9 @@ deps_lib/refcount.o := \
   include/uapi/linux/kernel.h \
   include/uapi/linux/sysinfo.h \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/restart_block.h \
     $(wildcard include/config/compat.h) \
   include/linux/errno.h \

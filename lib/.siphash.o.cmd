@@ -132,6 +132,9 @@ deps_lib/siphash.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   arch/arm/include/asm/unaligned.h \
   include/linux/unaligned/le_struct.h \
   include/linux/unaligned/packed_struct.h \

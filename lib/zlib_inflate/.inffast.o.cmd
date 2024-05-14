@@ -138,6 +138,9 @@ deps_lib/zlib_inflate/inffast.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   lib/zlib_inflate/inftrees.h \
   lib/zlib_inflate/inflate.h \
   lib/zlib_inflate/inffast.h \

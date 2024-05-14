@@ -132,6 +132,9 @@ deps_drivers/base/devtmpfs.o := \
     $(wildcard include/config/arm/l1/cache/shift.h) \
     $(wildcard include/config/aeabi.h) \
   include/linux/build_bug.h \
+  arch/arm/include/asm/div64.h \
+  arch/arm/include/asm/compiler.h \
+  include/asm-generic/div64.h \
   include/linux/syscalls.h \
     $(wildcard include/config/ftrace/syscalls.h) \
     $(wildcard include/config/old/sigsuspend.h) \
@@ -299,9 +302,6 @@ deps_drivers/base/devtmpfs.o := \
   include/linux/seqlock.h \
   include/linux/math64.h \
     $(wildcard include/config/arch/supports/int128.h) \
-  arch/arm/include/asm/div64.h \
-  arch/arm/include/asm/compiler.h \
-  include/asm-generic/div64.h \
   include/linux/time64.h \
   include/uapi/linux/time.h \
   include/linux/jiffies.h \
@@ -871,6 +871,7 @@ deps_drivers/base/devtmpfs.o := \
     $(wildcard include/config/debug/kmemleak.h) \
   include/linux/vmalloc.h \
   include/linux/kasan.h \
+  include/uapi/linux/major.h \
   include/linux/namei.h \
   include/linux/shmem_fs.h \
     $(wildcard include/config/transparent/huge/pagecache.h) \
