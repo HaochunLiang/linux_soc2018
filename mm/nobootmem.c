@@ -181,10 +181,11 @@ void __init reset_all_zones_managed_pages(void)
 unsigned long __init free_all_bootmem(void)
 {
 	unsigned long pages;
-
+	pr_info("free_all_bootmem pages(first):%d",pages);
 	reset_all_zones_managed_pages();
 
 	pages = free_low_memory_core_early();
+	pr_info("free_all_bootmem pages(second):%d",pages);
 	totalram_pages += pages;
 
 	return pages;

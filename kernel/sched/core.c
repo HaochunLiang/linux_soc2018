@@ -1092,15 +1092,17 @@ static int __set_cpus_allowed_ptr(struct task_struct *p,
 	struct rq_flags rf;
 	struct rq *rq;
 	int ret = 0;
-
+	pr_info("__set_cpus_allowed_ptr||int ret\n");
 	rq = task_rq_lock(p, &rf);
 	update_rq_clock(rq);
+	pr_info("__set_cpus_allowed_ptr||update_rq_clock\n");
 
 	if (p->flags & PF_KTHREAD) {
 		/*
 		 * Kernel threads are allowed on online && !active CPUs
 		 */
 		cpu_valid_mask = cpu_online_mask;
+		pr_info("__set_cpus_allowed_ptr||cpu_valid_mask\n");
 	}
 
 	/*
@@ -1109,19 +1111,24 @@ static int __set_cpus_allowed_ptr(struct task_struct *p,
 	 */
 	if (check && (p->flags & PF_NO_SETAFFINITY)) {
 		ret = -EINVAL;
+		pr_info("__set_cpus_allowed_ptr||ret = -EINVAL\n");
 		goto out;
 	}
 
-	if (cpumask_equal(&p->cpus_allowed, new_mask))
-		goto out;
+	if (cpumask_equal(&p->cpus_allowed, new_mask)){
+		pr_info("__set_cpus_allowed_ptr||cpumask_equal\n");
+		goto out;}
 
 	dest_cpu = cpumask_any_and(cpu_valid_mask, new_mask);
+	pr_info("__set_cpus_allowed_ptr||dest_cpu = cpumask_any_and\n");
 	if (dest_cpu >= nr_cpu_ids) {
 		ret = -EINVAL;
+		pr_info("__set_cpus_allowed_ptr||dest_cpu >= nr_cpu_ids\n");
 		goto out;
 	}
 
 	do_set_cpus_allowed(p, new_mask);
+	pr_info("__set_cpus_allowed_ptr||do_set_cpus_allowed\n");
 
 	if (p->flags & PF_KTHREAD) {
 		/*
@@ -1131,28 +1138,39 @@ static int __set_cpus_allowed_ptr(struct task_struct *p,
 		WARN_ON(cpumask_intersects(new_mask, cpu_online_mask) &&
 			!cpumask_intersects(new_mask, cpu_active_mask) &&
 			p->nr_cpus_allowed != 1);
+		pr_info("__set_cpus_allowed_ptr||WARN_ON(cpumask_intersects\n");
 	}
 
 	/* Can the task run on the task's current CPU? If so, we're done */
-	if (cpumask_test_cpu(task_cpu(p), new_mask))
-		goto out;
+	if (cpumask_test_cpu(task_cpu(p), new_mask)){
+		pr_info("__set_cpus_allowed_ptr|| (cpumask_test_cpu(task_cpu(p), new_mask))\n");
+		goto out;}
 
 	if (task_running(rq, p) || p->state == TASK_WAKING) {
+		pr_info("__set_cpus_allowed_ptr||(task_running(rq, p) || p->state == TASK_WAKING) \n");
 		struct migration_arg arg = { p, dest_cpu };
+		pr_info("__set_cpus_allowed_ptr||struct migration_arg arg\n");
 		/* Need help from migration thread: drop lock and wait. */
 		task_rq_unlock(rq, p, &rf);
+		pr_info("__set_cpus_allowed_ptr||task_rq_unlock\n");
 		stop_one_cpu(cpu_of(rq), migration_cpu_stop, &arg);
+		pr_info("__set_cpus_allowed_ptr||stop_one_cpu\n");
 		tlb_migrate_finish(p->mm);
+		pr_info("__set_cpus_allowed_ptr||tlb_migrate_finish\n");
 		return 0;
 	} else if (task_on_rq_queued(p)) {
 		/*
 		 * OK, since we're going to drop the lock immediately
 		 * afterwards anyway.
 		 */
+		pr_info("__set_cpus_allowed_ptr||task_on_rq_queued(p)\n");
 		rq = move_queued_task(rq, &rf, p, dest_cpu);
+		pr_info("__set_cpus_allowed_ptr||rq = move_queued_task\n");
 	}
 out:
+	pr_info("__set_cpus_allowed_ptr||out\n");
 	task_rq_unlock(rq, p, &rf);
+	pr_info("__set_cpus_allowed_ptr||task_rq_unlock\n");
 
 	return ret;
 }
@@ -3305,7 +3323,6 @@ static void __sched notrace __schedule(bool preempt)
 	struct rq_flags rf;
 	struct rq *rq;
 	int cpu;
-
 	cpu = smp_processor_id();
 	rq = cpu_rq(cpu);
 	prev = rq->curr;

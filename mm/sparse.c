@@ -566,6 +566,7 @@ static void __init alloc_usemap_and_memmap(void (*alloc_func)
  */
 void __init sparse_init(void)
 {
+	pr_info("enter sparse_init\n");
 	unsigned long pnum;
 	struct page *map;
 	unsigned long *usemap;
@@ -578,9 +579,11 @@ void __init sparse_init(void)
 
 	/* see include/linux/mmzone.h 'struct mem_section' definition */
 	BUILD_BUG_ON(!is_power_of_2(sizeof(struct mem_section)));
+	pr_info("BUILD_BUG_ON(!is_power_of_2\n");
 
 	/* Setup pageblock_order for HUGETLB_PAGE_SIZE_VARIABLE */
 	set_pageblock_order();
+	pr_info("set_pageblock_order\n");
 
 	/*
 	 * map is using big page (aka 2M in x86 64 bit)
@@ -594,44 +597,59 @@ void __init sparse_init(void)
 	 * sparse_early_mem_map_alloc, so allocate usemap_map at first.
 	 */
 	size = sizeof(unsigned long *) * NR_MEM_SECTIONS;
+	pr_info("size:%d\n",size );
 	usemap_map = memblock_virt_alloc(size, 0);
+	pr_info("usemap_map :%d\n",usemap_map);
 	if (!usemap_map)
 		panic("can not allocate usemap_map\n");
 	alloc_usemap_and_memmap(sparse_early_usemaps_alloc_node,
 							(void *)usemap_map);
-
+	pr_info("alloc_usemap_and_memmap\n");
 #ifdef CONFIG_SPARSEMEM_ALLOC_MEM_MAP_TOGETHER
 	size2 = sizeof(struct page *) * NR_MEM_SECTIONS;
+	pr_info("size2:%d\n",size2);
 	map_map = memblock_virt_alloc(size2, 0);
+	pr_info("map_map :%d\n",map_map );
 	if (!map_map)
 		panic("can not allocate map_map\n");
 	alloc_usemap_and_memmap(sparse_early_mem_maps_alloc_node,
 							(void *)map_map);
+	pr_info("alloc_usemap_and_memmap\n");
 #endif
 
 	for_each_present_section_nr(0, pnum) {
 		usemap = usemap_map[pnum];
-		if (!usemap)
-			continue;
+		pr_info("usemap:%d\n",usemap);
+		if (!usemap){
+			pr_info("continue\n");
+			continue;}
 
 #ifdef CONFIG_SPARSEMEM_ALLOC_MEM_MAP_TOGETHER
 		map = map_map[pnum];
+		pr_info("map :%d\n",map);
 #else
 		map = sparse_early_mem_map_alloc(pnum);
+		pr_info("map = sparse_:%d\n",map);
 #endif
-		if (!map)
-			continue;
+		if (!map){
+			pr_info("second map\n");
+			continue;}
 
 		sparse_init_one_section(__nr_to_section(pnum), pnum, map,
 								usemap);
+		pr_info("sparse_init_one_section\n");
 	}
 
 	vmemmap_populate_print_last();
+	pr_info("vmemmap_populate_print_last\n");
 
 #ifdef CONFIG_SPARSEMEM_ALLOC_MEM_MAP_TOGETHER
 	memblock_free_early(__pa(map_map), size2);
+	pr_info("CONFIG_SPARSEMEM_ALLOC_MEM_MAP_TOGETHER\n");
+	pr_info("memblock_free_early\n");
 #endif
 	memblock_free_early(__pa(usemap_map), size);
+	pr_info("memblock_free_early(__pa(usemap_map), size)\n");
 }
 
 #ifdef CONFIG_MEMORY_HOTPLUG

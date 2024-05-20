@@ -186,6 +186,7 @@ EXPORT_SYMBOL_GPL(rcu_unexpedite_gp);
 void rcu_end_inkernel_boot(void)
 {
 	rcu_unexpedite_gp();
+	pr_info("rcu_end_inkernel_boot||rcu_unexpedite_gp\n");
 	if (rcu_normal_after_boot)
 		WRITE_ONCE(rcu_normal, 1);
 }

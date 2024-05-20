@@ -140,7 +140,7 @@ ENTRY(cpu_resume_arm)
 ENTRY(cpu_resume)
 ARM_BE8(setend be)			@ ensure we are in BE mode
 #ifdef CONFIG_ARM_VIRT_EXT
-	bl	__hyp_stub_install_secondary
+	@bl	__hyp_stub_install_secondary
 #endif
 	safe_svcmode_maskall r1
 no_hyp:

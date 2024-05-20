@@ -1,6 +1,6 @@
-/* This file is auto generated, version 93 */
+/* This file is auto generated, version 96 */
 #define UTS_MACHINE "arm"
-#define UTS_VERSION "#93 Sun May 5 17:09:21 CST 2024"
+#define UTS_VERSION "#96 Mon May 20 13:03:19 CST 2024"
 #define LINUX_COMPILE_BY "root"
-#define LINUX_COMPILE_HOST ""
-#define LINUX_COMPILER "gcc version 9.2.1 20191025 (GNU Toolchain for the A-profile Architecture 9.2-2019.12 (arm-9.10))"
+#define LINUX_COMPILE_HOST "neu"
+#define LINUX_COMPILER "gcc version 9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599] (15:9-2019-q4-0ubuntu1)"

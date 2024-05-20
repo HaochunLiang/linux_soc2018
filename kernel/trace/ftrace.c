@@ -5964,8 +5964,10 @@ void __init ftrace_free_init_mem(void)
 
 	key.ip = start;
 	key.flags = end;	/* overload flags, as it is unsigned long */
-
+	pr_info("ftrace_free_init_mem||key.ip:%d\n",key.ip);
+	pr_info("ftrace_free_init_mem||key.ip:%d\n",key.flags);
 	mutex_lock(&ftrace_lock);
+	pr_info("ftrace_free_init_mem||mutex_lock(&ftrace_lock)\n");
 
 	for (pg = ftrace_pages_start; pg; last_pg = &pg->next, pg = *last_pg) {
 		if (end < pg->records[0].ip ||
@@ -5978,23 +5980,33 @@ void __init ftrace_free_init_mem(void)
 		if (!rec)
 			continue;
 		pg->index--;
+		pr_info("ftrace_free_init_mem||pg->index:%d\n",pg->index);
 		ftrace_update_tot_cnt--;
+		pr_info("ftrace_free_init_mem||ftrace_update_tot_cnt:%d\n",ftrace_update_tot_cnt);
 		if (!pg->index) {
 			*last_pg = pg->next;
+			pr_info("ftrace_free_init_mem||*last_pg:%d\n",pg->next);
 			order = get_count_order(pg->size / ENTRIES_PER_PAGE);
+			pr_info("ftrace_free_init_mem||order = get_count_order\n");
 			free_pages((unsigned long)pg->records, order);
+			pr_info("ftrace_free_init_mem||free_pages\n");
 			kfree(pg);
+			pr_info("ftrace_free_init_mem||kfree\n");
 			pg = container_of(last_pg, struct ftrace_page, next);
+			pr_info("ftrace_free_init_mem||pg = container_of\n");
 			if (!(*last_pg))
 				ftrace_pages = pg;
 			continue;
 		}
 		memmove(rec, rec + 1,
 			(pg->index - (rec - pg->records)) * sizeof(*rec));
+		pr_info("ftrace_free_init_mem||memmove\n");
 		/* More than one function may be in this block */
 		goto again;
+		pr_info("out again\n");
 	}
 	mutex_unlock(&ftrace_lock);
+	pr_info("ftrace_free_init_mem last||mutex_unlock(&ftrace_lock)");
 }
 
 void __init ftrace_init(void)

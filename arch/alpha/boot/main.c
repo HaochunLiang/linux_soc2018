@@ -155,6 +155,7 @@ void start_kernel(void)
 	long dev;
 	int nbytes;
 	char envval[256];
+	pr_debug("zhe shi debug\n");
 
 	srm_printk("Linux/AXP bootloader for Linux " UTS_RELEASE "\n");
 	if (INIT_HWRPB->pagesize != 8192) {

@@ -938,11 +938,13 @@ void free_initmem(void)
 	 * We are guaranteed that no one will touch the init pages any more.
 	 */
 	homecache_evict(&cpu_cacheable_map);
+	pr_info("free_initmem||homecache_evict\n");
 
 	/* Free the data pages that we won't use again after init. */
 	free_init_pages("unused kernel data",
 			(unsigned long)__init_begin,
 			(unsigned long)__init_end);
+	pr_info("free_initmem||first free_init_pages\n");
 
 	/*
 	 * Free the pages mapped from 0xc0000000 that correspond to code
@@ -951,6 +953,8 @@ void free_initmem(void)
 	free_init_pages("unused kernel text",
 			(unsigned long)_sinittext - text_delta,
 			(unsigned long)_einittext - text_delta);
+	pr_info("free_initmem||second free_init_pages\n");
 	/* Do a global TLB flush so everyone sees the changes. */
 	flush_tlb_all();
+	pr_info("free_initmem||flush_tlb_all\n");
 }

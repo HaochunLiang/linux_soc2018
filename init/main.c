@@ -406,7 +406,7 @@ static noinline void __ref rest_init(void)
 	 * CPUs for init to the non isolated CPUs.
 	 */
 	rcu_read_lock();
-	pr_info("rest_init||rcu_read_lock\n");
+	pr_info("rest_init||rcu_read_lock\n");   
 	tsk = find_task_by_pid_ns(pid, &init_pid_ns);
 	pr_info("rest_init||tsk:%d\n",tsk);
 	set_cpus_allowed_ptr(tsk, cpumask_of(smp_processor_id()));
@@ -515,7 +515,7 @@ static void __init mm_init(void)
 	kmem_cache_init();
 	pr_info("kmem_cache_init\n");
 
-
+	
 	pgtable_init();
 	pr_info("pgtable_init\n");
 	vmalloc_init();
@@ -534,6 +534,7 @@ asmlinkage __visible void __init start_kernel(void)
 {
 	char *command_line;
 	char *after_dashes;
+	pr_debug("zhe shi debug");
 	pr_info("set_task_stack_end_magic start executing.\n");
 	set_task_stack_end_magic(&init_task);
 	pr_info("set_task_stack_end_magic success.\n");
@@ -562,7 +563,7 @@ asmlinkage __visible void __init start_kernel(void)
 	page_address_init();
 	pr_info("page_address_init success.\n");
 	pr_info("pr_notice start executing.\n");
-	//pr_notice("%s", linux_banner);
+	pr_notice("%s", linux_banner);
 	pr_info("pr_notice success.\n");
 	setup_arch(&command_line);
 	pr_info("setup_arch success.\n");
@@ -710,7 +711,7 @@ asmlinkage __visible void __init start_kernel(void)
 	 * we've done PCI setups etc, and console_init() must be aware of
 	 * this. But we do want output early, in case something goes wrong.
 	 */
-	//console_init();
+	console_init();
 	pr_info("console_init success.\n");
 	if (panic_later)
 		panic("Too many boot %s vars at `%s'", panic_later,
@@ -1125,7 +1126,17 @@ static int __ref kernel_init(void *unused)
 	pr_info("kernel_init||numa_default_policy\n");
 	rcu_end_inkernel_boot();
 	pr_info("kernel_init||rcu_end_inkernel_boot\n");
+	// while(1)
+	// {
+	// 	long long int i;
 
+	// 	for(i=0;i<100000000;i++)
+	// 	{
+			
+	// 	}
+
+	// 	pr_info("kernel_init||while\n");
+	// }
 	if (ramdisk_execute_command) {
 		ret = run_init_process(ramdisk_execute_command);
 		pr_info("kernel_init||run_init_process\n");

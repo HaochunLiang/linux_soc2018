@@ -70,6 +70,8 @@ static struct file_system_type **find_filesystem(const char *name, unsigned len)
  
 int register_filesystem(struct file_system_type * fs)
 {
+	pr_info("fs->name:%s",fs->name);
+	pr_info("strlen(fs->name):%d",strlen(fs->name));
 	int res = 0;
 	struct file_system_type ** p;
 

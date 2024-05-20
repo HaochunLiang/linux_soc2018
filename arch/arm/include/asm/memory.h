@@ -112,7 +112,8 @@ extern unsigned long vectors_base;
 
 #endif /* !CONFIG_MMU */
 
-#ifdef CONFIG_XIP_KERNEL
+//#ifdef CONFIG_XIP_KERNE//by-srliu
+#ifndef CONFIG_XIP_KERNEL
 #define KERNEL_START		_sdata
 #else
 #define KERNEL_START		_stext
@@ -140,9 +141,14 @@ extern unsigned long vectors_base;
  * have CONFIG_ARM_PATCH_PHYS_VIRT. Assembly code must always use
  * PLAT_PHYS_OFFSET and not PHYS_OFFSET.
  */
-#define PLAT_PHYS_OFFSET	UL(CONFIG_PHYS_OFFSET)
+//#define PLAT_PHYS_OFFSET	UL(CONFIG_PHYS_OFFSET)//by-srliu
+#define PLAT_PHYS_OFFSET	UL(0xC0000000)
+#ifndef CONFIG_XIP_PHYS_ADDR
+#define CONFIG_XIP_PHYS_ADDR	UL(0x00000000)
+#endif
 
-#ifdef CONFIG_XIP_KERNEL
+//#ifdef CONFIG_XIP_KERNEL//by-srliu
+#ifndef CONFIG_XIP_KERNEL
 /*
  * When referencing data in RAM from the XIP region in a relative manner
  * with the MMU off, we need the relative offset between the two physical

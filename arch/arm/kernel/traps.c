@@ -878,6 +878,8 @@ void __init early_trap_init(void *vectors_base)
 	extern char __vectors_start[], __vectors_end[];
 	unsigned i;
 
+	pr_info("early_trap_init | vectors_base:%p\n", vectors_base);
+
 	vectors_page = vectors_base;
 
 	/*
@@ -889,6 +891,8 @@ void __init early_trap_init(void *vectors_base)
 	for (i = 0; i < PAGE_SIZE / sizeof(u32); i++)
 		((u32 *)vectors_base)[i] = 0xe7fddef1;
 
+	pr_info("early_trap_init | PAGE_SIZE:%d\n", PAGE_SIZE);
+
 	/*
 	 * Copy the vectors, stubs and kuser helpers (in entry-armv.S)
 	 * into the vector page, mapped at 0xffff0000, and ensure these
@@ -897,9 +901,17 @@ void __init early_trap_init(void *vectors_base)
 	copy_from_lma(vectors_base, __vectors_start, __vectors_end);
 	copy_from_lma(vectors_base + 0x1000, __stubs_start, __stubs_end);
 
+	pr_info("early_trap_init | __vectors_start:%p\n", __vectors_start);
+	pr_info("early_trap_init | __vectors_end:%p\n", __vectors_end);
+	pr_info("early_trap_init | __stubs_start:%p\n", __stubs_start);
+	pr_info("early_trap_init | __stubs_end:%p\n", __stubs_end);
+
 	kuser_init(vectors_base);
 
+	pr_info("early_trap_init | vectors_base:%p\n", vectors_base);
+
 	flush_vectors(vectors_base, 0, PAGE_SIZE * 2);
+
 }
 #else /* ifndef CONFIG_CPU_V7M */
 void __init early_trap_init(void *vectors_base)

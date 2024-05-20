@@ -346,7 +346,10 @@ void cpu_startup_entry(enum cpuhp_state state)
 	boot_init_stack_canary();
 #endif
 	arch_cpu_idle_prepare();
+	pr_info("cpu_startup_entry||arch_cpu_idle_prepare");
 	cpuhp_online_idle(state);
-	while (1)
+	pr_info("cpu_startup_entry||cpuhp_online_idle");
+	while (1){
 		do_idle();
+		pr_info("cpu_startup_entry||do_idle");}
 }

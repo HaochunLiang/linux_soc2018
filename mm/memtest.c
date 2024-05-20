@@ -98,16 +98,24 @@ static int __init parse_memtest(char *arg)
 early_param("memtest", parse_memtest);
 
 void __init early_memtest(phys_addr_t start, phys_addr_t end)
-{
+{   
+	pr_info("enter early_memtest\n");
 	unsigned int i;
 	unsigned int idx = 0;
 
-	if (!memtest_pattern)
-		return;
+	if (!memtest_pattern){
+		pr_info("early_memtest return \n");
+		pr_info("memtest_pattern:%d\n",memtest_pattern);
+		return;}
 
 	pr_info("early_memtest: # of tests: %u\n", memtest_pattern);
 	for (i = memtest_pattern-1; i < UINT_MAX; --i) {
+		pr_info("memtest_pattern:%d \n",memtest_pattern);
+		pr_info("UINT_MAX:%d \n", UINT_MAX);
 		idx = i % ARRAY_SIZE(patterns);
+		pr_info("ARRAY_SIZE(patterns):%d \n", ARRAY_SIZE(patterns));
+		pr_info("idx:%d \n",idx);
 		do_one_pass(patterns[idx], start, end);
+		pr_info("do_one_pass end \n");
 	}
 }

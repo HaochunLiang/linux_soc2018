@@ -93,9 +93,13 @@ __tagtable(ATAG_INITRD2, parse_tag_initrd2);
 static void __init find_limits(unsigned long *min, unsigned long *max_low,
 			       unsigned long *max_high)
 {
+	pr_info("enter find_limits");
 	*max_low = PFN_DOWN(memblock_get_current_limit());
+	pr_info("*max_low:%d",*max_low );
 	*min = PFN_UP(memblock_start_of_DRAM());
+	pr_info("*min:%d",*min );
 	*max_high = PFN_DOWN(memblock_end_of_DRAM());
+	pr_info("*max_high:%d",*max_high);
 }
 
 #ifdef CONFIG_ZONE_DMA
@@ -140,13 +144,17 @@ void __init setup_dma_zone(const struct machine_desc *mdesc)
 static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 	unsigned long max_high)
 {
+	pr_info("enter zone_sizes_init\n");
+	pr_info("zone_sizes_init->min:%d\n", min);
+	pr_info("zone_sizes_init->max_low:%d\n",max_low);
+	pr_info("zone_sizes_init->max_high:%d\n",max_high);
 	unsigned long zone_size[MAX_NR_ZONES], zhole_size[MAX_NR_ZONES];
 	struct memblock_region *reg;
-
 	/*
 	 * initialise the zones.
 	 */
 	memset(zone_size, 0, sizeof(zone_size));
+	pr_info("__init_single_page->memset(zone_size, 0, sizeof(zone_size))\n");
 
 	/*
 	 * The memory size has already been determined.  If we need
@@ -154,8 +162,10 @@ static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 	 * to the zones, now is the time to do it.
 	 */
 	zone_size[0] = max_low - min;
+	pr_info("zone_size[0]:%d\n",zone_size[0]);
 #ifdef CONFIG_HIGHMEM
 	zone_size[ZONE_HIGHMEM] = max_high - max_low;
+	pr_info("zone_size[ZONE_HIGHMEM] :%d\n",zone_size[ZONE_HIGHMEM]);
 #endif
 
 	/*
@@ -163,18 +173,28 @@ static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 	 *  holes = node_size - sum(bank_sizes)
 	 */
 	memcpy(zhole_size, zone_size, sizeof(zhole_size));
+	pr_info("memcpy(zhole_size, zone_size, sizeof(zhole_size));\n");
 	for_each_memblock(memory, reg) {
+		pr_info("enter for_each_memblock(memory, reg)\n");
 		unsigned long start = memblock_region_memory_base_pfn(reg);
+		pr_info("start:%d\n",start);
 		unsigned long end = memblock_region_memory_end_pfn(reg);
+		pr_info("end :%d\n",end);
 
 		if (start < max_low) {
+			pr_info("start < max_low\n");
 			unsigned long low_end = min(end, max_low);
+			pr_info("low_end :%d\n",low_end);
 			zhole_size[0] -= low_end - start;
+			pr_info("zhole_size[0] :%d\n",zhole_size[0]);
 		}
 #ifdef CONFIG_HIGHMEM
 		if (end > max_low) {
+			pr_info("end > max_low)\n");
 			unsigned long high_start = max(start, max_low);
+			pr_info("high_start :%d\n",high_start);
 			zhole_size[ZONE_HIGHMEM] -= end - high_start;
+			pr_info("zhole_size[ZONE_HIGHMEM]:%d\n",zhole_size[ZONE_HIGHMEM]);
 		}
 #endif
 	}
@@ -184,12 +204,18 @@ static void __init zone_sizes_init(unsigned long min, unsigned long max_low,
 	 * Adjust the sizes according to any special requirements for
 	 * this machine type.
 	 */
-	if (arm_dma_zone_size)
+	if (arm_dma_zone_size){
+		pr_info("arm_dma_zone_size\n");
 		arm_adjust_dma_zone(zone_size, zhole_size,
 			arm_dma_zone_size >> PAGE_SHIFT);
+		pr_info("arm_adjust_dma_zone\n");}
 #endif
 
 	free_area_init_node(0, zone_size, min, zhole_size);
+	pr_info("free_area_init_node end\n");
+	pr_info("zone_size:%d\n",&zone_size);
+	pr_info("min:%d\n",min);
+	pr_info("zhole_size:%d\n",&zhole_size);
 }
 
 #ifdef CONFIG_HAVE_ARCH_PFN_VALID
@@ -208,15 +234,19 @@ EXPORT_SYMBOL(pfn_valid);
 #ifndef CONFIG_SPARSEMEM
 static void __init arm_memory_present(void)
 {
+	pr_info("enter first arm_memory_present\n");
 }
 #else
 static void __init arm_memory_present(void)
 {
+	pr_info("enter two arm_memory_present\n");
 	struct memblock_region *reg;
 
-	for_each_memblock(memory, reg)
+	for_each_memblock(memory, reg){
+		pr_info("enter two arm_memory_present\n");
 		memory_present(0, memblock_region_memory_base_pfn(reg),
 			       memblock_region_memory_end_pfn(reg));
+		pr_info("memory_present\n");}
 }
 #endif
 
@@ -307,21 +337,30 @@ void __init arm_memblock_init(const struct machine_desc *mdesc)
 
 void __init bootmem_init(void)
 {
+	pr_info("enter bootmem_init\n");
 	unsigned long min, max_low, max_high;
-
+	pr_info("start memblock_allow_resize\n");
 	memblock_allow_resize();
+	pr_info("end memblock_allow_resize\n");
 	max_low = max_high = 0;
-
+	pr_info("start find_limits\n");
 	find_limits(&min, &max_low, &max_high);
-
+	pr_info("&min:%d",&min);
+	pr_info("min:%d",min);
+	pr_info("&max_low:%d",&max_low);
+	pr_info("max_low:%d",max_low);
+	pr_info("&max_high:%d", &max_high);
+	pr_info("max_high:%d",max_high);
+	pr_info("end find_limits\n");
 	early_memtest((phys_addr_t)min << PAGE_SHIFT,
 		      (phys_addr_t)max_low << PAGE_SHIFT);
-
+	pr_info("end early_memtest\n");
 	/*
 	 * Sparsemem tries to allocate bootmem in memory_present(),
 	 * so must be done after the fixed reservations
 	 */
 	arm_memory_present();
+	pr_info("end arm_memory_present\n");
 
 	/*
 	 * sparse_init() needs the bootmem allocator up and running.
@@ -334,6 +373,11 @@ void __init bootmem_init(void)
 	 * for memmap_init_zone(), otherwise all PFNs are invalid.
 	 */
 	zone_sizes_init(min, max_low, max_high);
+	pr_info("min,max_low,max_high of zone_sizes_init\n");
+	pr_info("min:%d\n",min);
+	pr_info("max_low:%d\n",max_low);
+	pr_info("max_high:%d\n",max_high);
+	pr_info("min,max_low,max_high of zone_sizes_init over\n");
 
 	/*
 	 * This doesn't seem to be used by the Linux memory manager any
@@ -343,6 +387,9 @@ void __init bootmem_init(void)
 	min_low_pfn = min;
 	max_low_pfn = max_low;
 	max_pfn = max_high;
+	pr_info("min_low_pfn:%d\n",min_low_pfn);
+	pr_info("max_low_pfn:%d\n",max_low_pfn);
+	pr_info("max_pfn:%d\n",max_pfn);
 }
 
 /*
@@ -397,6 +444,8 @@ static void __init free_unused_memmap(void)
 	 */
 	for_each_memblock(memory, reg) {
 		start = memblock_region_memory_base_pfn(reg);
+	pr_info(" free_unused_memmap||start:%d\n",start);
+	pr_info(" free_unused_memmap||reg:%d\n",reg);
 
 #ifdef CONFIG_SPARSEMEM
 		/*
@@ -412,11 +461,15 @@ static void __init free_unused_memmap(void)
 		 * MAX_ORDER_NR_PAGES.
 		 */
 		start = round_down(start, MAX_ORDER_NR_PAGES);
+		pr_info(" free_unused_memmap second||start:%d\n",start);
+	    pr_info(" free_unused_memmap||MAX_ORDER_NR_PAGES:%d\n",MAX_ORDER_NR_PAGES);
+
 #endif
 		/*
 		 * If we had a previous bank, and there is a space
 		 * between the current bank and the previous, free it.
 		 */
+		pr_info(" free_unused_memmap||prev_end:%d\n",prev_end);
 		if (prev_end && prev_end < start)
 			free_memmap(prev_end, start);
 
@@ -427,6 +480,7 @@ static void __init free_unused_memmap(void)
 		 */
 		prev_end = ALIGN(memblock_region_memory_end_pfn(reg),
 				 MAX_ORDER_NR_PAGES);
+	    pr_info(" free_unused_memmap second||prev_end:%d\n",prev_end);
 	}
 
 #ifdef CONFIG_SPARSEMEM
@@ -507,9 +561,12 @@ void __init mem_init(void)
 	extern u32 dtcm_end;
 	extern u32 itcm_end;
 #endif
+pr_info("mem_init||max_pfn:%d\n",max_pfn);
+pr_info("mem_init||mem_map:%d\n",mem_map);
 
 	set_max_mapnr(pfn_to_page(max_pfn) - mem_map);
-
+pr_info("mem_init||pfn_to_page(max_pfn) - mem_map:%d\n",pfn_to_page(max_pfn) - mem_map);
+pr_info("mem_init||max_mapnr:%d\n",max_mapnr);
 	/* this will put all unused low memory onto the freelists */
 	free_unused_memmap();
 	free_all_bootmem();

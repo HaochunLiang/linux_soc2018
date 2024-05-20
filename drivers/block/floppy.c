@@ -2754,10 +2754,10 @@ static int make_raw_rw_request(void)
 		pr_info("ssize=%x SIZECODE=%d\n", ssize, SIZECODE);
 		pr_info("command=%x SECTOR=%d HEAD=%d, TRACK=%d\n",
 			COMMAND, SECTOR, HEAD, TRACK);
-		pr_info("buffer drive=%d\n", buffer_drive);
-		pr_info("buffer track=%d\n", buffer_track);
-		pr_info("buffer_min=%d\n", buffer_min);
-		pr_info("buffer_max=%d\n", buffer_max);
+		pr_info("buffer drive=%x\n", buffer_drive);
+		pr_info("buffer track=%x\n", buffer_track);
+		pr_info("buffer_min=%x\n", buffer_min);
+		pr_info("buffer_max=%x\n", buffer_max);
 		return 0;
 	}
 

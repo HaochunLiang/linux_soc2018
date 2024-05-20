@@ -9,19 +9,17 @@
 	.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
 	.eabi_attribute 18, 2	@ Tag_ABI_PCS_wchar_t
 	.file	"asm-offsets.c"
-@ GNU C89 (GNU Toolchain for the A-profile Architecture 9.2-2019.12 (arm-9.10)) version 9.2.1 20191025 (arm-none-eabi)
-@	compiled by GNU C version 4.8.1, GMP version 4.3.2, MPFR version 3.1.6, MPC version 1.0.3, isl version isl-0.15-1-g835ea3a-GMP
+@ GNU C89 (15:9-2019-q4-0ubuntu1) version 9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599] (arm-none-eabi)
+@	compiled by GNU C version 9.2.1 20200306, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.22.1-GMP
 
 @ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 @ options passed:  -nostdinc -I ./arch/arm/include
 @ -I ./arch/arm/include/generated -I ./include -I ./arch/arm/include/uapi
 @ -I ./arch/arm/include/generated/uapi -I ./include/uapi
-@ -I ./include/generated/uapi -imultilib thumb/v7-a/nofp
-@ -iprefix /home/boy/gcc-arm-9.2-2019.12-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/9.2.1/
-@ -D__USES_INITFINI__ -D __KERNEL__ -D __LINUX_ARM_ARCH__=7 -U arm
-@ -D CC_HAVE_ASM_GOTO -D KBUILD_BASENAME="asm_offsets"
-@ -D KBUILD_MODNAME="asm_offsets"
-@ -isystem /home/boy/gcc-arm-9.2-2019.12-x86_64-arm-none-eabi/bin/../lib/gcc/arm-none-eabi/9.2.1/include
+@ -I ./include/generated/uapi -imultilib thumb/v7/nofp -D__USES_INITFINI__
+@ -D __KERNEL__ -D __LINUX_ARM_ARCH__=7 -U arm -D CC_HAVE_ASM_GOTO
+@ -D KBUILD_BASENAME="asm_offsets" -D KBUILD_MODNAME="asm_offsets"
+@ -isystem /usr/lib/gcc/arm-none-eabi/9.2.1/include
 @ -include ./include/linux/kconfig.h -MD arch/arm/kernel/.asm-offsets.s.d
 @ arch/arm/kernel/asm-offsets.c -mlittle-endian -mabi=aapcs-linux -mfpu=vfp
 @ -marm -mfloat-abi=soft -march=armv7-a
@@ -520,4 +518,4 @@ main:
 	bx	lr	@
 	.fnend
 	.size	main, .-main
-	.ident	"GCC: (GNU Toolchain for the A-profile Architecture 9.2-2019.12 (arm-9.10)) 9.2.1 20191025"
+	.ident	"GCC: (15:9-2019-q4-0ubuntu1) 9.2.1 20191025 (release) [ARM/arm-9-branch revision 277599]"

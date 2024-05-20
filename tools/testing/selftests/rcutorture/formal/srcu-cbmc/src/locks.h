@@ -197,8 +197,10 @@ static inline void wait_for_completion(struct completion *c)
 static inline void complete(struct completion *c)
 {
 	unsigned int prev_count = __sync_fetch_and_add(&c->count, 1);
+	pr_info("complete||__sync_fetch_and_add\n");
 
 	BUG_ON(prev_count == UINT_MAX);
+	pr_info("complete||BUG_ON\n");
 }
 
 /* This function probably isn't very useful for CBMC. */

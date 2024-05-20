@@ -59,18 +59,18 @@
 
 
 @ write_bytes:
-@     push {r0-r3}
+@     push {r0-r3}       
 
-@     ldr r0, =0xc0413d98
+@     ldr r0, =0xc0413d98 
 
-@     mov r1, #0x90
-@     strb r1, [r0], #1
-@     mov r1, #0xc0
-@     strb r1, [r0], #1
-@     mov r1, #0x0f
-@     strb r1, [r0], #1
-@     mov r1, #0x41
-@     strb r1, [r0], #1
+@     mov r1, #0x90        
+@     strb r1, [r0], #1   
+@     mov r1, #0xc0        
+@     strb r1, [r0], #1    
+@     mov r1, #0x0f        
+@     strb r1, [r0], #1    
+@     mov r1, #0x41        
+@     strb r1, [r0], #1    
 
 @     mov r1, #0xf0
 @     strb r1, [r0], #1
@@ -99,7 +99,7 @@
 @     strb r1, [r0], #1
 @     mov r1, #0x00
 @     strb r1, [r0], #1
-
+	
 @ 	mov r1, #0x7c
 @     strb r1, [r0], #1
 @     mov r1, #0x76
@@ -181,8 +181,8 @@
 @     mov r1, #0xc0
 @     strb r1, [r0], #1
 
-@     pop {r0-r3}
-@     bx lr
+@     pop {r0-r3}         
+@     bx lr               
 
 
 /*
@@ -239,7 +239,7 @@ ENTRY(stext)
 	blo	__error_lpae			@ only classic page table format
 #endif
 
-#ifndef CONFIG_XIP_KERNEL//@srliu: ndef->def
+#ifdef CONFIG_XIP_KERNEL//@srliu: ndef->def
 	adr	r3, 2f
 	ldmia	r3, {r4, r8}
 	sub	r4, r3, r4			@ (PHYS_OFFSET - PAGE_OFFSET)
@@ -295,7 +295,7 @@ ENTRY(stext)
 1:	b	__enable_mmu
 ENDPROC(stext)
 	.ltorg
-#ifndef CONFIG_XIP_KERNEL//@srliu: ndef->def
+#ifdef CONFIG_XIP_KERNEL//@srliu: ndef->def
 2:	.long	.
 	.long	PAGE_OFFSET
 #endif
@@ -387,7 +387,7 @@ __create_page_tables:
 	cmp	r0, r6
 	bls	1b
 
-#ifdef CONFIG_XIP_KERNEL//@srliu: def->ndef
+#ifndef CONFIG_XIP_KERNEL//@srliu: def->ndef
 	/*
 	 * Map the kernel image separately as it is not located in RAM.
 	 */

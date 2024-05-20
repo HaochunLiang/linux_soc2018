@@ -253,6 +253,7 @@ static void create_kthread(struct kthread_create_info *create)
 #endif
 	/* We want our own signal handler (we take no signals by default). */
 	pid = kernel_thread(kthread, create, CLONE_FS | CLONE_FILES | SIGCHLD);
+	pr_info("create_kthread pid:%d\n",pid);
 	if (pid < 0) {
 		/* If user was SIGKILLed, I release the structure. */
 		struct completion *done = xchg(&create->done, NULL);
@@ -567,31 +568,45 @@ int kthreadd(void *unused)
 
 	/* Setup a clean context for our children to inherit. */
 	set_task_comm(tsk, "kthreadd");
+	pr_info("set_task_comm\n");
 	ignore_signals(tsk);
+	pr_info("ignore_signals(tsk)\n");
 	set_cpus_allowed_ptr(tsk, cpu_all_mask);
+	pr_info("set_cpus_allowed_ptr\n");
 	set_mems_allowed(node_states[N_MEMORY]);
+	pr_info("set_mems_allowed\n");
 
 	current->flags |= PF_NOFREEZE;
+	pr_info("current->flags |= PF_NOFREEZE;\n");
 	cgroup_init_kthreadd();
+	pr_info("cgroup_init_kthreadd\n");
 
 	for (;;) {
 		set_current_state(TASK_INTERRUPTIBLE);
+		pr_info("set_current_state\n");
 		if (list_empty(&kthread_create_list))
 			schedule();
 		__set_current_state(TASK_RUNNING);
+		pr_info("__set_current_state\n");
 
 		spin_lock(&kthread_create_lock);
+		pr_info("spin_lock(&kthread_create_lock)\n");
 		while (!list_empty(&kthread_create_list)) {
 			struct kthread_create_info *create;
 
 			create = list_entry(kthread_create_list.next,
 					    struct kthread_create_info, list);
+			pr_info("create = list_entry\n");
 			list_del_init(&create->list);
+			pr_info("list_del_init\n");
 			spin_unlock(&kthread_create_lock);
+			pr_info("spin_unlock\n");
 
 			create_kthread(create);
+			pr_info("create_kthread(create);\n");
 
 			spin_lock(&kthread_create_lock);
+			pr_info("spin_lock(&kthread_create_lock);\n");
 		}
 		spin_unlock(&kthread_create_lock);
 	}

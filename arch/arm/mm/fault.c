@@ -619,6 +619,7 @@ void __init early_abt_enable(void)
 {
 	fsr_info[FSR_FS_AEA].fn = early_abort_handler;
 	local_abt_enable();
+	pr_info("local_abt_enable\n");
 	fsr_info[FSR_FS_AEA].fn = do_bad;
 }
 

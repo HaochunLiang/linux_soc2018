@@ -454,6 +454,7 @@ struct task_struct *find_task_by_pid_ns(pid_t nr, struct pid_namespace *ns)
 {
 	RCU_LOCKDEP_WARN(!rcu_read_lock_held(),
 			 "find_task_by_pid_ns() needs rcu_read_lock() protection");
+	pr_info("find_task_by_pid_ns||RCU_LOCKDEP_WARN\n");
 	return pid_task(find_pid_ns(nr, ns), PIDTYPE_PID);
 }
 

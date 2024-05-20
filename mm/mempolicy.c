@@ -783,35 +783,48 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,
 static long do_set_mempolicy(unsigned short mode, unsigned short flags,
 			     nodemask_t *nodes)
 {
+	pr_info("enter do_set_mempolicy\n");
 	struct mempolicy *new, *old;
 	NODEMASK_SCRATCH(scratch);
+	pr_info("do_set_mempolicy||NODEMASK_SCRATCH\n");
 	int ret;
 
 	if (!scratch)
 		return -ENOMEM;
 
 	new = mpol_new(mode, flags, nodes);
+	pr_info("do_set_mempolicy||new = mpol_new\n");
 	if (IS_ERR(new)) {
 		ret = PTR_ERR(new);
+		pr_info("do_set_mempolicy||ret\n");
 		goto out;
 	}
 
 	task_lock(current);
+	pr_info("do_set_mempolicy||task_lock\n");
 	ret = mpol_set_nodemask(new, nodes, scratch);
+	pr_info("do_set_mempolicy||ret = mpol_set_nodemask\n");
 	if (ret) {
 		task_unlock(current);
+		pr_info("do_set_mempolicy||task_unlock\n");
 		mpol_put(new);
+		pr_info("do_set_mempolicy||mpol_put\n");
 		goto out;
 	}
 	old = current->mempolicy;
+	pr_info("do_set_mempolicy||old:%d\n"old);
 	current->mempolicy = new;
+	pr_info("do_set_mempolicy||current->mempolicy\n",current->mempolicy);
 	if (new && new->mode == MPOL_INTERLEAVE)
 		current->il_prev = MAX_NUMNODES-1;
 	task_unlock(current);
+	pr_info("do_set_mempolicy||task_unlock\n");
 	mpol_put(old);
+	pr_info("do_set_mempolicy||mpol_put\n");
 	ret = 0;
-out:
+out:	
 	NODEMASK_SCRATCH_FREE(scratch);
+	pr_info("do_set_mempolicy||NODEMASK_SCRATCH_FREE\n");
 	return ret;
 }
 
